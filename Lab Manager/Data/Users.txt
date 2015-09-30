@@ -1,0 +1,4 @@
+Period,firstName,lastName,studentID
+1,23,John,Smith,t1038457
+2,24,Billy,Goat,b17000324
+3,35,Jason,Tully,t1300288

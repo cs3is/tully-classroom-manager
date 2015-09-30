@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+	<settings>
+		<label>Lab Manager</label>
+		<root_path>\</root_path>
+		<output_path>\</output_path>
+		<source_path>\</source_path>
+		<jdkprofile_ref>JDK version 1.7.0_25a</jdkprofile_ref>
+		<compiler_ref>&lt;Default&gt;</compiler_ref>
+		<ant_ref/>
+	</settings>
+	<ant_events/>
+	<run_items>
+		<item run="ClientMain"/>
+		<item run="ServerMain"/>
+	</run_items>
+	<runtimes>
+		<runtime>
+			<label>&lt;Default&gt;</label>
+			<application_ref/>
+			<applet_ref/>
+			<debugger_ref/>
+			<param/>
+			<run>ServerMain</run>
+			<verify>true</verify>
+		</runtime>
+	</runtimes>
+	<libraries/>
+	<files>
+		<include>
+			<fileitem>
+				<path>ClientData.java</path>
+			</fileitem>
+			<fileitem>
+				<path>ClientDataManager.java</path>
+			</fileitem>
+			<fileitem>
+				<path>ClientListener.java</path>
+			</fileitem>
+			<fileitem>
+				<path>ClientMain.java</path>
+			</fileitem>
+			<fileitem>
+				<path>ClientManager.java</path>
+			</fileitem>
+			<fileitem>
+				<path>Command.java</path>
+			</fileitem>
+			<fileitem>
+				<path>Computer.java</path>
+			</fileitem>
+			<fileitem>
+				<path>ScreenPanel.java</path>
+			</fileitem>
+			<fileitem>
+				<path>ServerData.java</path>
+			</fileitem>
+			<fileitem>
+				<path>ServerDataManager.java</path>
+			</fileitem>
+			<fileitem>
+				<path>ServerFrame.java</path>
+			</fileitem>
+			<fileitem>
+				<path>ServerMain.java</path>
+			</fileitem>
+			<fileitem>
+				<path>TrayObject.java</path>
+			</fileitem>
+			<fileitem>
+				<path>User.java</path>
+			</fileitem>
+		</include>
+	</files>
+	<tasks/>
+</project>
