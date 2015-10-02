@@ -2,19 +2,46 @@ package utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
+
+import utils.Log;
 
 public class ConfigManager {
 
 	private static Scanner scan;
 	public static final HashMap<String, Object> settings = new HashMap<String, Object>();
+	private static String fileLocation = "config.cfg";
 
 	public ConfigManager() {
+
 		try {
-			scan = new Scanner(new File(""));
+
+			scan = new Scanner(new File(fileLocation));
 			readConfigFile(settings);
+
 		} catch (FileNotFoundException e) {
+			Log.oError("Config data not found, Creating now...");
+
+			try {
+
+				File f = new File("config.cfg");
+				f.createNewFile();
+
+//				new ConfigManager();
+
+			} catch (IOException e1) {
+				Log.oError("failed creating files.");
+				
+				try {
+					File f = new File("config.cfg");
+					f.createNewFile();
+				} catch (IOException e2) {
+					Log.oError("failed creating files...");
+				}
+				
+			}
 			e.printStackTrace();
 		}
 	}

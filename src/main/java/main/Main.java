@@ -1,9 +1,13 @@
 package main;
 
+import utils.ConfigManager;
+
 public class Main {
 
-	public static void Main(String[] args){
-		//TODO ask Mr. Tully what we should do for this project...
+	public static void main(String[] args){
+		
+		new ConfigManager();
+		
 	}
 	
 }
