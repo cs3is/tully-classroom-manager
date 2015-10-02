@@ -29,18 +29,18 @@ public class ConfigManager {
 				File f = new File("config.cfg");
 				f.createNewFile();
 
-//				new ConfigManager();
+				// new ConfigManager();
 
 			} catch (IOException e1) {
 				Log.oError("failed creating files.");
-				
+
 				try {
 					File f = new File("config.cfg");
 					f.createNewFile();
 				} catch (IOException e2) {
 					Log.oError("failed creating files...");
 				}
-				
+
 			}
 			e.printStackTrace();
 		}
