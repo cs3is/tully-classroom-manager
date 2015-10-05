@@ -1,10 +1,10 @@
 package utils;
 
-
 @SuppressWarnings(value = { "all" })
 public class Log {
 
-	private static String s = ""; // TODO make into an arraylsit so that the program name can be added later
+	private static String s = ""; // TODO make into an arraylsit so that the
+									// program name can be added later
 
 	public static void pl(String text) {
 		System.out.println(text);
