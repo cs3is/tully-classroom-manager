@@ -15,9 +15,9 @@ public class Log {
 	}
 
 	public static void log(String logLevel, String text) {
-		if (ConfigManager.getCfgBool("LOGGING") == true || logLevel == "[ERROR]" || logLevel == "[FATAL]"
+		if (ConfigManager.getBool("LOGGING") == true || logLevel == "[ERROR]" || logLevel == "[FATAL]"
 				|| logLevel == "[WARN]")
-			System.out.println(ConfigManager.getCfgStr("NAME") + " " + logLevel + " " + text);
+			System.out.println(ConfigManager.getStr("NAME") + " " + logLevel + " " + text);
 	}
 
 	public static void warn(String text) {
@@ -25,7 +25,7 @@ public class Log {
 	}
 
 	public static void debug(String text) {
-		if (ConfigManager.getCfgBool("DEBUG_MODE") == true)
+		if (ConfigManager.getBool("DEBUG_MODE") == true)
 			log("[DEBUG]", text);
 	}
 
