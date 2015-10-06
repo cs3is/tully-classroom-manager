@@ -3,17 +3,33 @@ package utils;
 @SuppressWarnings(value = { "all" })
 public class Log {
 
-	private static String s = ""; // TODO make into an arraylsit so that the
-									// program name can be added later
-
+	/**
+	 * Shortcut for doing System.out.println()
+	 * 
+	 * @param text
+	 *            The text that will be printed
+	 */
 	public static void pl(String text) {
 		System.out.println(text);
 	}
 
+	/**
+	 * Shortcut for doing System.out.print()
+	 * 
+	 * @param text
+	 *            The text that will be printed
+	 */
 	public static void p(String text) {
 		System.out.print(text);
 	}
 
+	/**
+	 * Will print out information from the program so long as the logging feature is enabled. Formatted to look nice in the console.
+	 * 
+	 * @param logLevel
+	 *            This is the type of message that would be displayed
+	 * @param text
+	 */
 	public static void log(String logLevel, String text) {
 		if (ConfigManager.getBool("LOGGING") == true || logLevel == "[ERROR]" || logLevel == "[FATAL]"
 				|| logLevel == "[WARN]")
