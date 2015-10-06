@@ -4,10 +4,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import graphics.MainTray;
+import graphics.ClientTray;
 import utils.ConfigManager;
 
-public class Main {
+public class MainClient {
 	// public static MainFrame f;
 
 	public static void main(String[] args) {
@@ -23,7 +23,7 @@ public class Main {
 			ObjectOutputStream output = new ObjectOutputStream(connection.getOutputStream());
 			ObjectInputStream input = new ObjectInputStream(connection.getInputStream());
 
-			MainTray to = new MainTray(output, input);
+			ClientTray to = new ClientTray(output, input);
 
 			// ClientListener cl = new ClientListener(isFromServer,to);
 		} catch (Exception e) {

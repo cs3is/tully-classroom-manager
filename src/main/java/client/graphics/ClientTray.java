@@ -10,7 +10,7 @@ import java.io.ObjectOutputStream;
 
 import utils.ConfigManager;
 
-public class MainTray implements Runnable {
+public class ClientTray implements Runnable {
 	private ObjectOutputStream toServer = null;
 	private ObjectInputStream fromServer = null;
 	private ConfigManager cfg = null;
@@ -21,7 +21,7 @@ public class MainTray implements Runnable {
 	private PopupMenu popup = null;
 	TrayIcon trayIcon = null;
 
-	public MainTray(ObjectOutputStream toServer, ObjectInputStream fromServer) {
+	public ClientTray(ObjectOutputStream toServer, ObjectInputStream fromServer) {
 		// init objectstreams
 		this.toServer = toServer;
 		this.fromServer = fromServer;
