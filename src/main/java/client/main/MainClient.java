@@ -20,10 +20,10 @@ public class MainClient {
 
 			Socket connection = new Socket(ConfigManager.getCfgStr("IP"), ConfigManager.getCfgInt("PortNumber"));
 
-			ObjectOutputStream output = new ObjectOutputStream(connection.getOutputStream());
-			ObjectInputStream input = new ObjectInputStream(connection.getInputStream());
+			ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
+			ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
 
-			ClientTray to = new ClientTray(output, input);
+			ClientTray to = new ClientTray(out, in);
 
 			// ClientListener cl = new ClientListener(isFromServer,to);
 		} catch (Exception e) {
