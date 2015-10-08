@@ -6,6 +6,7 @@ import java.net.Socket;
 
 import graphics.ClientTray;
 import utils.ConfigManager;
+import utils.Log;
 
 public class MainClient {
 	// public static MainFrame f;
@@ -18,7 +19,7 @@ public class MainClient {
 		try {
 			System.out.println("Attempting to connect to server");
 
-			Socket connection = new Socket(ConfigManager.getCfgStr("IP"), ConfigManager.getCfgInt("PortNumber"));
+			Socket connection = new Socket(ConfigManager.getStr("SERVER_IP"), ConfigManager.getInt("SERVER_PORT"));
 
 			ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
 			ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
@@ -27,7 +28,7 @@ public class MainClient {
 
 			// ClientListener cl = new ClientListener(isFromServer,to);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Log.fatal("Could not connect to the server");
 			System.exit(0);
 		}
 
