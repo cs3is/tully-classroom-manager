@@ -2,6 +2,6 @@ package graphics;
 
 import javax.swing.JPanel;
 
-public class MainPanel extends JPanel {
+public class ClientPanel extends JPanel {
 
 }
