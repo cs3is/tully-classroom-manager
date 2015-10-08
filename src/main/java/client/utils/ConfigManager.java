@@ -55,7 +55,6 @@ public class ConfigManager {
 			}
 			e.printStackTrace();
 		}
-		System.out.println(settings.toString());
 
 	}
 
