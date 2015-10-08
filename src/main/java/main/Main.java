@@ -18,7 +18,7 @@ public class Main {
 		try {
 			System.out.println("Attempting to connect to server");
 
-			Socket connection = new Socket(ConfigManager.getCfgStr("IP"), ConfigManager.getCfgInt("PortNumber"));
+			Socket connection = new Socket(ConfigManager.getStr("IP"), ConfigManager.getInt("PortNumber"));
 
 			ObjectOutputStream output = new ObjectOutputStream(connection.getOutputStream());
 			ObjectInputStream input = new ObjectInputStream(connection.getInputStream());
