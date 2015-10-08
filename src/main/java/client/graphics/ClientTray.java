@@ -11,8 +11,8 @@ import java.io.ObjectOutputStream;
 import utils.ConfigManager;
 
 public class ClientTray implements Runnable {
-	private ObjectOutputStream toServer = null;
-	private ObjectInputStream fromServer = null;
+	private ObjectOutputStream out = null;
+	private ObjectInputStream in = null;
 	private ConfigManager cfg = null;
 
 	private String userName = "";
@@ -21,10 +21,10 @@ public class ClientTray implements Runnable {
 	private PopupMenu popup = null;
 	TrayIcon trayIcon = null;
 
-	public ClientTray(ObjectOutputStream toServer, ObjectInputStream fromServer) {
+	public ClientTray(ObjectOutputStream out, ObjectInputStream in) {
 		// init objectstreams
-		this.toServer = toServer;
-		this.fromServer = fromServer;
+		this.out = out;
+		this.in = in;
 
 		// get username
 		userName = System.getProperty("user.name");
