@@ -1,5 +1,6 @@
 package graphics;
 
+import java.awt.AWTException;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
@@ -8,7 +9,9 @@ import java.awt.TrayIcon;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import utils.Config;
 import utils.ConfigManager;
+import utils.Log;
 
 public class ClientTray implements Runnable {
 	private ObjectOutputStream out = null;
@@ -32,11 +35,13 @@ public class ClientTray implements Runnable {
 
 		// create menu
 		PopupMenu popup = new PopupMenu();
-		trayIcon = new TrayIcon(Toolkit.getDefaultToolkit().getImage("src/main/resources/client.ico"));
+		trayIcon = new TrayIcon(Toolkit.getDefaultToolkit().getImage("src/main/resources/client.ico"),Config.NAME);
 		final SystemTray tray = SystemTray.getSystemTray();
 
 		// create menu components (may need method for this later)
 		addQuestion = new MenuItem("Add Question");
+		
+		trayIcon.setPopupMenu(popup);
 
 		// create config object
 		cfg = new ConfigManager();
@@ -44,11 +49,23 @@ public class ClientTray implements Runnable {
 		// Add components to popup menu
 		popup.add(addQuestion);
 		trayIcon.setPopupMenu(popup);
+		Thread t = new Thread(this);
+		t.start();
+		Log.info("ClientTray initialized");
+		
+		//Adds trayicon 
+		try {
+            tray.add(trayIcon);
+        } catch (AWTException e) {
+            System.out.println("TrayIcon could not be added.");
+        }
 	}
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		while(true){
+			
+		}
 
 	}
 
