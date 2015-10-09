@@ -6,6 +6,8 @@ import java.awt.PopupMenu;
 import java.awt.SystemTray;
 import java.awt.Toolkit;
 import java.awt.TrayIcon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
@@ -21,8 +23,12 @@ public class ClientTray implements Runnable {
 	private String userName = "";
 
 	private MenuItem addQuestion = null;
+	private MenuItem exit = null;
+
 	private PopupMenu popup = null;
 	TrayIcon trayIcon = null;
+
+	final SystemTray tray = SystemTray.getSystemTray();
 
 	public ClientTray(ObjectOutputStream out, ObjectInputStream in) {
 		// init objectstreams
@@ -33,38 +39,67 @@ public class ClientTray implements Runnable {
 		userName = System.getProperty("user.name");
 		System.out.println("The user name is: " + userName.trim());
 
-		// create menu
-		PopupMenu popup = new PopupMenu();
-		trayIcon = new TrayIcon(Toolkit.getDefaultToolkit().getImage("src/main/resources/client.ico"),Config.NAME);
-		final SystemTray tray = SystemTray.getSystemTray();
+		init();
 
-		// create menu components (may need method for this later)
-		addQuestion = new MenuItem("Add Question");
-		
-		trayIcon.setPopupMenu(popup);
+	}
 
-		// create config object
+	public void init() {
 		cfg = new ConfigManager();
-
-		// Add components to popup menu
-		popup.add(addQuestion);
+		createMenu();
+		createMenuComponents();
 		trayIcon.setPopupMenu(popup);
+		addMenuComponents();
+		addActionListeners();
+
 		Thread t = new Thread(this);
 		t.start();
-		Log.info("ClientTray initialized");
-		
-		//Adds trayicon 
+
 		try {
-            tray.add(trayIcon);
-        } catch (AWTException e) {
-            System.out.println("TrayIcon could not be added.");
-        }
+			tray.add(trayIcon);
+		} catch (AWTException e) {
+			System.out.println("TrayIcon could not be added.");
+		}
+
+		Log.info("ClientTray initialized");
+	}
+
+	public void createMenu() {
+		PopupMenu popup = new PopupMenu();
+		trayIcon = new TrayIcon(Toolkit.getDefaultToolkit().getImage("src/main/resources/client.jpg"), Config.NAME);
+		Log.info(trayIcon.getImage() + "");
+
+	}
+
+	public void createMenuComponents() {
+		addQuestion = new MenuItem("Add Question");
+		exit = new MenuItem("Exit");
+	}
+
+	public void addMenuComponents() {
+		popup.add(addQuestion);
+		trayIcon.setPopupMenu(popup); // TODO do this more efficiently
+	}
+
+	public void addActionListeners() {
+
+		addQuestion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// TODO AddQuestion.add(); or something
+			}
+		});
+
+		exit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+
 	}
 
 	@Override
 	public void run() {
-		while(true){
-			
+		while (true) {
+
 		}
 
 	}
