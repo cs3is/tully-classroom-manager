@@ -30,6 +30,9 @@ public class Server implements Runnable {
 				Log.debug("Connected to: "+connection.getRemoteSocketAddress());
 				ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
 				ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
+//				Object o = in.readObject();
+//				System.out.println();
+				
 				connection.close();
 			} catch (Exception e) {
 
