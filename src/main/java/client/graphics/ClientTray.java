@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 import utils.Config;
 import utils.ConfigManager;
@@ -20,6 +21,7 @@ public class ClientTray implements Runnable {
 	private ObjectInputStream in = null;
 	private ConfigManager cfg = null;
 
+	private ArrayList<MenuItem> components = new ArrayList<MenuItem>();
 	private String userName = "";
 
 	private MenuItem addQuestion = null;
@@ -64,7 +66,7 @@ public class ClientTray implements Runnable {
 	}
 
 	public void createMenu() {
-		PopupMenu popup = new PopupMenu();
+		popup = new PopupMenu();
 		trayIcon = new TrayIcon(Toolkit.getDefaultToolkit().getImage("src/main/resources/client.jpg"), Config.NAME);
 		Log.info(trayIcon.getImage() + "");
 
@@ -73,11 +75,15 @@ public class ClientTray implements Runnable {
 	public void createMenuComponents() {
 		addQuestion = new MenuItem("Add Question");
 		exit = new MenuItem("Exit");
+		components.add(addQuestion);
+		components.add(exit);
 	}
 
 	public void addMenuComponents() {
-		popup.add(addQuestion);
-		trayIcon.setPopupMenu(popup); // TODO do this more efficiently
+		for(int i = 0;i<components.size();i++){
+			popup.add(components.get(i));
+		}
+		trayIcon.setPopupMenu(popup); 
 	}
 
 	public void addActionListeners() {

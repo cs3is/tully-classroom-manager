@@ -28,7 +28,8 @@ public class MainClient {
 
 			// ClientListener cl = new ClientListener(isFromServer,to);
 		} catch (Exception e) {
-			Log.fatal("Could not connect to the server");
+			e.printStackTrace();
+			Log.fatal("An error occurred");
 			System.exit(0);
 		}
 
