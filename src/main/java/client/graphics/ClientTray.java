@@ -102,10 +102,22 @@ public class ClientTray implements Runnable {
 
 	}
 
+	public void checkQuestion(){
+		
+	}
+	
 	@Override
 	public void run() {
+		int num = 120;
 		while (true) {
-
+			addQuestion.setEnabled(false);
+			addQuestion.setLabel("Add Question ("+num+")");
+			num--;
+			try {
+				Thread.sleep(0);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 
 	}
