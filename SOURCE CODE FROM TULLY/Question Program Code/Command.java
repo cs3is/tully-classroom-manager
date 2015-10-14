@@ -2,8 +2,8 @@ import java.io.*;
 
 public class Command implements Serializable
 {
-	private int command 								=0;				// type of cammand
-	private Object commandData 							= null;			// data needed to preform a command
+	private int command 								=0;				// type of command
+	private Object commandData 							= null;			// data needed to perform a command
 	public static final int DISCONNECT 					= 0;			// requests a disconnect by server or client		
 	public static final int ADD_QUESTION 				= 1;			// add user to question list
 	public static final int REMOVE_QUESTION 			= 2;			// remove user from question list
