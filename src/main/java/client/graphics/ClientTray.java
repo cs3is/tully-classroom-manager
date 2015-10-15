@@ -23,7 +23,13 @@ public class ClientTray implements Runnable {
 
 	private ArrayList<MenuItem> components = new ArrayList<MenuItem>();
 	private String userName = "";
-
+	/**
+	 * need to change to use server/database sometime
+	 */
+	private boolean canQuestion = true;
+	private long time = 0;
+	long qTime = 0;
+	
 	private MenuItem addQuestion = null;
 	private MenuItem exit = null;
 
@@ -90,6 +96,9 @@ public class ClientTray implements Runnable {
 
 		addQuestion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				canQuestion = false;
+				qTime = time;
+				addQuestion.setEnabled(false);
 				// TODO AddQuestion.add(); or something
 			}
 		});
@@ -102,22 +111,31 @@ public class ClientTray implements Runnable {
 
 	}
 
-	public void checkQuestion(){
-		
+	public void updateMenu(){
+		if(!canQuestion) updateQuestion();
+	}
+	
+	public void updateQuestion(){
+		long diff = time-qTime;
+		if(diff>120) {
+			addQuestion.setEnabled(true);
+			canQuestion = true;
+			addQuestion.setLabel("Add Question");
+		}
+		addQuestion.setLabel("Add Question ("+(120-diff)+")");
 	}
 	
 	@Override
 	public void run() {
-		int num = 120;
+		time = 0;
 		while (true) {
-			addQuestion.setEnabled(false);
-			addQuestion.setLabel("Add Question ("+num+")");
-			num--;
+			updateMenu();
 			try {
-				Thread.sleep(0);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			time++;
 		}
 
 	}
