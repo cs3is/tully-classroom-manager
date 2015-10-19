@@ -117,7 +117,9 @@ public class ClientTray implements Runnable {
 	
 	public void updateQuestion(){
 		long diff = time-qTime;
-		if(diff>120) {
+		Log.info(time+"");
+		Log.info(qTime+"");
+		if(diff>120*1000000000L) {
 			addQuestion.setEnabled(true);
 			canQuestion = true;
 			addQuestion.setLabel("Add Question");
@@ -127,15 +129,15 @@ public class ClientTray implements Runnable {
 	
 	@Override
 	public void run() {
-		time = 0;
+		
 		while (true) {
+			time = System.nanoTime();
 			updateMenu();
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			time++;
 		}
 
 	}
