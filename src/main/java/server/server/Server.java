@@ -6,9 +6,9 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import utils.Config;
-import utils.ConfigManager;
-import utils.Log;
+import utils.ClientConfig;
+import utils.ClientConfigManager;
+import utils.ServerLog;
 
 public class Server implements Runnable {
 
@@ -25,9 +25,9 @@ public class Server implements Runnable {
 	public void run() {
 		while (true) {
 			try {
-				Log.debug("Waiting for client... (port: "+Config.SERVER_PORT+")");
+				ServerLog.debug("Waiting for client... (port: "+ClientConfig.SERVER_PORT+")");
 				Socket connection = serverSocket.accept();
-				Log.debug("Connected to: "+connection.getRemoteSocketAddress());
+				ServerLog.debug("Connected to: "+connection.getRemoteSocketAddress());
 				ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
 				ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
 //				Object o = in.readObject();

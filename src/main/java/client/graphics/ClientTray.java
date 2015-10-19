@@ -12,14 +12,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import utils.Config;
-import utils.ConfigManager;
-import utils.Log;
+import utils.ClientConfig;
+import utils.ClientConfigManager;
+import utils.ServerLog;
 
 public class ClientTray implements Runnable {
 	private ObjectOutputStream out = null;
 	private ObjectInputStream in = null;
-	private ConfigManager cfg = null;
+	private ClientConfigManager cfg = null;
 
 	private ArrayList<MenuItem> components = new ArrayList<MenuItem>();
 	private String userName = "";
@@ -52,7 +52,7 @@ public class ClientTray implements Runnable {
 	}
 
 	public void init() {
-		cfg = new ConfigManager();
+		cfg = new ClientConfigManager();
 		createMenu();
 		createMenuComponents();
 		trayIcon.setPopupMenu(popup);
@@ -68,13 +68,13 @@ public class ClientTray implements Runnable {
 			System.out.println("TrayIcon could not be added.");
 		}
 
-		Log.info("ClientTray initialized");
+		ServerLog.info("ClientTray initialized");
 	}
 
 	public void createMenu() {
 		popup = new PopupMenu();
-		trayIcon = new TrayIcon(Toolkit.getDefaultToolkit().getImage("src/main/resources/client.jpg"), Config.NAME);
-		Log.info(trayIcon.getImage() + "");
+		trayIcon = new TrayIcon(Toolkit.getDefaultToolkit().getImage("src/main/resources/client.jpg"), ClientConfig.NAME);
+		ServerLog.info(trayIcon.getImage() + "");
 
 	}
 

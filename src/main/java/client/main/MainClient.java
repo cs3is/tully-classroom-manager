@@ -5,21 +5,21 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import graphics.ClientTray;
-import utils.ConfigManager;
-import utils.Log;
+import utils.ClientConfigManager;
+import utils.ServerLog;
 
 public class MainClient {
 	// public static MainFrame f;
 
 	public static void main(String[] args) {
 
-		new ConfigManager();
+		new ClientConfigManager();
 
 		// f = new MainFrame();
 		try {
 			System.out.println("Attempting to connect to server");
 
-			Socket connection = new Socket(ConfigManager.getStr("SERVER_IP"), ConfigManager.getInt("SERVER_PORT"));
+			Socket connection = new Socket(ClientConfigManager.getStr("SERVER_IP"), ClientConfigManager.getInt("SERVER_PORT"));
 
 			ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
 			ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
@@ -29,7 +29,7 @@ public class MainClient {
 			// ClientListener cl = new ClientListener(isFromServer,to);
 		} catch (Exception e) {
 			e.printStackTrace();
-			Log.fatal("An error occurred");
+			ServerLog.fatal("An error occurred");
 			System.exit(0);
 		}
 

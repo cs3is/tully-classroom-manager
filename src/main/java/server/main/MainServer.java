@@ -3,19 +3,19 @@ package main;
 import java.io.IOException;
 
 import server.Server;
-import utils.Config;
-import utils.ConfigManager;
-import utils.Log;
+import utils.ClientConfig;
+import utils.ClientConfigManager;
+import utils.ServerLog;
 
 
 public class MainServer {
 	public static void main(String[] args) {
 		try {
 
-			new ConfigManager();
-			Log.debug("Starting server...");
+			new ClientConfigManager();
+			ServerLog.debug("Starting server...");
 
-			Server s = new Server(Config.SERVER_PORT);
+			Server s = new Server(ClientConfig.SERVER_PORT);
 
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -15,9 +15,9 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
-import utils.Log;
+import utils.ServerLog;
 
-public class ConfigManager {
+public class ClientConfigManager {
 
 	private static Scanner scan;
 	public static final HashMap<String, Object> settings = new HashMap<String, Object>();
@@ -30,7 +30,7 @@ public class ConfigManager {
 	 * settings are stored within a hashmap, and are accessed by using the key associated with the the setting wanted, and giving it to the proper
 	 * accessor, each of which cast the Object that is saved in the hashmap into the desired Object type.
 	 */
-	public ConfigManager() {
+	public ClientConfigManager() {
 
 		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 		xResolution = gd.getDisplayMode().getWidth();
@@ -42,7 +42,7 @@ public class ConfigManager {
 			readFile(settings);
 
 		} catch (FileNotFoundException e) {
-			Log.oError("Config data not found, Creating now...");
+			ServerLog.oError("Config data not found, Creating now...");
 
 			try {
 
@@ -50,7 +50,7 @@ public class ConfigManager {
 				f.createNewFile();
 
 			} catch (IOException e1) {
-				Log.oError("failed creating files.");
+				ServerLog.oError("failed creating files.");
 
 			}
 			e.printStackTrace();
@@ -159,7 +159,7 @@ public class ConfigManager {
 
 		try {
 			settings.clear();
-			Log.info("Reading config data...");
+			ServerLog.info("Reading config data...");
 			scan = new Scanner(new File("config.cfg"));
 			readFile(settings);
 		} catch (FileNotFoundException e) {
@@ -172,7 +172,7 @@ public class ConfigManager {
 				File f = new File("config.cfg");
 				f.createNewFile();
 			} catch (IOException e1) {
-				Log.error("failed creating files...");
+				ServerLog.error("failed creating files...");
 			}
 			System.exit(0);
 		}
