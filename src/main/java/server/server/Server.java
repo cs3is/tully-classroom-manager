@@ -25,7 +25,7 @@ public class Server implements Runnable {
 	public void run() {
 		while (true) {
 			try {
-				ServerLog.debug("Waiting for client... (port: "+ClientConfig.SERVER_PORT+")");
+				ServerLog.debug("Waiting for client... (port: "+25565+")"); //TODO change port to a variable
 				Socket connection = serverSocket.accept();
 				ServerLog.debug("Connected to: "+connection.getRemoteSocketAddress());
 				ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
