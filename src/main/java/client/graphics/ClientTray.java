@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import utils.ClientConfig;
 import utils.ClientConfigManager;
+import utils.Log;
 import utils.ServerLog;
 
 public class ClientTray implements Runnable {
