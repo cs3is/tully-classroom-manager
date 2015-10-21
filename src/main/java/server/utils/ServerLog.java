@@ -32,9 +32,9 @@ public class ServerLog {
 	 *            This is the message that will be displayed in the console.
 	 */
 	private static void log(String logLevel, String text) {
-		if (ClientConfigManager.getBool("LOGGING") == true || logLevel == "[ERROR]" || logLevel == "[FATAL]"
+		if (ServerConfigManager.getBool("LOGGING") == true || logLevel == "[ERROR]" || logLevel == "[FATAL]"
 				|| logLevel == "[WARN]")
-			System.out.println(ClientConfigManager.getStr("NAME") + " " + logLevel + " " + text);
+			System.out.println(ServerConfigManager.getStr("NAME") + " " + logLevel + " " + text);
 	}
 
 	/**
@@ -54,7 +54,7 @@ public class ServerLog {
 	 *            This is the message that will be displayed in the console.
 	 */
 	public static void debug(String text) {
-		if (ClientConfigManager.getBool("DEBUG_MODE") == true)
+		if (ServerConfigManager.getBool("DEBUG_MODE") == true)
 			log("[DEBUG]", text);
 	}
 
