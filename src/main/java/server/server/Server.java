@@ -8,6 +8,7 @@ import java.net.Socket;
 
 import utils.ClientConfig;
 import utils.ClientConfigManager;
+import utils.Log;
 import utils.ServerLog;
 
 public class Server implements Runnable {
@@ -30,6 +31,7 @@ public class Server implements Runnable {
 				ServerLog.debug("Connected to: "+connection.getRemoteSocketAddress());
 				ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
 				ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
+				Log.info(in.readObject()+"");
 //				Object o = in.readObject();
 //				System.out.println();
 				

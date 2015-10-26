@@ -1,6 +1,7 @@
 package graphics;
 
 import java.awt.AWTException;
+import java.awt.Image;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
@@ -8,9 +9,13 @@ import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import utils.ClientConfig;
 import utils.ClientConfigManager;
@@ -29,6 +34,7 @@ public class ClientTray implements Runnable {
 	 */
 	private boolean canQuestion = true;
 	private long time = 0;
+	private long prevLabel = 0;
 	long qTime = 0;
 	
 	private MenuItem addQuestion = null;
@@ -47,6 +53,11 @@ public class ClientTray implements Runnable {
 		// get username
 		userName = System.getProperty("user.name");
 		System.out.println("The user name is: " + userName.trim());
+		try {
+			out.writeObject(userName);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		init();
 
@@ -74,7 +85,11 @@ public class ClientTray implements Runnable {
 
 	public void createMenu() {
 		popup = new PopupMenu();
-		trayIcon = new TrayIcon(Toolkit.getDefaultToolkit().getImage("src/main/resources/client.jpg"), ClientConfig.NAME);
+		
+		//tray = SystemTray.getSystemTray();
+		Image image = Toolkit.getDefaultToolkit().getImage("bin/../src/main/../main/resources/../java/client/../../resources/client.jpg");
+		trayIcon = new TrayIcon(image, ClientConfig.NAME);
+		
 		ServerLog.info(trayIcon.getImage() + "");
 
 	}
@@ -118,14 +133,17 @@ public class ClientTray implements Runnable {
 	
 	public void updateQuestion(){
 		long diff = time-qTime;
-		Log.info(time+"");
-		Log.info(qTime+"");
+		long label = (((120*1000000000L)-diff)/1000000000L);
+		//Log.info(time+"");
+		//Log.info(qTime+"");
 		if(diff>120*1000000000L) {
 			addQuestion.setEnabled(true);
 			canQuestion = true;
 			addQuestion.setLabel("Add Question");
 		}
-		addQuestion.setLabel("Add Question ("+(120-diff)+")");
+		if(label != prevLabel)
+		addQuestion.setLabel("Add Question ("+label+")");
+		prevLabel = label;
 	}
 	
 	@Override
