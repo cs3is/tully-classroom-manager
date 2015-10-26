@@ -21,7 +21,7 @@ public class ClientConfigManager {
 
 	private static Scanner scan;
 	public static final HashMap<String, Object> settings = new HashMap<String, Object>();
-	private static String fileLocation = "config.cfg";
+	private static String fileLocation = "src/main/java/client/ClientConfig.cfg";
 	private int xResolution, yResolution;
 
 	/**
