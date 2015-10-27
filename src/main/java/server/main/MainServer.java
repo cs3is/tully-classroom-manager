@@ -14,7 +14,7 @@ public class MainServer {
 		try {
 			new ServerConfigManager();
 			ServerLog.debug("Starting server...");
-			Server s = new Server(25565); //TODO change port into a variable
+			Server s = new Server(ServerConfigManager.getInt("SERVER_PORT"));
 
 		} catch (IOException e) {
 			e.printStackTrace();

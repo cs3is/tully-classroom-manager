@@ -1,5 +1,6 @@
 package client;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
@@ -16,6 +17,12 @@ public class ClientListener implements Runnable{
 	@Override
 	public void run() {
 		while(true){
+			try {
+				Object o = in.readObject();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		}
 		
