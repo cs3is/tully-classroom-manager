@@ -1,20 +1,30 @@
 package server;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Scanner;
 
 import utils.ClientConfig;
 import utils.ClientConfigManager;
+import utils.ServerConfigManager;
 import utils.ServerLog;
 
 public class Server implements Runnable {
 
 	private ServerSocket serverSocket;
+	private HashMap<String, Integer> computerList = new HashMap<String, Integer>();
+	private String fileLocation = "src/main/java/server/ComputerList.txt";
+	private Scanner scan,line;
 
 	public Server(int port) throws IOException {
+		loadComputers(fileLocation);
 		serverSocket = new ServerSocket(port);
 		serverSocket.setSoTimeout(10000);
 		Thread t = new Thread(this);
@@ -25,18 +35,51 @@ public class Server implements Runnable {
 	public void run() {
 		while (true) {
 			try {
-				ServerLog.debug("Waiting for client... (port: "+25565+")"); //TODO change port to a variable
+				ServerLog.debug("Waiting for client... (port: "+ServerConfigManager.getStr("SERVER_PORT")+")");
 				Socket connection = serverSocket.accept();
 				ServerLog.debug("Connected to: "+connection.getRemoteSocketAddress());
 				ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
 				ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
-//				Object o = in.readObject();
-//				System.out.println();
+
+				if(!computerList.keySet().contains(connection.getLocalAddress().getHostName())){
+					ServerLog.info("Refused Connection from " +connection.getLocalAddress().getHostName());
+					connection.close();
+				}
 				
-				connection.close();
+				
+				//				System.out.println(connection.getLocalAddress().getHostName());
+				
+				/*
+				if not on list
+					connection.close();
+				else
+				{
+					new user
+					cl =new ClientListener(user);
+					Thread t = new Thread(cl);
+					t.start();
+				}*/
 			} catch (Exception e) {
 
 			}
 		}
 	}
+	
+	public void loadComputers(String fileLocation){
+		String key;
+		Integer value;
+		try {
+			scan = new Scanner(new File(fileLocation));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		while(scan.hasNextLine()){
+			line =new Scanner(scan.nextLine()).useDelimiter(",");
+			value = Integer.parseInt(line.next());
+			key = line.next();
+			computerList.put(key, value);
+		}
+		ServerLog.debug("Loaded the list of computers");
+	}
+	
 }

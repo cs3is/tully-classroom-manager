@@ -27,6 +27,7 @@ public class MainClient {
 			ClientTray to = new ClientTray(out, in);
 
 			// ClientListener cl = new ClientListener(isFromServer,to);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			ServerLog.fatal("An error occurred");
