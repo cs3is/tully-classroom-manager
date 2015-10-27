@@ -26,7 +26,7 @@ public class MainClient {
 			ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
 
 			ClientTray to = new ClientTray(out, in);
-			ClientListener cl = new ClientListener(out, in);
+			
 			// ClientListener cl = new ClientListener(isFromServer,to);
 			
 		} catch (Exception e) {

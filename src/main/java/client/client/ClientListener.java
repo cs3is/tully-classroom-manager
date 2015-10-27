@@ -12,13 +12,30 @@ public class ClientListener implements Runnable{
 		this.in = in;
 		Thread t = new Thread();
 		t.start();
+		randomNameToChangeLater();
+	}
+	
+	public void addQuestion(){
+		
+	}
+	
+	public void randomNameToChangeLater(){
+		Thread th = new Thread(new Runnable() {
+			public void run(){
+				try {
+					Object o = in.readObject();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	@Override
 	public void run() {
 		while(true){
 			try {
-				Object o = in.readObject();
+				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

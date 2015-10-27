@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+import client.ClientListener;
 import utils.ClientConfig;
 import utils.ClientConfigManager;
 import utils.Log;
@@ -26,7 +27,8 @@ public class ClientTray implements Runnable {
 	private ObjectOutputStream out = null;
 	private ObjectInputStream in = null;
 	private ClientConfigManager cfg = null;
-
+	ClientListener cl = null;
+	
 	private ArrayList<MenuItem> components = new ArrayList<MenuItem>();
 	private String userName = "";
 	/**
@@ -49,6 +51,7 @@ public class ClientTray implements Runnable {
 		// init objectstreams
 		this.out = out;
 		this.in = in;
+		cl = new ClientListener(out, in);
 
 		// get username
 		userName = System.getProperty("user.name");
@@ -115,7 +118,7 @@ public class ClientTray implements Runnable {
 				canQuestion = false;
 				qTime = time;
 				addQuestion.setEnabled(false);
-				// TODO AddQuestion.add(); or something
+				cl.addQuestion();
 			}
 		});
 
