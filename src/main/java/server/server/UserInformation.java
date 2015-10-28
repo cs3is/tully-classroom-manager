@@ -5,7 +5,7 @@ import java.io.ObjectOutputStream;
 
 public class UserInformation {
 
-	public UserInformation(String userName, String Hostname, ObjectInputStream in, ObjectOutputStream out){
+	public UserInformation(String Hostname, ObjectInputStream in, ObjectOutputStream out){
 		
 	}
 	

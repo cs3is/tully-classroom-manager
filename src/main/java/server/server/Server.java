@@ -45,6 +45,9 @@ public class Server implements Runnable {
 					ServerLog.info("Refused Connection from " +connection.getLocalAddress().getHostName());
 					connection.close();
 				}
+				else{
+					new UserInformation(connection.getLocalAddress().getHostName(),in,out);
+				}
 				
 				
 				//				System.out.println(connection.getLocalAddress().getHostName());
