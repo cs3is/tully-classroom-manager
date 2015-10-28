@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import util.Task;
+
 public class ClientListener implements Runnable{
 	ObjectOutputStream out;
 	ObjectInputStream in;
@@ -16,7 +18,14 @@ public class ClientListener implements Runnable{
 	}
 	
 	public void addQuestion(){
-		
+		try {
+			out.writeObject(new Task(Task.CAN_ASK));
+			//server checks time
+			
+			out.writeObject(new Task(Task.ASK_QUESTION));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void randomNameToChangeLater(){
