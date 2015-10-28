@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 import utils.ClientConfig;
 import utils.ClientConfigManager;
+import utils.Log;
 import utils.ServerConfigManager;
 import utils.ServerLog;
 
@@ -40,7 +41,6 @@ public class Server implements Runnable {
 				ServerLog.debug("Connected to: "+connection.getRemoteSocketAddress());
 				ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
 				ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
-
 				if(!computerList.keySet().contains(connection.getLocalAddress().getHostName())){
 					ServerLog.info("Refused Connection from " +connection.getLocalAddress().getHostName());
 					connection.close();
