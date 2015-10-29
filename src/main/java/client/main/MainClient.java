@@ -4,6 +4,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import client.ClientData;
 import client.ClientListener;
 import graphics.ClientTray;
 import utils.ClientConfigManager;
@@ -25,7 +26,7 @@ public class MainClient {
 			ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
 			ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
 
-			ClientTray to = new ClientTray(out, in);
+			ClientTray to = new ClientTray(new ClientData());
 			
 			// ClientListener cl = new ClientListener(isFromServer,to);
 			

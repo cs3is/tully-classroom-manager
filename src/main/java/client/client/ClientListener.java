@@ -7,32 +7,21 @@ import java.io.ObjectOutputStream;
 import util.Task;
 
 public class ClientListener implements Runnable{
-	ObjectOutputStream out;
-	ObjectInputStream in;
-	public ClientListener(ObjectOutputStream out, ObjectInputStream in){
-		this.out = out;
-		this.in = in;
+	private ClientData cd = null;
+	public ClientListener(ClientData cd){
+		this.cd = cd;
 		Thread t = new Thread();
 		t.start();
 		randomNameToChangeLater();
 	}
 	
-	public void addQuestion(){
-		try {
-			out.writeObject(new Task(Task.CAN_ASK));
-			//server checks time
-			
-			out.writeObject(new Task(Task.ASK_QUESTION));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+	
 	
 	public void randomNameToChangeLater(){
 		Thread th = new Thread(new Runnable() {
 			public void run(){
 				try {
-					Object o = in.readObject();
+					Object o = cd.in.readObject();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
