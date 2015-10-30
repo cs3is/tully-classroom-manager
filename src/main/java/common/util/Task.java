@@ -6,6 +6,7 @@ public class Task {
 	public final static int ASK_QUESTION = 0;
 	public final static int SUBMIT_LAB = 1;
 	public final static int CLIENT_ERROR = 2;
+	public final static int CAN_ASK = 3;
 
 	// Only to be invoked by the server TODO determine how commands from the server and admin client will work
 	public final static int QUESTION_REMOVED = 20;

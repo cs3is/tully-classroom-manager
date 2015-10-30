@@ -8,8 +8,8 @@ public class ClientData {
 	private String computerName;
 	private String IPAddress;
 	private boolean connected;
-	private ObjectOutputStream toClient;
-	private ObjectInputStream fromClient;
+	ObjectOutputStream out;
+	ObjectInputStream in;
 	private boolean canAsk;
 
 }
