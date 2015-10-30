@@ -28,7 +28,7 @@ public class Server implements Runnable {
 	public Server(int port) throws IOException {
 		loadComputers(fileLocation);
 		serverSocket = new ServerSocket(port);
-		serverSocket.setSoTimeout(60000);
+		serverSocket.setSoTimeout(5000);
 		Thread t = new Thread(this);
 		t.start();
 	}
