@@ -21,7 +21,7 @@ public class ClientListener implements Runnable{
 		Thread th = new Thread(new Runnable() {
 			public void run(){
 				try {
-					Object o = cd.in.readObject();
+					Object o = cd.getIn().readObject();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
