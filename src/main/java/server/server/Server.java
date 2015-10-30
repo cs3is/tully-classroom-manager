@@ -21,8 +21,9 @@ public class Server implements Runnable {
 
 	private ServerSocket serverSocket;
 	private HashMap<String, Integer> computerList = new HashMap<String, Integer>();
+	private HashMap<Integer, UserInformation> connectedClients = new HashMap<Integer, UserInformation>();
 	private String fileLocation = "src/main/java/server/ComputerList.txt";
-	private Scanner scan,line;
+	private Scanner scan, line;
 
 	public Server(int port) throws IOException {
 		loadComputers(fileLocation);
@@ -36,39 +37,34 @@ public class Server implements Runnable {
 	public void run() {
 		while (true) {
 			try {
-				ServerLog.debug("Waiting for client... (port: "+ServerConfigManager.getStr("SERVER_PORT")+")");
+				ServerLog.debug("Waiting for client... (port: " + ServerConfigManager.getStr("SERVER_PORT") + ")");
 				Socket connection = serverSocket.accept();
-				ServerLog.debug("Connected to: "+connection.getRemoteSocketAddress());
+				ServerLog.debug("Connected to: " + connection.getRemoteSocketAddress());
 				ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
 				ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
-				if(!computerList.keySet().contains(connection.getLocalAddress().getHostName())){
-					ServerLog.info("Refused Connection from " +connection.getLocalAddress().getHostName());
+				if (!computerList.keySet().contains(connection.getLocalAddress().getHostName())) {
+					ServerLog.info("Refused Connection from " + connection.getLocalAddress().getHostName());
 					connection.close();
+				} else {
+					UserInformation u = new UserInformation((String) in.readObject(), connection.getLocalAddress()
+							.getHostName(), in, out);
+
+					connectedClients.put(computerList.get(connection.getLocalAddress().getHostName()), u);
+
 				}
-				else{
-					new UserInformation(connection.getLocalAddress().getHostName(),in,out);
-				}
-				
-				
-				//				System.out.println(connection.getLocalAddress().getHostName());
-				
+
+				// System.out.println(connection.getLocalAddress().getHostName());
+
 				/*
-				if not on list
-					connection.close();
-				else
-				{
-					new user
-					cl =new ClientListener(user);
-					Thread t = new Thread(cl);
-					t.start();
-				}*/
+				 * if not on list connection.close(); else { new user cl =new ClientListener(user); Thread t = new Thread(cl); t.start(); }
+				 */
 			} catch (Exception e) {
 
 			}
 		}
 	}
-	
-	public void loadComputers(String fileLocation){
+
+	private void loadComputers(String fileLocation) {
 		String key;
 		Integer value;
 		try {
@@ -76,13 +72,17 @@ public class Server implements Runnable {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		while(scan.hasNextLine()){
-			line =new Scanner(scan.nextLine()).useDelimiter(",");
+		while (scan.hasNextLine()) {
+			line = new Scanner(scan.nextLine()).useDelimiter(",");
 			value = Integer.parseInt(line.next());
 			key = line.next();
 			computerList.put(key, value);
 		}
 		ServerLog.debug("Loaded the list of computers");
 	}
-	
+
+	public HashMap<Integer, UserInformation> getConnectedClients() {
+		return connectedClients;
+	}
+
 }

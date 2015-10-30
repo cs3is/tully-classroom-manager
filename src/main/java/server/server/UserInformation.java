@@ -5,8 +5,17 @@ import java.io.ObjectOutputStream;
 
 public class UserInformation {
 
-	public UserInformation(String Hostname, ObjectInputStream in, ObjectOutputStream out){
-		
+	private String Hostname;
+	private String userName;
+	private ObjectInputStream in;
+	private ObjectOutputStream out;
+
+	public UserInformation(String userName, String Hostname, ObjectInputStream in, ObjectOutputStream out) {
+		this.userName = userName;
+		this.Hostname = Hostname;
+		this.in = in;
+		this.out = out;
+
 	}
-	
+
 }
