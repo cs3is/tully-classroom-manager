@@ -3,7 +3,13 @@ package server;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import util.Task;
+
 public class UserInformation {
+	/**
+	 * The nanotime at which the last question was asked
+	 */
+	long LQT = 0;
 
 	private String Hostname;
 	private String userName;
@@ -16,6 +22,14 @@ public class UserInformation {
 		this.in = in;
 		this.out = out;
 
+	}
+
+	public void setLastQuestionTime(Long s) {
+		LQT = s;
+	}
+
+	public long getLastQuestionTime() {
+		return LQT;
 	}
 
 }
