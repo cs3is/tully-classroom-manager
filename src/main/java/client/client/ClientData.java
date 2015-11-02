@@ -8,8 +8,31 @@ public class ClientData {
 	private String computerName;
 	private String IPAddress;
 	private boolean connected;
-	ObjectOutputStream out;
-	ObjectInputStream in;
+	private ObjectOutputStream out;
+	private ObjectInputStream in;
 	private boolean canAsk;
+	
+	
+	public String getComputerName() {
+		return computerName;
+	}
+	public String getIPAddress() {
+		return IPAddress;
+	}
+	public boolean canAsk() {
+		return canAsk;
+	}
+	public void setCanAsk(boolean canAsk) {
+		this.canAsk = canAsk;
+	}
+	public boolean isConnected() {
+		return connected;
+	}
+	public ObjectOutputStream getOut() {
+		return out;
+	}
+	public ObjectInputStream getIn() {
+		return in;
+	}
 
 }

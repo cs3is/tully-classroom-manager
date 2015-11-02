@@ -57,7 +57,7 @@ public class ClientTray implements Runnable {
 		userName = System.getProperty("user.name");
 		System.out.println("The user name is: " + userName.trim());
 		try {
-			cd.out.writeObject(userName);
+			cd.getOut().writeObject(userName);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -168,10 +168,10 @@ public class ClientTray implements Runnable {
 	}
 	
 	public void addQuestion(){
-		if(cd.getCanAsk())
+		if(cd.canAsk())
 		{
 			try {
-				out.writeObject(new Task(Task.ASK_QUESTION));
+				cd.getOut().writeObject(new Task(Task.ASK_QUESTION));
 				cd.setCanAsk(false);
 			} catch (IOException e) {
 				e.printStackTrace();

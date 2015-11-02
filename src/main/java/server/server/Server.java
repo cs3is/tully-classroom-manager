@@ -21,6 +21,7 @@ import utils.ServerLog;
 public class Server implements Runnable {
 
 	private ServerSocket serverSocket;
+	private ServerSocket serverSocket2;
 	private HashMap<String, Integer> computerList = new HashMap<String, Integer>();
 	private HashMap<Integer, UserInformation> connectedClients = new HashMap<Integer, UserInformation>();
 	private String fileLocation = "src/main/java/server/ComputerList.txt";
@@ -29,7 +30,9 @@ public class Server implements Runnable {
 	public Server(int port) throws IOException {
 		loadComputers(fileLocation);
 		serverSocket = new ServerSocket(port);
-		serverSocket.setSoTimeout(5000);
+		serverSocket.setSoTimeout(10000);
+		serverSocket2 = new ServerSocket(port + 1);
+		serverSocket2.setSoTimeout(10000);
 		Thread t = new Thread(this);
 		t.start();
 	}
@@ -38,20 +41,27 @@ public class Server implements Runnable {
 	public void run() {
 		while (true) {
 			try {
-//				ServerLog.debug("Waiting for client... (port: " + ServerConfigManager.getStr("SERVER_PORT") + ")");  //TODO uncomment this when the debug mode is turned off
+				// ServerLog.debug("Waiting for client... (port: " + ServerConfigManager.getStr("SERVER_PORT") + ")"); //TODO uncomment this when the
+				// debug mode is turned off
 				Socket connection = serverSocket.accept();
+				Socket connection2 = serverSocket.accept();
 				ServerLog.debug("Connected to: " + connection.getRemoteSocketAddress());
+
 				ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
 				ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
-				
+
+				ObjectOutputStream out2 = new ObjectOutputStream(connection2.getOutputStream());
+				ObjectInputStream in2 = new ObjectInputStream(connection2.getInputStream());
+
 				if (!computerList.keySet().contains(connection.getLocalAddress().getHostName())) {
 					ServerLog.info("Refused Connection from " + connection.getLocalAddress().getHostName());
-					out.writeObject(new Task(Task.SEND_NOTIFICATION,"Connection refused by server, please contact a system administrator"));
+					out.writeObject(new Task(Task.SEND_NOTIFICATION,
+							"Connection refused by server, please contact a system administrator"));
 					connection.close();
 				} else {
 					UserInformation u = new UserInformation((String) in.readObject(), connection.getLocalAddress()
 							.getHostName(), in, out);
-					out.writeObject(new Task(Task.SEND_NOTIFICATION,"Connection accepted by server"));
+					out.writeObject(new Task(Task.SEND_NOTIFICATION, "Connection accepted by server"));
 
 					connectedClients.put(computerList.get(connection.getLocalAddress().getHostName()), u);
 
