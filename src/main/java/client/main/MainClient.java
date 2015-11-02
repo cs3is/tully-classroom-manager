@@ -7,7 +7,9 @@ import java.net.Socket;
 import client.ClientData;
 import client.ClientListener;
 import graphics.ClientTray;
+import util.Task;
 import utils.ClientConfigManager;
+import utils.Log;
 import utils.ServerLog;
 
 public class MainClient {
@@ -26,13 +28,14 @@ public class MainClient {
 			ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
 			ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
 
-			ClientTray to = new ClientTray(new ClientData());
+			ClientTray to = new ClientTray(new ClientData(in,out));
+			System.out.println(in.readObject().toString());
 			
 			// ClientListener cl = new ClientListener(isFromServer,to);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			ServerLog.fatal("An error occurred");
+			Log.fatal("An error occurred");
 			System.exit(0);
 		}
 

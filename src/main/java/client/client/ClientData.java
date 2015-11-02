@@ -12,6 +12,10 @@ public class ClientData {
 	private ObjectInputStream in;
 	private boolean canAsk;
 	
+	public ClientData(ObjectInputStream in, ObjectOutputStream out){
+		this.in = in;
+		this.out = out;
+	}
 	
 	public String getComputerName() {
 		return computerName;

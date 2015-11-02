@@ -44,14 +44,14 @@ public class Server implements Runnable {
 				// ServerLog.debug("Waiting for client... (port: " + ServerConfigManager.getStr("SERVER_PORT") + ")"); //TODO uncomment this when the
 				// debug mode is turned off
 				Socket connection = serverSocket.accept();
-				Socket connection2 = serverSocket.accept();
+//				Socket connection2 = serverSocket.accept();
 				ServerLog.debug("Connected to: " + connection.getRemoteSocketAddress());
 
 				ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
 				ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
 
-				ObjectOutputStream out2 = new ObjectOutputStream(connection2.getOutputStream());
-				ObjectInputStream in2 = new ObjectInputStream(connection2.getInputStream());
+//				ObjectOutputStream out2 = new ObjectOutputStream(connection2.getOutputStream());
+//				ObjectInputStream in2 = new ObjectInputStream(connection2.getInputStream());
 
 				if (!computerList.keySet().contains(connection.getLocalAddress().getHostName())) {
 					ServerLog.info("Refused Connection from " + connection.getLocalAddress().getHostName());

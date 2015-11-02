@@ -1,6 +1,8 @@
 package util;
 
-public class Task {
+import java.io.Serializable;
+
+public class Task implements Serializable {
 
 	// Only to be invoked by the Client
 	public final static int ASK_QUESTION = 0;
@@ -56,6 +58,10 @@ public class Task {
 
 	public String getText() {
 		return text;
+	}
+
+	public String toString() {
+		return "tried to print a Task with a value of " + toDo + ", and a message of \"" + text + "\"";
 	}
 
 }
