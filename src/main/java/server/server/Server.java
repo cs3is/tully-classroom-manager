@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 
+import util.Task;
 import utils.ClientConfig;
 import utils.ClientConfigManager;
 import utils.Log;
@@ -37,17 +38,20 @@ public class Server implements Runnable {
 	public void run() {
 		while (true) {
 			try {
-				ServerLog.debug("Waiting for client... (port: " + ServerConfigManager.getStr("SERVER_PORT") + ")");
+//				ServerLog.debug("Waiting for client... (port: " + ServerConfigManager.getStr("SERVER_PORT") + ")");  //TODO uncomment this when the debug mode is turned off
 				Socket connection = serverSocket.accept();
 				ServerLog.debug("Connected to: " + connection.getRemoteSocketAddress());
 				ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
 				ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
+				
 				if (!computerList.keySet().contains(connection.getLocalAddress().getHostName())) {
 					ServerLog.info("Refused Connection from " + connection.getLocalAddress().getHostName());
+					out.writeObject(new Task(Task.SEND_NOTIFICATION,"Connection refused by server, please contact a system administrator"));
 					connection.close();
 				} else {
 					UserInformation u = new UserInformation((String) in.readObject(), connection.getLocalAddress()
 							.getHostName(), in, out);
+					out.writeObject(new Task(Task.SEND_NOTIFICATION,"Connection accepted by server"));
 
 					connectedClients.put(computerList.get(connection.getLocalAddress().getHostName()), u);
 
