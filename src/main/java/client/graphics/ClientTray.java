@@ -48,7 +48,7 @@ public class ClientTray implements Runnable {
 
 	final SystemTray tray = SystemTray.getSystemTray();
 
-	public ClientTray(ClientData cd) {
+	public ClientTray(ClientData cd){
 		// init objectstreams
 		this.cd = cd;
 		cl = new ClientListener(cd);

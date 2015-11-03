@@ -13,6 +13,11 @@ public class ClientData {
 	private Boolean bool;
 	private Boolean questionAdded;
 	
+	public ClientData(ObjectInputStream in, ObjectOutputStream out){
+		this.in = in;
+		this.out = out;
+	}
+	
 	public String getComputerName() {
 		return computerName;
 	}

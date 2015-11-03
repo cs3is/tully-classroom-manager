@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 
+import client.ClientListener;
+import util.Task;
 import utils.ClientConfig;
 import utils.ClientConfigManager;
 import utils.Log;
@@ -30,8 +32,6 @@ public class Server implements Runnable {
 		loadComputers(fileLocation);
 		serverSocket = new ServerSocket(port);
 		serverSocket.setSoTimeout(10000);
-//		serverSocket2 = new ServerSocket(port+1);
-//		serverSocket2.setSoTimeout(10000);
 		Thread t = new Thread(this);
 		t.start();
 	}
@@ -40,25 +40,32 @@ public class Server implements Runnable {
 	public void run() {
 		while (true) {
 			try {
-				ServerLog.debug("Waiting for client... (port: " + ServerConfigManager.getStr("SERVER_PORT") + ")");
+				// ServerLog.debug("Waiting for client... (port: " + ServerConfigManager.getStr("SERVER_PORT") + ")"); //TODO uncomment this when the
+				// debug mode is turned off
 				Socket connection = serverSocket.accept();
-				ServerLog.debug("bleh");
+//				Socket connection2 = serverSocket.accept();
+				ServerLog.debug("Connected to: " + connection.getRemoteSocketAddress());
+
 				ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
 				ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
-//				Socket connection2 = serverSocket.accept();
-//				ServerLog.debug("Connected to: " + connection.getRemoteSocketAddress());
-//				
+
 //				ObjectOutputStream out2 = new ObjectOutputStream(connection2.getOutputStream());
 //				ObjectInputStream in2 = new ObjectInputStream(connection2.getInputStream());
+
+				
 				if (!computerList.keySet().contains(connection.getLocalAddress().getHostName())) {
 					ServerLog.info("Refused Connection from " + connection.getLocalAddress().getHostName());
+					out.writeObject(new Task(Task.SEND_NOTIFICATION,
+							"Connection refused by server, please contact a system administrator"));
 					connection.close();
 				} else {
 					UserInformation u = new UserInformation((String) in.readObject(), connection.getLocalAddress()
 							.getHostName(), in, out);
+					Thread t = new Thread(new UserListener(u));
+					t.start();
+					out.writeObject(new Task(Task.SEND_NOTIFICATION, "Connection accepted by server"));
 
 					connectedClients.put(computerList.get(connection.getLocalAddress().getHostName()), u);
-
 				}
 
 				// System.out.println(connection.getLocalAddress().getHostName());

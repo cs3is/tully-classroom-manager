@@ -31,5 +31,22 @@ public class UserInformation {
 	public long getLastQuestionTime() {
 		return LQT;
 	}
+	
+	public ObjectInputStream in(){
+		return in;
+	}
+	
+	public ObjectOutputStream out(){
+		return out;
+	}
 
+
+	public String getHostname() {
+		return Hostname;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+	
 }

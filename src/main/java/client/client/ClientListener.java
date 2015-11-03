@@ -5,27 +5,34 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import util.Task;
+import utils.ServerLog;
 
-public class ClientListener implements Runnable{
-	private ClientData cd = null;
-	public ClientListener(ClientData cd){
+public class ClientListener implements Runnable {
+	private ClientData cd;
+
+	public ClientListener(ClientData cd) {
 		this.cd = cd;
 		Thread t = new Thread();
 		t.start();
-		randomNameToChangeLater();
+		initializeObjectListener();
 	}
-	
-	
-	
-	public void randomNameToChangeLater(){
+
+	public void initializeObjectListener() {
 		Thread th = new Thread(new Runnable() {
-			public void run(){
+			public void run() {
 				try {
 					Object o = cd.getIn().readObject();
-						if (o instanceof Task){
-							actOnTask(o);
-						}
-				} catch (Exception e) {
+					
+					if (o instanceof Task) {
+						actOnTask(o);
+
+					} else {
+						ServerLog.error("Client has recieved an unrecognized object"); 
+					}
+
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
@@ -34,27 +41,62 @@ public class ClientListener implements Runnable{
 				Task t = (Task) o;
 				switch (t.getTask()) {
 
-				case Task.QUESTION_ADDED:
-						cd.setQuestionAdded(true);
-					break;
+				
 
 				
 				}
 
 			}
 		});
+		th.start();
+	}
+
+	/**
+	 * This method receives a task from the trhead, and then tells the server what to do based on the task's contents.
+	 * 
+	 * @param o
+	 *            The Task that is sent to the server, in the form of an object
+	 */
+	private void actOnTask(Object o) {
+		Task t = (Task) o;
+		switch (t.getTask()) {
+
+		case Task.QUESTION_ADDED:
+			cd.setQuestionAdded(true);
+		break;
+		
+		case Task.QUESTION_REMOVED:
+			break;
+
+		case Task.SEND_NOTIFICATION:
+			System.out.println(t.getText());
+			break;
+
+		case Task.GET_SCREENSHOT:
+			break;
+			
+		case Task.GET_PROCESSES:
+			break;
+			
+		case Task.DISABLE_COMPUTER:
+			break;
+
+		case Task.SYNC:
+			break;
+
+		}
 	}
 
 	@Override
 	public void run() {
-		while(true){
+		while (true) {
 			try {
-				
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+
 		}
-		
+
 	}
 }
