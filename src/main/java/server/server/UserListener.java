@@ -10,12 +10,11 @@ import utils.ServerLog;
 
 public class UserListener implements Runnable {
 
-	ObjectInputStream in;
-	ObjectOutputStream out;
+	UserInformation u;
 
-	public UserListener(ObjectInputStream in, ObjectOutputStream out) {
-		this.in = in;
-		this.out = out;
+	public UserListener(UserInformation u) {
+		this.u = u;
+		
 	}
 
 	@Override
@@ -23,15 +22,14 @@ public class UserListener implements Runnable {
 
 		while (true) {
 			try {
-				Object o = in.readObject();
+				Object o = u.in().readObject();
 
 				if (o instanceof Task) {
 
 					actOnTask(o);
 
 				} else {
-					ServerLog.error("Server has recieved an unrecognized object"); // TODO make this print out the computer that sent the invalid
-																					// object as well
+					ServerLog.error("Server has recieved an unrecognized object from "+u.getUserName()+" on the computer "+u.getHostname());
 				}
 
 			} catch (ClassNotFoundException e) {

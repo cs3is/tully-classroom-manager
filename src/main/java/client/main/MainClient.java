@@ -27,9 +27,8 @@ public class MainClient {
 
 			ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
 			ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
-
+			
 			ClientTray to = new ClientTray(new ClientData(in,out));
-			System.out.println(in.readObject().toString());
 			
 			// ClientListener cl = new ClientListener(isFromServer,to);
 			

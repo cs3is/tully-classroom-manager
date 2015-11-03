@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 
+import client.ClientListener;
 import util.Task;
 import utils.ClientConfig;
 import utils.ClientConfigManager;
@@ -53,6 +54,7 @@ public class Server implements Runnable {
 //				ObjectOutputStream out2 = new ObjectOutputStream(connection2.getOutputStream());
 //				ObjectInputStream in2 = new ObjectInputStream(connection2.getInputStream());
 
+				
 				if (!computerList.keySet().contains(connection.getLocalAddress().getHostName())) {
 					ServerLog.info("Refused Connection from " + connection.getLocalAddress().getHostName());
 					out.writeObject(new Task(Task.SEND_NOTIFICATION,
@@ -61,10 +63,11 @@ public class Server implements Runnable {
 				} else {
 					UserInformation u = new UserInformation((String) in.readObject(), connection.getLocalAddress()
 							.getHostName(), in, out);
+					Thread t = new Thread(new UserListener(u));
+					t.start();
 					out.writeObject(new Task(Task.SEND_NOTIFICATION, "Connection accepted by server"));
 
 					connectedClients.put(computerList.get(connection.getLocalAddress().getHostName()), u);
-
 				}
 
 				// System.out.println(connection.getLocalAddress().getHostName());

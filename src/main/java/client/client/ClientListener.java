@@ -8,7 +8,7 @@ import util.Task;
 import utils.ServerLog;
 
 public class ClientListener implements Runnable {
-	private ClientData cd = null;
+	private ClientData cd;
 
 	public ClientListener(ClientData cd) {
 		this.cd = cd;
@@ -22,13 +22,12 @@ public class ClientListener implements Runnable {
 			public void run() {
 				try {
 					Object o = cd.getIn().readObject();
+					
 					if (o instanceof Task) {
-
 						actOnTask(o);
 
 					} else {
-						ServerLog.error("Server has recieved an unrecognized object"); // TODO make this print out the computer that sent the invalid
-																						// object as well
+						ServerLog.error("Client has recieved an unrecognized object"); 
 					}
 
 				} catch (ClassNotFoundException e) {
@@ -38,6 +37,7 @@ public class ClientListener implements Runnable {
 				}
 			}
 		});
+		th.start();
 	}
 
 	/**
