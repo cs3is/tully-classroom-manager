@@ -53,6 +53,8 @@ public class UserListener implements Runnable {
 		switch (t.getTask()) {
 
 		case Task.ASK_QUESTION:
+			//SQL if (LastQuestionAsked == 0 || lastQuestionAsked-currentTime > maxTime){
+			//questionList.add (computernumber)
 			break;
 
 		case Task.SUBMIT_LAB:

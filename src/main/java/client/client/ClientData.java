@@ -10,8 +10,8 @@ public class ClientData {
 	private boolean connected;
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
-	private boolean canAsk;
-	
+	private Boolean bool;
+	private Boolean questionAdded;
 	
 	public String getComputerName() {
 		return computerName;
@@ -19,11 +19,11 @@ public class ClientData {
 	public String getIPAddress() {
 		return IPAddress;
 	}
-	public boolean canAsk() {
-		return canAsk;
-	}
-	public void setCanAsk(boolean canAsk) {
-		this.canAsk = canAsk;
+	public boolean getBoolean() {
+		boolean t = bool;
+		bool = null;
+		return t;
+
 	}
 	public boolean isConnected() {
 		return connected;
@@ -35,4 +35,12 @@ public class ClientData {
 		return in;
 	}
 
+	public Boolean getQuestionAdded(){
+		return questionAdded;
+	}
+	
+	public void setQuestionAdded(Boolean b){
+		questionAdded = b;
+	}
+	
 }

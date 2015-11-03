@@ -168,11 +168,24 @@ public class ClientTray implements Runnable {
 	}
 	
 	public void addQuestion(){
-		if(cd.canAsk())
+		if(canQuestion)
 		{
 			try {
 				cd.getOut().writeObject(new Task(Task.ASK_QUESTION));
-				cd.setCanAsk(false);
+				for(int i = 0;i<3;i++){
+					try{
+						if(cd.getQuestionAdded()){
+							cd.setQuestionAdded(null);
+							Log.info("Question has been added!");
+							break;
+						}
+						Thread.sleep(1000);
+							
+						
+					}catch(Exception e){
+						Log.error("error at addQuestion while waiting for response");
+					}
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

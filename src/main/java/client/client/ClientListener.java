@@ -22,9 +22,25 @@ public class ClientListener implements Runnable{
 			public void run(){
 				try {
 					Object o = cd.getIn().readObject();
+						if (o instanceof Task){
+							actOnTask(o);
+						}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+			}
+
+			private void actOnTask(Object o) {
+				Task t = (Task) o;
+				switch (t.getTask()) {
+
+				case Task.QUESTION_ADDED:
+						cd.setQuestionAdded(true);
+					break;
+
+				
+				}
+
 			}
 		});
 	}
@@ -35,7 +51,6 @@ public class ClientListener implements Runnable{
 			try {
 				
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
