@@ -51,8 +51,16 @@ public class UserListener implements Runnable {
 		switch (t.getTask()) {
 
 		case Task.ASK_QUESTION:
+			ServerLog.info("received "+t.getTask());
 			//SQL if (LastQuestionAsked == 0 || lastQuestionAsked-currentTime > maxTime){
 			//questionList.add (computernumber)
+			try {
+				u.out().writeObject(new Task(Task.QUESTION_ADDED));
+				ServerLog.info("sent QUESTION_ADDED");
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
 			break;
 
 		case Task.SUBMIT_LAB:

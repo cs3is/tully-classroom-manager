@@ -29,7 +29,7 @@ public class ClientTray implements Runnable {
 	private ClientData cd = null;
 	private ClientConfigManager cfg = null;
 	ClientListener cl = null;
-	
+
 	private ArrayList<MenuItem> components = new ArrayList<MenuItem>();
 	private String userName = "";
 	/**
@@ -39,7 +39,7 @@ public class ClientTray implements Runnable {
 	private long time = 0;
 	private long prevLabel = 0;
 	long qTime = 0;
-	
+
 	private MenuItem addQuestion = null;
 	private MenuItem exit = null;
 
@@ -47,8 +47,9 @@ public class ClientTray implements Runnable {
 	TrayIcon trayIcon = null;
 
 	final SystemTray tray = SystemTray.getSystemTray();
+	
 
-	public ClientTray(ClientData cd){
+	public ClientTray(ClientData cd) {
 		// init objectstreams
 		this.cd = cd;
 		cl = new ClientListener(cd);
@@ -88,11 +89,12 @@ public class ClientTray implements Runnable {
 
 	public void createMenu() {
 		popup = new PopupMenu();
-		
-		//tray = SystemTray.getSystemTray();
-		Image image = Toolkit.getDefaultToolkit().getImage("bin/../src/main/../main/resources/../java/client/../../resources/client.jpg");
+
+		// tray = SystemTray.getSystemTray();
+		Image image = Toolkit.getDefaultToolkit()
+				.getImage("bin/../src/main/../main/resources/../java/client/../../resources/client.jpg");
 		trayIcon = new TrayIcon(image, ClientConfig.NAME);
-		
+
 		ServerLog.info(trayIcon.getImage() + "");
 
 	}
@@ -105,20 +107,21 @@ public class ClientTray implements Runnable {
 	}
 
 	public void addMenuComponents() {
-		for(int i = 0;i<components.size();i++){
+		for (int i = 0; i < components.size(); i++) {
 			popup.add(components.get(i));
 		}
-		trayIcon.setPopupMenu(popup); 
+		trayIcon.setPopupMenu(popup);
 	}
 
 	public void addActionListeners() {
 
 		addQuestion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				canQuestion = false;
+
 				qTime = time;
 				addQuestion.setEnabled(false);
-				addQuestion();
+				addQuestionThread.start();
+				
 			}
 		});
 
@@ -130,31 +133,32 @@ public class ClientTray implements Runnable {
 
 	}
 
-	public void updateMenu(){
-		if(!canQuestion) updateQuestion();
+	public void updateMenu() {
+		if (!canQuestion)
+			updateQuestion();
 	}
-	
-	public void updateQuestion(){
-		long diff = time-qTime;
-		long label = (((120*1000000000L)-diff)/1000000000L);
-		//Log.info(time+"");
-		//Log.info(qTime+"");
-		if(diff>120*1000000000L) {
+
+	public void updateQuestion() {
+		long diff = time - qTime;
+		long label = (((120 * 1000000000L) - diff) / 1000000000L);
+		// Log.info(time+"");
+		// Log.info(qTime+"");
+		if (diff > 120 * 1000000000L) {
 			addQuestion.setEnabled(true);
 			canQuestion = true;
 			addQuestion.setLabel("Add Question");
 		}
-		if(label != prevLabel)
-		addQuestion.setLabel("Add Question ("+label+")");
+		if (label != prevLabel)
+			addQuestion.setLabel("Add Question (" + label + ")");
 		prevLabel = label;
-		
-		//cd.getOS(Task.REQUEST_SYNC);
-		
+
+		// cd.getOS(Task.REQUEST_SYNC);
+
 	}
-	
+
 	@Override
 	public void run() {
-		
+
 		while (true) {
 			time = System.nanoTime();
 			updateMenu();
@@ -166,30 +170,40 @@ public class ClientTray implements Runnable {
 		}
 
 	}
-	
-	public void addQuestion(){
-		if(canQuestion)
-		{
-			try {
-				cd.getOut().writeObject(new Task(Task.ASK_QUESTION));
-				for(int i = 0;i<3;i++){
-					try{
-						if(cd.getQuestionAdded()){
-							cd.setQuestionAdded(null);
-							Log.info("Question has been added!");
-							break;
+	/**
+	 * THIS INITIALIZES THREADS IF YOU CAN'T READ
+	 */
+	Thread addQuestionThread = new Thread(new Runnable() {
+		@Override
+		public void run() {
+			Log.info("doing anything");
+			if (canQuestion) {
+				canQuestion = false;
+				try {
+					cd.getOut().writeObject(new Task(Task.ASK_QUESTION));
+					for (int i = 0; i < 3; i++) {
+						try {
+							if (cd.getQuestionAdded() != null) {
+								cd.setQuestionAdded(null);
+								Log.info("Question has been added!");
+								break;
+							}
+							Log.info("nope");
+							Thread.sleep(1000);
+
+						} catch (Exception e) {
+							Log.error("error at addQuestion while waiting for response");
+							e.printStackTrace();
 						}
-						Thread.sleep(1000);
-							
-						
-					}catch(Exception e){
-						Log.error("error at addQuestion while waiting for response");
 					}
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
-			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		}
+	});
+	public void initializeThreads() {
+		
 	}
 
 }
