@@ -45,7 +45,7 @@ public class ClientListener implements Runnable {
 	}
 
 	/**
-	 * This method receives a task from the trhead, and then tells the server
+	 * This method receives a task from the thead, and then tells the server
 	 * what to do based on the task's contents.
 	 * 
 	 * @param o

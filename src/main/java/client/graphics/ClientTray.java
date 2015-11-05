@@ -92,7 +92,7 @@ public class ClientTray implements Runnable {
 
 		// tray = SystemTray.getSystemTray();
 		Image image = Toolkit.getDefaultToolkit()
-				.getImage("bin/../src/main/../main/resources/../java/client/../../resources/client.jpg");
+				.getImage("bin/../src/main/../main/resources/../java/client/../../resources/client.png");
 		trayIcon = new TrayIcon(image, ClientConfig.NAME);
 
 		ServerLog.info(trayIcon.getImage() + "");
