@@ -41,7 +41,7 @@ public class UserListener implements Runnable {
 	}
 
 	/**
-	 * This method receives a task from the trhead, and then tells the server what to do based on the task's contents.
+	 * This method receives a task from the thead, and then tells the server what to do based on the task's contents.
 	 * 
 	 * @param o
 	 *            The Task that is sent to the server, in the form of an object
