@@ -61,7 +61,7 @@ public class Server implements Runnable {
 				} else {
 					UserInformation u = new UserInformation((String) in.readObject(), connection.getLocalAddress()
 							.getHostName(), in, out);
-					Thread t = new Thread(new UserListener(u));
+					Thread t = new Thread(new UserListener(u, connection));
 					t.start();
 					out.writeObject(new Task(Task.SEND_NOTIFICATION, "Connection accepted by server"));
 
