@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import util.Task;
+import utils.Log;
 import utils.ServerLog;
 
 public class ClientListener implements Runnable {
@@ -27,7 +28,7 @@ public class ClientListener implements Runnable {
 						actOnTask(o);
 
 					} else {
-						ServerLog.error("Client has recieved an unrecognized object"); 
+						Log.error("Client has recieved an unrecognized object"); 
 					}
 
 				} catch (ClassNotFoundException e) {

@@ -66,10 +66,10 @@ public class Server implements Runnable {
 					Thread t = new Thread(new UserListener(u));
 					t.start();
 					out.writeObject(new Task(Task.SEND_NOTIFICATION, "Connection accepted by server"));
-
 					connectedClients.put(computerList.get(connection.getLocalAddress().getHostName()), u);
 				}
-
+				Thread.sleep(500);
+				out.reset();
 				// System.out.println(connection.getLocalAddress().getHostName());
 
 				/*
