@@ -22,7 +22,7 @@ import utils.ServerLog;
 public class Server implements Runnable {
 
 	private ServerSocket serverSocket;
-	private ServerSocket serverSocket2;
+//	private ServerSocket serverSocket2;
 	private HashMap<String, Integer> computerList = new HashMap<String, Integer>();
 	private HashMap<Integer, UserInformation> connectedClients = new HashMap<Integer, UserInformation>();
 	private String fileLocation = "src/main/java/server/ComputerList.txt";
@@ -32,8 +32,6 @@ public class Server implements Runnable {
 		loadComputers(fileLocation);
 		serverSocket = new ServerSocket(port);
 		serverSocket.setSoTimeout(10000);
-		serverSocket2 = new ServerSocket(port + 1);
-		serverSocket2.setSoTimeout(10000);
 		Thread t = new Thread(this);
 		t.start();
 	}
@@ -63,7 +61,7 @@ public class Server implements Runnable {
 				} else {
 					UserInformation u = new UserInformation((String) in.readObject(), connection.getLocalAddress()
 							.getHostName(), in, out);
-					Thread t = new Thread(new UserListener(u));
+					Thread t = new Thread(new UserListener(u, connection));
 					t.start();
 					out.writeObject(new Task(Task.SEND_NOTIFICATION, "Connection accepted by server"));
 					connectedClients.put(computerList.get(connection.getLocalAddress().getHostName()), u);

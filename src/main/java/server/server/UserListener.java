@@ -3,6 +3,7 @@ package server;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.util.ArrayList;
 
 import util.Task;
@@ -11,9 +12,11 @@ import utils.ServerLog;
 public class UserListener implements Runnable {
 
 	UserInformation u;
+	Socket connection;
 
-	public UserListener(UserInformation u) {
+	public UserListener(UserInformation u, Socket connection) {
 		this.u = u;
+		this.connection = connection;
 		
 	}
 
@@ -36,12 +39,23 @@ public class UserListener implements Runnable {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
+				ServerLog.warn("Lost connection with "+u.getHostname());
+				break;
+				
 			}
 		}
+		try {
+			connection.close();
+			ServerLog.info("Successfully closed connection w/ "+u.getHostname());
+		} catch (IOException e1) {
+			e1.printStackTrace();
+			ServerLog.error("Error closing connection w/ "+u.getHostname());
+		}
+		
 	}
 
 	/**
-	 * This method receives a task from the trhead, and then tells the server what to do based on the task's contents.
+	 * This method receives a task from the thead, and then tells the server what to do based on the task's contents.
 	 * 
 	 * @param o
 	 *            The Task that is sent to the server, in the form of an object
@@ -51,6 +65,16 @@ public class UserListener implements Runnable {
 		switch (t.getTask()) {
 
 		case Task.ASK_QUESTION:
+			ServerLog.info("received "+t.getTask());
+			//SQL if (LastQuestionAsked == 0 || lastQuestionAsked-currentTime > maxTime){
+			//questionList.add (computernumber)
+			try {
+				u.out().writeObject(new Task(Task.QUESTION_ADDED));
+				ServerLog.info("sent QUESTION_ADDED");
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
 			break;
 
 		case Task.SUBMIT_LAB:

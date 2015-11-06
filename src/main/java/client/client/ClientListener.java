@@ -21,20 +21,23 @@ public class ClientListener implements Runnable {
 	public void initializeObjectListener() {
 		Thread th = new Thread(new Runnable() {
 			public void run() {
-				try {
-					Object o = cd.getIn().readObject();
-					
-					if (o instanceof Task) {
-						actOnTask(o);
+				while (true) {
+					try {
+						Log.info("reading inthing");
+						Object o = cd.getIn().readObject();
+						if (o instanceof Task) {
 
-					} else {
-						Log.error("Client has recieved an unrecognized object"); 
+							actOnTask(o);
+
+						} else {
+							Log.error("Client has recieved an unrecognized object");
+						}
+
+					} catch (ClassNotFoundException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
 					}
-
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
 				}
 			}
 		});
@@ -49,7 +52,13 @@ public class ClientListener implements Runnable {
 	 */
 	private void actOnTask(Object o) {
 		Task t = (Task) o;
+		Log.info("received " + t.getTask());
 		switch (t.getTask()) {
+
+		case Task.QUESTION_ADDED:
+			cd.setQuestionAdded(true);
+			Log.info("received " + t.getTask());
+			break;
 
 		case Task.QUESTION_REMOVED:
 			break;
@@ -60,10 +69,10 @@ public class ClientListener implements Runnable {
 
 		case Task.GET_SCREENSHOT:
 			break;
-			
+
 		case Task.GET_PROCESSES:
 			break;
-			
+
 		case Task.DISABLE_COMPUTER:
 			break;
 
@@ -79,7 +88,6 @@ public class ClientListener implements Runnable {
 			try {
 
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
