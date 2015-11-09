@@ -23,7 +23,7 @@ public class ClientListener implements Runnable {
 			public void run() {
 				while (true) {
 					try {
-						Log.info("reading inthing");
+						Log.info("reading inputStream");
 						Object o = cd.getIn().readObject();
 						if (o instanceof Task) {
 

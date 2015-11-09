@@ -135,7 +135,8 @@ public class ClientTray implements Runnable {
 
 	public void updateMenu() {
 		if (!canQuestion)
-			updateQuestion();
+			if(cd.getCountdownBegin())
+				updateQuestion();
 	}
 
 	public void updateQuestion() {
@@ -171,30 +172,41 @@ public class ClientTray implements Runnable {
 
 	}
 	/**
-	 * THIS INITIALIZES THREADS IF YOU CAN'T READ
+	 * THIS ADDS QUESTIONS IF YOU CAN'T READ
 	 */
 	Thread addQuestionThread = new Thread(new Runnable() {
 		@Override
 		public void run() {
-			Log.info("doing anything");
+			Log.info("Adding Question");
 			if (canQuestion) {
 				canQuestion = false;
 				try {
 					cd.getOut().writeObject(new Task(Task.ASK_QUESTION));
-					for (int i = 0; i < 3; i++) {
+					Boolean added = false;
+					for (int i = 0; i < 5; i++) {
 						try {
+							Thread.sleep(1000);
 							if (cd.getQuestionAdded() != null) {
 								cd.setQuestionAdded(null);
+								cd.setCountdownBegin(false);
 								Log.info("Question has been added!");
+								added = true;
 								break;
 							}
-							Log.info("nope");
-							Thread.sleep(1000);
+							Log.info("Have not received confirmation from server for "+(3-i)+" seconds, retrying "+i+" more times");
+							
 
 						} catch (Exception e) {
 							Log.error("error at addQuestion while waiting for response");
 							e.printStackTrace();
 						}
+					}
+					if(added){
+						added = false;
+					}
+					else{
+						Log.error("server did not respond to addQuestion in 5 seconds");
+						//TODO ERROR MESSAGE
 					}
 				} catch (IOException e) {
 					e.printStackTrace();

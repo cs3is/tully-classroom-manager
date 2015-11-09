@@ -1,3 +1,4 @@
+/*
 package Questions;
 
 import Log;
@@ -90,3 +91,4 @@ public class QuestionQueue implements QueueInterface<E>
 	}
 
 }
+*/

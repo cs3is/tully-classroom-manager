@@ -40,8 +40,8 @@ public class Server implements Runnable {
 	public void run() {
 		while (true) {
 			try {
-				// ServerLog.debug("Waiting for client... (port: " + ServerConfigManager.getStr("SERVER_PORT") + ")"); //TODO uncomment this when the
-				// debug mode is turned off
+				// ServerLog.debug("Waiting for client... (port: " + ServerConfigManager.getStr("SERVER_PORT") + ")"); 
+				//TODO uncomment this when the debug mode is turned off
 				Socket connection = serverSocket.accept();
 //				Socket connection2 = serverSocket.accept();
 				ServerLog.debug("Connected to: " + connection.getRemoteSocketAddress());
