@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import Questions.Question;
 import util.Task;
 import utils.ServerLog;
 
@@ -66,6 +67,7 @@ public class UserListener implements Runnable {
 
 		case Task.ASK_QUESTION:
 			ServerLog.info("received "+t.getTask());
+			Server.getQuestionList().add(new Question(t.getText(),u.getHostname(),u.getUserName()));
 			//SQL if (LastQuestionAsked == 0 || lastQuestionAsked-currentTime > maxTime){
 			//questionList.add (computernumber)
 			try {

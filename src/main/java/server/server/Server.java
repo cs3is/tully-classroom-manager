@@ -8,10 +8,11 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
-import client.ClientListener;
+import Questions.Question;
 import util.Task;
 import utils.ClientConfig;
 import utils.ClientConfigManager;
@@ -25,6 +26,7 @@ public class Server implements Runnable {
 //	private ServerSocket serverSocket2;
 	private HashMap<String, Integer> computerList = new HashMap<String, Integer>();
 	private HashMap<Integer, UserInformation> connectedClients = new HashMap<Integer, UserInformation>();
+	private static Queue<Question> questionList = new LinkedList<Question>();
 	private String fileLocation = "src/main/java/server/ComputerList.txt";
 	private Scanner scan, line;
 
@@ -98,6 +100,10 @@ public class Server implements Runnable {
 
 	public HashMap<Integer, UserInformation> getConnectedClients() {
 		return connectedClients;
+	}
+
+	public static Queue<Question> getQuestionList() {
+		return questionList;
 	}
 
 }
