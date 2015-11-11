@@ -10,6 +10,7 @@ import utils.ServerLog;
 
 public class ClientListener implements Runnable {
 	private ClientData cd;
+	private Object sConfig;
 
 	public ClientListener(ClientData cd) {
 		this.cd = cd;
@@ -58,6 +59,11 @@ public class ClientListener implements Runnable {
 		case Task.QUESTION_ADDED:
 			cd.setQuestionAdded(true);
 			Log.info("received " + t.getTask());
+			//TODO Add QUESTION_NOT_ADDED, make both send baloon messages too.
+			break;
+		case Task.INIT:
+			//TODO WORK ON THIS NOWOWWWW
+			sConfig = t.getO();
 			break;
 
 		case Task.QUESTION_REMOVED:

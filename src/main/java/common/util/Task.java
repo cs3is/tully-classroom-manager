@@ -17,6 +17,8 @@ public class Task implements Serializable {
 	public final static int GET_PROCESSES = 23;
 	public final static int DISABLE_COMPUTER = 24;
 	public final static int QUESTION_ADDED = 25;
+	public final static int QUESTION_NOT_ADDED = 26;
+	public final static int INIT = 27;
 
 	// Only to be invoked by the admin client
 
@@ -25,6 +27,7 @@ public class Task implements Serializable {
 
 	private int toDo = -1;
 	private String text = null;
+	private Object o = null;
 
 	/**
 	 * The basic type of object that will be sent in between the server and the client in order to communicate. Every task object will include an int
@@ -52,6 +55,11 @@ public class Task implements Serializable {
 		this.toDo = toDo;
 		this.text = text;
 	}
+	
+	public Task(int toDo, Object o) {
+		this.toDo = toDo;
+		this.o = o;
+	}
 
 	public int getTask() {
 		return toDo;
@@ -59,6 +67,10 @@ public class Task implements Serializable {
 
 	public String getText() {
 		return text;
+	}
+	
+	public Object getO(){
+		return o;
 	}
 
 	public String toString() {

@@ -9,7 +9,7 @@ public class UserInformation {
 	/**
 	 * The nanotime at which the last question was asked
 	 */
-	long LQT = 0;
+	private long LQT = 0;
 
 	private String Hostname;
 	private String userName;
@@ -31,15 +31,14 @@ public class UserInformation {
 	public long getLastQuestionTime() {
 		return LQT;
 	}
-	
-	public ObjectInputStream in(){
+
+	public ObjectInputStream in() {
 		return in;
 	}
-	
-	public ObjectOutputStream out(){
+
+	public ObjectOutputStream out() {
 		return out;
 	}
-
 
 	public String getHostname() {
 		return Hostname;
@@ -48,5 +47,5 @@ public class UserInformation {
 	public String getUserName() {
 		return userName;
 	}
-	
+
 }

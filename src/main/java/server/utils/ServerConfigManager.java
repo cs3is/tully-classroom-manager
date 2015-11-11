@@ -201,6 +201,17 @@ public class ServerConfigManager {
 	public static Integer getInt(String s) {
 		return Integer.parseInt((String) settings.get(s));
 	}
+	
+	/**
+	 * A method to access any of the program's settings from the hashmap
+	 * 
+	 * @return Returns a value from the hashmap in the form of a Long
+	 * @param s
+	 *            The key of the value which will be returned
+	 */
+	public static Long getLong(String s) {
+		return Long.parseLong((String) settings.get(s));
+	}
 
 	/**
 	 * A method to access any of the program's settings from the hashmap

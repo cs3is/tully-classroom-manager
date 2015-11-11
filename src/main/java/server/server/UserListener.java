@@ -8,12 +8,15 @@ import java.util.ArrayList;
 
 import Questions.Question;
 import util.Task;
+import util.infoForClientToReceiveAndParseAndProbablyUseToo;
+import utils.ServerConfigManager;
 import utils.ServerLog;
 
 public class UserListener implements Runnable {
 
 	UserInformation u;
 	Socket connection;
+	Long timeBetweenQuestions;
 
 	public UserListener(UserInformation u, Socket connection) {
 		this.u = u;
@@ -23,7 +26,12 @@ public class UserListener implements Runnable {
 
 	@Override
 	public void run() {
-
+		timeBetweenQuestions = ServerConfigManager.getLong("TIME_BETWEEN_QUESTIONS")*1000000000L;
+		try {
+			u.out().writeObject(new Task(Task.INIT,new infoForClientToReceiveAndParseAndProbablyUseToo(timeBetweenQuestions)));
+		} catch (IOException e2) {
+			e2.printStackTrace();
+		}
 		while (true) {
 			try {
 				Object o = u.in().readObject();
@@ -67,15 +75,25 @@ public class UserListener implements Runnable {
 
 		case Task.ASK_QUESTION:
 			ServerLog.info("received "+t.getTask());
-			Server.getQuestionList().add(new Question(u.getHostname(),u.getUserName()));
-			//SQL if (LastQuestionAsked == 0 || lastQuestionAsked-currentTime > maxTime){
-			//questionList.add (computernumber)
-			try {
-				u.out().writeObject(new Task(Task.QUESTION_ADDED));
-				ServerLog.info("sent QUESTION_ADDED");
-			} catch (IOException e) {
-				
-				e.printStackTrace();
+			if(u.getLastQuestionTime() == 0 || u.getLastQuestionTime()-System.nanoTime() > timeBetweenQuestions){
+				u.setLastQuestionTime(System.nanoTime());
+				Server.getQuestionList().add(new Question(u.getHostname(),u.getUserName()));
+				//SQL if (LastQuestionAsked == 0 || lastQuestionAsked-currentTime > maxTime){
+				//questionList.add (computernumber)
+				try {
+					u.out().writeObject(new Task(Task.QUESTION_ADDED));
+					ServerLog.info("sent QUESTION_ADDED");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			else{
+				try {
+					u.out().writeObject(new Task(Task.QUESTION_NOT_ADDED));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				ServerLog.info("sent QUESTION_NOT_ADDED");
 			}
 			break;
 
