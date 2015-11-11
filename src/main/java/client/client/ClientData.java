@@ -12,7 +12,16 @@ public class ClientData {
 	private ObjectInputStream in;
 	private Boolean bool;
 	private Boolean questionAdded;
+	private Boolean countdownBegin = false;
 	
+	public Boolean getCountdownBegin() {
+		return countdownBegin;
+	}
+
+	public void setCountdownBegin(Boolean countdownBegin) {
+		this.countdownBegin = countdownBegin;
+	}
+
 	public ClientData(ObjectInputStream in, ObjectOutputStream out){
 		this.in = in;
 		this.out = out;

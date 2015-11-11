@@ -16,6 +16,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.JSeparator;
 
 import client.ClientData;
 import client.ClientListener;
@@ -42,6 +43,8 @@ public class ClientTray implements Runnable {
 
 	private MenuItem addQuestion = null;
 	private MenuItem exit = null;
+	private MenuItem submitAssignment = null;
+	private MenuItem takeTest = null;
 
 	private PopupMenu popup = null;
 	TrayIcon trayIcon = null;
@@ -102,13 +105,23 @@ public class ClientTray implements Runnable {
 	public void createMenuComponents() {
 		addQuestion = new MenuItem("Add Question");
 		exit = new MenuItem("Exit");
+		takeTest = new MenuItem("Take Test");
+		submitAssignment = new MenuItem("Submit Assignment");
 		components.add(addQuestion);
+		components.add(submitAssignment);
+		components.add(takeTest);
 		components.add(exit);
 	}
 
 	public void addMenuComponents() {
 		for (int i = 0; i < components.size(); i++) {
 			popup.add(components.get(i));
+			if(i == 1){
+				popup.addSeparator();
+			}
+			if(i == 2 ){
+				popup.addSeparator();
+			}
 		}
 		trayIcon.setPopupMenu(popup);
 	}
@@ -130,12 +143,42 @@ public class ClientTray implements Runnable {
 				System.exit(0);
 			}
 		});
+		
+		submitAssignment.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		
+		takeTest.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 
 	}
 
+	
+
+	@Override
+	public void run() {
+
+		while (true) {
+			time = System.nanoTime();
+			updateMenu();
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+	
 	public void updateMenu() {
 		if (!canQuestion)
-			updateQuestion();
+			if(cd.getCountdownBegin())
+				updateQuestion();
 	}
 
 	public void updateQuestion() {
@@ -155,46 +198,43 @@ public class ClientTray implements Runnable {
 		// cd.getOS(Task.REQUEST_SYNC);
 
 	}
-
-	@Override
-	public void run() {
-
-		while (true) {
-			time = System.nanoTime();
-			updateMenu();
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-
-	}
+	
 	/**
-	 * THIS INITIALIZES THREADS IF YOU CAN'T READ
+	 * THIS ADDS QUESTIONS IF YOU CAN'T READ
 	 */
 	Thread addQuestionThread = new Thread(new Runnable() {
 		@Override
 		public void run() {
-			Log.info("doing anything");
+			Log.info("Adding Question");
 			if (canQuestion) {
 				canQuestion = false;
 				try {
 					cd.getOut().writeObject(new Task(Task.ASK_QUESTION));
-					for (int i = 0; i < 3; i++) {
+					Boolean added = false;
+					for (int i = 0; i < 5; i++) {
 						try {
+							Thread.sleep(1000);
 							if (cd.getQuestionAdded() != null) {
 								cd.setQuestionAdded(null);
+								cd.setCountdownBegin(false);
 								Log.info("Question has been added!");
+								added = true;
 								break;
 							}
-							Log.info("nope");
-							Thread.sleep(1000);
+							Log.info("Have not received confirmation from server for "+(3-i)+" seconds, retrying "+i+" more times");
+							
 
 						} catch (Exception e) {
 							Log.error("error at addQuestion while waiting for response");
 							e.printStackTrace();
 						}
+					}
+					if(added){
+						added = false;
+					}
+					else{
+						Log.error("server did not respond to addQuestion in 5 seconds");
+						//TODO ERROR MESSAGE
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
