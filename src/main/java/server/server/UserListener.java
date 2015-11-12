@@ -18,7 +18,7 @@ public class UserListener implements Runnable {
 	public UserListener(UserInformation u, Socket connection) {
 		this.u = u;
 		this.connection = connection;
-		
+
 	}
 
 	@Override
@@ -33,26 +33,27 @@ public class UserListener implements Runnable {
 					actOnTask(o);
 
 				} else {
-					ServerLog.error("Server has recieved an unrecognized object from "+u.getUserName()+" on the computer "+u.getHostname());
+					ServerLog.error("Server has recieved an unrecognized object from " + u.getUserName()
+							+ " on the computer " + u.getHostname());
 				}
 
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
-				ServerLog.warn("Lost connection with "+u.getHostname());
+				ServerLog.warn("Lost connection with " + u.getHostname());
 				break;
-				
+
 			}
 		}
 		try {
 			connection.close();
-			ServerLog.info("Successfully closed connection w/ "+u.getHostname());
+			ServerLog.info("Successfully closed connection w/ " + u.getHostname());
 		} catch (IOException e1) {
 			e1.printStackTrace();
-			ServerLog.error("Error closing connection w/ "+u.getHostname());
+			ServerLog.error("Error closing connection w/ " + u.getHostname());
 		}
-		
+
 	}
 
 	/**
@@ -66,15 +67,15 @@ public class UserListener implements Runnable {
 		switch (t.getTask()) {
 
 		case Task.ASK_QUESTION:
-			ServerLog.info("received "+t.getTask());
-			Server.getQuestionList().add(new Question(u.getHostname(),u.getUserName()));
-			//SQL if (LastQuestionAsked == 0 || lastQuestionAsked-currentTime > maxTime){
-			//questionList.add (computernumber)
+			ServerLog.info("received " + t.getTask());
+			Server.getQuestionList().get(u.getClassroom()).add(new Question(u.getHostname(), u.getUserName()));
+			// SQL if (LastQuestionAsked == 0 || lastQuestionAsked-currentTime > maxTime){
+			// questionList.add (computernumber)
 			try {
 				u.out().writeObject(new Task(Task.QUESTION_ADDED));
 				ServerLog.info("sent QUESTION_ADDED");
 			} catch (IOException e) {
-				
+
 				e.printStackTrace();
 			}
 			break;
