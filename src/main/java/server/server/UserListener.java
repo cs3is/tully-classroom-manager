@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import Questions.Question;
 import util.Task;
 import util.infoForClientToReceiveAndParseAndProbablyUseToo;
+//import util.infoForClientToReceiveAndParseAndProbablyUseToo;
 import utils.ServerConfigManager;
 import utils.ServerLog;
 
@@ -28,9 +29,15 @@ public class UserListener implements Runnable {
 	public void run() {
 		timeBetweenQuestions = ServerConfigManager.getLong("TIME_BETWEEN_QUESTIONS")*1000000000L;
 		try {
+		//	u.out().reset();
+			Thread.sleep(125);
+			ServerLog.debug("sending init");
 			u.out().writeObject(new Task(Task.INIT,new infoForClientToReceiveAndParseAndProbablyUseToo(timeBetweenQuestions)));
+			ServerLog.debug("sent init");
 		} catch (IOException e2) {
 			e2.printStackTrace();
+		}catch(InterruptedException ie){
+			ie.printStackTrace();
 		}
 		while (true) {
 			try {
@@ -81,6 +88,7 @@ public class UserListener implements Runnable {
 				//SQL if (LastQuestionAsked == 0 || lastQuestionAsked-currentTime > maxTime){
 				//questionList.add (computernumber)
 				try {
+					ServerLog.info("sending QUESTION_ADDED");
 					u.out().writeObject(new Task(Task.QUESTION_ADDED));
 					ServerLog.info("sent QUESTION_ADDED");
 				} catch (IOException e) {
@@ -89,11 +97,12 @@ public class UserListener implements Runnable {
 			}
 			else{
 				try {
+					ServerLog.info("sending QUESTION_ADDED");
 					u.out().writeObject(new Task(Task.QUESTION_NOT_ADDED));
+					ServerLog.info("sent QUESTION_NOT_ADDED");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				ServerLog.info("sent QUESTION_NOT_ADDED");
 			}
 			break;
 

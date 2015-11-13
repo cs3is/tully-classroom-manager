@@ -55,8 +55,9 @@ public class ClientTray implements Runnable {
 	public ClientTray(ClientData cd) {
 		// init objectstreams
 		this.cd = cd;
+		Log.debug("Starting clientlistener...");
 		cl = new ClientListener(cd);
-
+		
 		// get username
 		userName = System.getProperty("user.name");
 		System.out.println("The user name is: " + userName.trim());
@@ -221,7 +222,7 @@ public class ClientTray implements Runnable {
 								added = true;
 								break;
 							}
-							Log.info("Have not received confirmation from server for "+(3-i)+" seconds, retrying "+i+" more times");
+							Log.info("Have not received confirmation from server for "+(5-i)+" seconds, retrying "+i+" more times");
 							
 
 						} catch (Exception e) {

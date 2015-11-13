@@ -18,7 +18,7 @@ public class Task implements Serializable {
 	public final static int DISABLE_COMPUTER = 24;
 	public final static int QUESTION_ADDED = 25;
 	public final static int QUESTION_NOT_ADDED = 26;
-	public final static int INIT = 27;
+	public final static int INIT = 28;
 
 	// Only to be invoked by the admin client
 
@@ -39,6 +39,7 @@ public class Task implements Serializable {
 	 */
 	public Task(int toDo) {
 		this.toDo = toDo;
+		System.out.println("The new task is "+ toDo);
 	}
 
 	/**

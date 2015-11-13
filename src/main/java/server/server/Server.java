@@ -16,7 +16,6 @@ import Questions.Question;
 import util.Task;
 import utils.ClientConfig;
 import utils.ClientConfigManager;
-import utils.Log;
 import utils.ServerConfigManager;
 import utils.ServerLog;
 
@@ -57,15 +56,19 @@ public class Server implements Runnable {
 				
 				if (!computerList.keySet().contains(connection.getLocalAddress().getHostName())) {
 					ServerLog.info("Refused Connection from " + connection.getLocalAddress().getHostName());
+					ServerLog.debug("sending \"Connection refused by server, please contact a system administrator\"");
 					out.writeObject(new Task(Task.SEND_NOTIFICATION,
 							"Connection refused by server, please contact a system administrator"));
+					ServerLog.debug("sent \"Connection refused by server, please contact a system administrator\"");
 					connection.close();
 				} else {
 					UserInformation u = new UserInformation((String) in.readObject(), connection.getLocalAddress()
 							.getHostName(), in, out);
 					Thread t = new Thread(new UserListener(u, connection));
 					t.start();
+					ServerLog.debug("sending \"Connection accepted by server\"");
 					out.writeObject(new Task(Task.SEND_NOTIFICATION, "Connection accepted by server"));
+					ServerLog.debug("sent \"Connection accepted by server\"");
 					connectedClients.put(computerList.get(connection.getLocalAddress().getHostName()), u);
 				}
 				Thread.sleep(500);

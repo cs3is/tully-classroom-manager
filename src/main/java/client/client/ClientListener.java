@@ -24,8 +24,10 @@ public class ClientListener implements Runnable {
 			public void run() {
 				while (true) {
 					try {
-						Log.info("reading inputStream");
+						Log.debug("reading inputStream");
 						Object o = cd.getIn().readObject();
+						Log.debug("read inputstream");
+						
 						if (o instanceof Task) {
 
 							actOnTask(o);
@@ -43,10 +45,11 @@ public class ClientListener implements Runnable {
 			}
 		});
 		th.start();
+		Log.debug("clientlistener initialized.");
 	}
 
 	/**
-	 * This method receives a task from the trhead, and then tells the server what to do based on the task's contents.
+	 * This method receives a task from the thread, and then tells the server what to do based on the task's contents.
 	 * 
 	 * @param o
 	 *            The Task that is sent to the server, in the form of an object
@@ -58,12 +61,12 @@ public class ClientListener implements Runnable {
 
 		case Task.QUESTION_ADDED:
 			cd.setQuestionAdded(true);
-			Log.info("received " + t.getTask());
+			Log.info("received QUESTION_ADDED");
 			//TODO Add QUESTION_NOT_ADDED, make both send baloon messages too.
 			break;
 		case Task.INIT:
-			//TODO WORK ON THIS NOWOWWWW
-			sConfig = t.getO();
+			Log.info("received INIT");
+			//sConfig = t.getO();
 			break;
 
 		case Task.QUESTION_REMOVED:
