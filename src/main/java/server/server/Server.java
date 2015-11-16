@@ -18,14 +18,13 @@ import Questions.Question;
 import util.Task;
 import utils.ClientConfig;
 import utils.ClientConfigManager;
-import utils.Log;
 import utils.ServerConfigManager;
 import utils.ServerLog;
 
 public class Server implements Runnable {
-	
-	//TODO http://www.javacodegeeks.com/2012/10/create-new-message-notification-pop-up.html 
-	//follow that link in order to create fabulous pop up boxes for alerts!
+
+	// TODO http://www.javacodegeeks.com/2012/10/create-new-message-notification-pop-up.html
+	// follow that link in order to create fabulous pop up boxes for alerts!
 
 	private ServerSocket serverSocket;
 	// private ServerSocket serverSocket2;
@@ -45,7 +44,7 @@ public class Server implements Runnable {
 	/**
 	 * An arraylist that contains a Queue of questions for each classroom.
 	 */
-	private static ArrayList<PriorityQueue<Question>> questionList = new ArrayList<PriorityQueue<Question>>();
+	private static ArrayList<LinkedList<Question>> questionList = new ArrayList<LinkedList<Question>>();
 	/**
 	 * The location of all of the computers that will be able to connect to the server.
 	 */
@@ -91,15 +90,19 @@ public class Server implements Runnable {
 
 				if (!connectionAccepted) {
 					ServerLog.info("Refused Connection from " + connection.getLocalAddress().getHostName());
+					ServerLog.debug("sending \"Connection refused by server, please contact a system administrator\"");
 					out.writeObject(new Task(Task.SEND_NOTIFICATION,
 							"Connection refused by server, please contact a system administrator"));
+					ServerLog.debug("sent \"Connection refused by server, please contact a system administrator\"");
 					connection.close();
 				} else {
 					UserInformation u = new UserInformation(selectedClass, (String) in.readObject(), connection
 							.getLocalAddress().getHostName(), in, out);
 					Thread t = new Thread(new UserListener(u, connection));
 					t.start();
+					ServerLog.debug("sending \"Connection accepted by server\"");
 					out.writeObject(new Task(Task.SEND_NOTIFICATION, "Connection accepted by server"));
+
 					connectedClients.get(selectedClass).put(
 							computerList.get(selectedClass).get(connection.getLocalAddress().getHostName()), u);
 				}
@@ -133,6 +136,7 @@ public class Server implements Runnable {
 		try {
 			scan = new Scanner(new File(fileLocation));
 			computerList.add(new HashMap<String, Integer>());
+			questionList.add(new LinkedList<Question>());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -142,7 +146,7 @@ public class Server implements Runnable {
 			String next = line.next().trim();
 			if (next.equals("-")) {
 				computerList.add(new HashMap<String, Integer>());
-				questionList.add(new PriorityQueue<Question>());
+				questionList.add(new LinkedList<Question>());
 				selectedClass++;
 			} else {
 				value = Integer.parseInt(next);
@@ -153,8 +157,8 @@ public class Server implements Runnable {
 		numberOfTeachers = selectedClass;
 		ServerLog.debug("Loaded the list of computers");
 	}
-	
-	public static ArrayList<Queue<Question>> getQuestionList() {
+
+	public static ArrayList<LinkedList<Question>> getQuestionList() {
 		return questionList;
 	}
 
