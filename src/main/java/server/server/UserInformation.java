@@ -11,12 +11,14 @@ public class UserInformation {
 	 */
 	private long LQT = 0;
 
+	private int classroom;
 	private String Hostname;
 	private String userName;
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
 
-	public UserInformation(String userName, String Hostname, ObjectInputStream in, ObjectOutputStream out) {
+	public UserInformation(int classroom,String userName, String Hostname, ObjectInputStream in, ObjectOutputStream out) {
+		this.classroom = classroom;
 		this.userName = userName;
 		this.Hostname = Hostname;
 		this.in = in;
@@ -24,6 +26,10 @@ public class UserInformation {
 
 	}
 
+	public int getClassroom(){
+		return classroom;
+	}
+	
 	public void setLastQuestionTime(Long s) {
 		LQT = s;
 	}

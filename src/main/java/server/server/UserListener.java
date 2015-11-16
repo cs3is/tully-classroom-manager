@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import Questions.Question;
 import util.Task;
 import util.infoForClientToReceiveAndParseAndProbablyUseToo;
-//import util.infoForClientToReceiveAndParseAndProbablyUseToo;
 import utils.ServerConfigManager;
 import utils.ServerLog;
 
@@ -22,21 +21,22 @@ public class UserListener implements Runnable {
 	public UserListener(UserInformation u, Socket connection) {
 		this.u = u;
 		this.connection = connection;
-		
+
 	}
 
 	@Override
 	public void run() {
-		timeBetweenQuestions = ServerConfigManager.getLong("TIME_BETWEEN_QUESTIONS")*1000000000L;
+		timeBetweenQuestions = ServerConfigManager.getLong("TIME_BETWEEN_QUESTIONS") * 1000000000L;
 		try {
-		//	u.out().reset();
+			// u.out().reset();
 			Thread.sleep(125);
 			ServerLog.debug("sending init");
-			u.out().writeObject(new Task(Task.INIT,new infoForClientToReceiveAndParseAndProbablyUseToo(timeBetweenQuestions)));
+			u.out().writeObject(
+					new Task(Task.INIT, new infoForClientToReceiveAndParseAndProbablyUseToo(timeBetweenQuestions)));
 			ServerLog.debug("sent init");
 		} catch (IOException e2) {
 			e2.printStackTrace();
-		}catch(InterruptedException ie){
+		} catch (InterruptedException ie) {
 			ie.printStackTrace();
 		}
 		while (true) {
@@ -48,26 +48,27 @@ public class UserListener implements Runnable {
 					actOnTask(o);
 
 				} else {
-					ServerLog.error("Server has recieved an unrecognized object from "+u.getUserName()+" on the computer "+u.getHostname());
+					ServerLog.error("Server has recieved an unrecognized object from " + u.getUserName()
+							+ " on the computer " + u.getHostname());
 				}
 
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
-				ServerLog.warn("Lost connection with "+u.getHostname());
+				ServerLog.warn("Lost connection with " + u.getHostname());
 				break;
-				
+
 			}
 		}
 		try {
 			connection.close();
-			ServerLog.info("Successfully closed connection w/ "+u.getHostname());
+			ServerLog.info("Successfully closed connection w/ " + u.getHostname());
 		} catch (IOException e1) {
 			e1.printStackTrace();
-			ServerLog.error("Error closing connection w/ "+u.getHostname());
+			ServerLog.error("Error closing connection w/ " + u.getHostname());
 		}
-		
+
 	}
 
 	/**
@@ -81,21 +82,25 @@ public class UserListener implements Runnable {
 		switch (t.getTask()) {
 
 		case Task.ASK_QUESTION:
-			ServerLog.info("received "+t.getTask());
-			if(u.getLastQuestionTime() == 0 || u.getLastQuestionTime()-System.nanoTime() > timeBetweenQuestions){
+			ServerLog.info("received " + t.getTask());
+
+			// SQL if (LastQuestionAsked == 0 || lastQuestionAsked-currentTime > maxTime){
+			// questionList.add (computernumber)
+
+			if (u.getLastQuestionTime() == 0 || u.getLastQuestionTime() - System.nanoTime() > timeBetweenQuestions) {
+
 				u.setLastQuestionTime(System.nanoTime());
-				Server.getQuestionList().add(new Question(u.getHostname(),u.getUserName()));
-				//SQL if (LastQuestionAsked == 0 || lastQuestionAsked-currentTime > maxTime){
-				//questionList.add (computernumber)
+				Server.getQuestionList().get(u.getClassroom()).add(new Question(u.getHostname(), u.getUserName()));
+				// SQL if (LastQuestionAsked == 0 || lastQuestionAsked-currentTime > maxTime){
+				// questionList.add (computernumber)
 				try {
-					ServerLog.info("sending QUESTION_ADDED");
+
 					u.out().writeObject(new Task(Task.QUESTION_ADDED));
 					ServerLog.info("sent QUESTION_ADDED");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			}
-			else{
+			} else {
 				try {
 					ServerLog.info("sending QUESTION_NOT_ADDED");
 					u.out().writeObject(new Task(Task.QUESTION_NOT_ADDED));
@@ -103,10 +108,11 @@ public class UserListener implements Runnable {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+
 			}
 			break;
 		case Task.REMOVE_QUESTION:
-			ServerLog.info("removed question "+Server.getQuestionList().poll());
+			ServerLog.info("removed question "+Server.getQuestionList().get(u.getClassroom()).poll());
 			ServerLog.info("sending REMOVED_QUESTION");
 			try {
 				u.out().writeObject(new Task(Task.QUESTION_REMOVED));
