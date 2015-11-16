@@ -45,7 +45,7 @@ public class Server implements Runnable {
 	/**
 	 * An arraylist that contains a Queue of questions for each classroom.
 	 */
-	private static ArrayList<Queue<Question>> questionList = new ArrayList<Queue<Question>>();
+	private static ArrayList<PriorityQueue<Question>> questionList = new ArrayList<PriorityQueue<Question>>();
 	/**
 	 * The location of all of the computers that will be able to connect to the server.
 	 */
@@ -142,6 +142,7 @@ public class Server implements Runnable {
 			String next = line.next().trim();
 			if (next.equals("-")) {
 				computerList.add(new HashMap<String, Integer>());
+				questionList.add(new PriorityQueue<Question>());
 				selectedClass++;
 			} else {
 				value = Integer.parseInt(next);

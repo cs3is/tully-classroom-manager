@@ -59,7 +59,7 @@ public class ClientListener implements Runnable {
 		case Task.QUESTION_ADDED:
 			cd.setQuestionAdded(true);
 			Log.info("received " + t.getTask());
-			//TODO Add QUESTION_NOT_ADDED, make both send baloon messages too.
+			//TODO Add QUESTION_NOT_ADDED, make both send balloon messages too.
 			break;
 		case Task.INIT:
 			//TODO WORK ON THIS NOWOWWWW
