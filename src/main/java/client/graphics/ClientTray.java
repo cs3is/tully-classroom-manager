@@ -57,7 +57,6 @@ public class ClientTray implements Runnable {
 		this.cd = cd;
 		Log.debug("Starting clientlistener...");
 		cl = new ClientListener(cd);
-		
 		// get username
 		userName = System.getProperty("user.name");
 		System.out.println("The user name is: " + userName.trim());

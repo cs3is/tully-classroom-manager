@@ -105,6 +105,9 @@ public class UserListener implements Runnable {
 				}
 			}
 			break;
+		case Task.REMOVE_QUESTION:
+			ServerLog.info("removed question "+Server.getQuestionList().poll());
+			break;
 
 		case Task.SUBMIT_LAB:
 			break;
