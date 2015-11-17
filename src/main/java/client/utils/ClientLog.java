@@ -1,6 +1,6 @@
 package utils;
 
-public class Log {
+public class ClientLog {
 
 	/**
 	 * Shortcut for doing System.out.println().

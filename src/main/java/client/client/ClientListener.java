@@ -5,7 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import util.Task;
-import utils.Log;
+import utils.ClientLog;
 import utils.ServerLog;
 
 public class ClientListener implements Runnable {
@@ -24,16 +24,16 @@ public class ClientListener implements Runnable {
 			public void run() {
 				while (true) {
 					try {
-						Log.debug("reading inputStream");
+						ClientLog.debug("reading inputStream");
 						Object o = cd.getIn().readObject();
-						Log.debug("read inputstream");
+						ClientLog.debug("read inputstream");
 
 						if (o instanceof Task) {
 
 							actOnTask(o);
 
 						} else {
-							Log.error("Client has recieved an unrecognized object");
+							ClientLog.error("Client has recieved an unrecognized object");
 						}
 
 					} catch (ClassNotFoundException e) {
@@ -45,7 +45,7 @@ public class ClientListener implements Runnable {
 			}
 		});
 		th.start();
-		Log.debug("clientlistener initialized.");
+		ClientLog.debug("clientlistener initialized.");
 	}
 
 	/**
@@ -56,16 +56,16 @@ public class ClientListener implements Runnable {
 	 */
 	private void actOnTask(Object o) {
 		Task t = (Task) o;
-		Log.info("received " + t.getTask());
+		ClientLog.info("received " + t.getTask());
 		switch (t.getTask()) {
 
 		case Task.QUESTION_ADDED:
 			cd.setQuestionAdded(true);
-			Log.info("received QUESTION_ADDED");
+			ClientLog.info("received QUESTION_ADDED");
 			// TODO Add QUESTION_NOT_ADDED, make both send baloon messages too.
 			break;
 		case Task.INIT:
-			Log.info("received INIT");
+			ClientLog.info("received INIT");
 			// sConfig = t.getO();
 			break;
 
