@@ -102,7 +102,7 @@ public class UserListener implements Runnable {
 				}
 			} else {
 				try {
-
+					ServerLog.info("sending QUESTION_NOT_ADDED");
 					u.out().writeObject(new Task(Task.QUESTION_NOT_ADDED));
 					ServerLog.info("sent QUESTION_NOT_ADDED");
 				} catch (IOException e) {
@@ -112,7 +112,14 @@ public class UserListener implements Runnable {
 			}
 			break;
 		case Task.REMOVE_QUESTION:
-			ServerLog.info("removed question " + Server.getQuestionList().get(u.getClassroom()).poll());
+			ServerLog.info("removed question "+Server.getQuestionList().get(u.getClassroom()).poll());
+			ServerLog.info("sending REMOVED_QUESTION");
+			try {
+				u.out().writeObject(new Task(Task.QUESTION_REMOVED));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			ServerLog.info("sent REMOVED_QUESTION");
 			break;
 
 		case Task.SUBMIT_LAB:
