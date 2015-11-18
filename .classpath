@@ -4,7 +4,7 @@
 	<classpathentry kind="src" path="src/main/java/server"/>
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry kind="src" path="src/main/java/common"/>
-	<classpathentry kind="src" path="src/main/java/adminClient"/>
+	<classpathentry kind="src" path="src/main/java/admin"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
