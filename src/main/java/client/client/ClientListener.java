@@ -66,7 +66,8 @@ public class ClientListener implements Runnable {
 			break;
 		case Task.INIT:
 			ClientLog.info("received INIT");
-			// sConfig = t.getO();
+			sConfig =t.getO();
+	//		clienttray.initInit();
 			break;
 
 		case Task.QUESTION_REMOVED:
@@ -103,4 +104,9 @@ public class ClientListener implements Runnable {
 		}
 
 	}
+
+	public Object getConfig() {
+		return sConfig;
+	}
+
 }
