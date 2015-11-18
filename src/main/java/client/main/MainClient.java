@@ -13,28 +13,28 @@ import utils.ClientLog;
 import utils.ServerLog;
 
 public class MainClient {
-	// public static MainFrame f;
+
+	private static Socket connection;
 
 	public static void main(String[] args) {
 
 		new ClientConfigManager();
 
-		// f = new MainFrame();
 		try {
 			System.out.println("Attempting to connect to server");
 
-			Socket connection = new Socket(ClientConfigManager.getStr("SERVER_IP"), ClientConfigManager.getInt("SERVER_PORT"));
-			ClientLog.info("Connected to - "+ClientConfigManager.getStr("SERVER_IP")+" on port: "+ClientConfigManager.getStr("SERVER_PORT"));
-			
-			
+			connection = new Socket(ClientConfigManager.getStr("SERVER_IP"), ClientConfigManager.getInt("SERVER_PORT"));
+			ClientLog.info("Connected to - " + ClientConfigManager.getStr("SERVER_IP") + " on port: "
+					+ ClientConfigManager.getStr("SERVER_PORT"));
+
 			ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
 			ClientLog.debug("Created output stream 1 from connection");
 			ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
-			
-			ClientTray to = new ClientTray(new ClientData(in,out));
-			
+
+			ClientTray to = new ClientTray(new ClientData(in, out));
+
 			// ClientListener cl = new ClientListener(isFromServer,to);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			ClientLog.fatal("An error occurred");
