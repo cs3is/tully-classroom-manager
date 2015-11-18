@@ -17,7 +17,7 @@ import utils.ClientConfig;
 import utils.ClientConfigManager;
 import utils.ServerLog;
 
-public class AdminClientTray implements Runnable{
+public class AdminTray implements Runnable{
 	
 	private ArrayList<MenuItem> components = new ArrayList<MenuItem>();
 	private MenuItem exit = null;
@@ -25,7 +25,7 @@ public class AdminClientTray implements Runnable{
 	TrayIcon trayIcon = null;
 	final SystemTray tray = SystemTray.getSystemTray();
 	
-	public AdminClientTray(){
+	public AdminTray(){
 		init();
 	}
 	
