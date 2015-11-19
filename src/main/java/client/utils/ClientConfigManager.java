@@ -22,7 +22,6 @@ public class ClientConfigManager {
 	private static Scanner scan;
 	public static final HashMap<String, Object> settings = new HashMap<String, Object>();
 	private static String fileLocation = "src/main/java/client/ClientConfig.cfg";
-	private int xResolution, yResolution;
 
 	/**
 	 * Manages everything to do with loading, saving, and accessing the settings that have been set in this program. It saves and loads all of the
@@ -31,10 +30,6 @@ public class ClientConfigManager {
 	 * accessor, each of which cast the Object that is saved in the hashmap into the desired Object type.
 	 */
 	public ClientConfigManager() {
-
-		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-		xResolution = gd.getDisplayMode().getWidth();
-		yResolution = gd.getDisplayMode().getHeight();
 
 		try {
 
@@ -232,22 +227,6 @@ public class ClientConfigManager {
 	 */
 	public void addSetting(String key, String value) {
 		settings.put(key, value);
-	}
-
-	/**
-	 * 
-	 * @return The number of pixels on the monitor in the X field
-	 */
-	public int getXResolution() {
-		return xResolution;
-	}
-
-	/**
-	 * 
-	 * @return The number of pixels on the monitor height in the Y field
-	 */
-	public int getYResolution() {
-		return yResolution;
 	}
 
 }

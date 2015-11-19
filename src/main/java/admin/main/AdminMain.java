@@ -1,10 +1,47 @@
 package main;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+
+import client.ClientData;
+import utils.AdminConfigManager;
+import utils.AdminLog;
+import utils.ClientConfigManager;
+import utils.ClientLog;
+import graphics.AdminFrame;
 import graphics.AdminTray;
 import graphics.ClientTray;
 
 public class AdminMain {
-	public static void main(String[] args){
-		AdminTray T = new AdminTray();
+
+	private static Socket connection;
+
+	public static void main(String[] args) {
+
+		new AdminConfigManager();
+		AdminFrame AF;
+
+		try {
+			System.out.println("Attempting to connect to server");
+
+			connection = new Socket(AdminConfigManager.getStr("SERVER_IP"), AdminConfigManager.getInt("SERVER_PORT"));
+			AdminLog.info("Connected to - " + AdminConfigManager.getStr("SERVER_IP") + " on port: "
+					+ AdminConfigManager.getStr("SERVER_PORT"));
+
+			ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
+			AdminLog.debug("Created output stream 1 from connection");
+			ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
+
+			AdminTray T = new AdminTray();
+
+			AF = new AdminFrame();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			ClientLog.fatal("An error occurred");
+			System.exit(0);
+		}
+
 	}
 }
