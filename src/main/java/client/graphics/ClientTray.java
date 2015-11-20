@@ -58,9 +58,7 @@ public class ClientTray implements Runnable {
 	public ClientTray(ClientData cd) {
 		// init objectstreams
 		this.cd = cd;
-		ClientLog.debug("Starting clientlistener...");
-		cl = new ClientListener(cd);
-		// get username
+		
 		userName = System.getProperty("user.name");
 		System.out.println("The user name is: " + userName.trim());
 		try {
@@ -68,6 +66,11 @@ public class ClientTray implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		ClientLog.debug("Starting clientlistener...");
+		cl = new ClientListener(cd);
+		// get username
+		
 
 		init();
 
@@ -237,7 +240,6 @@ public class ClientTray implements Runnable {
 					}
 					else{
 						ClientLog.error("server did not respond to addQuestion in 5 seconds");
-						//TODO ERROR MESSAGE
 					}
 				} catch (IOException e) {
 					e.printStackTrace();

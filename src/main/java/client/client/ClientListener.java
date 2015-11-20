@@ -16,6 +16,19 @@ public class ClientListener implements Runnable {
 		this.cd = cd;
 		Thread t = new Thread();
 		t.start();
+
+		do {
+			try {
+
+				readObj();
+
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} while (sConfig == null);
+		ClientLog.info("Received init file");
 		initializeObjectListener();
 	}
 
@@ -24,17 +37,8 @@ public class ClientListener implements Runnable {
 			public void run() {
 				while (true) {
 					try {
-						ClientLog.debug("reading inputStream");
-						Object o = cd.getIn().readObject();
-						ClientLog.debug("read inputstream");
 
-						if (o instanceof Task) {
-
-							actOnTask(o);
-
-						} else {
-							ClientLog.error("Client has recieved an unrecognized object");
-						}
+						readObj();
 
 					} catch (ClassNotFoundException e) {
 						e.printStackTrace();
@@ -48,8 +52,23 @@ public class ClientListener implements Runnable {
 		ClientLog.debug("clientlistener initialized.");
 	}
 
+	public void readObj() throws ClassNotFoundException, IOException {
+		ClientLog.debug("reading inputStream");
+		Object o = cd.getIn().readObject();
+		ClientLog.debug("read inputstream");
+
+		if (o instanceof Task) {
+
+			actOnTask(o);
+
+		} else {
+			ClientLog.error("Client has recieved an unrecognized object");
+		}
+	}
+
 	/**
-	 * This method receives a task from the thread, and then tells the server what to do based on the task's contents.
+	 * This method receives a task from the thread, and then tells the server
+	 * what to do based on the task's contents.
 	 * 
 	 * @param o
 	 *            The Task that is sent to the server, in the form of an object
@@ -66,8 +85,8 @@ public class ClientListener implements Runnable {
 			break;
 		case Task.INIT:
 			ClientLog.info("received INIT");
-			sConfig =t.getO();
-	//		clienttray.initInit();
+			sConfig = t.getO();
+			// clienttray.initInit();
 			break;
 
 		case Task.QUESTION_REMOVED:

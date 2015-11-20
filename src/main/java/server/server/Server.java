@@ -79,7 +79,8 @@ public class Server implements Runnable {
 
 				// ObjectOutputStream out2 = new ObjectOutputStream(connection2.getOutputStream());
 				// ObjectInputStream in2 = new ObjectInputStream(connection2.getInputStream());
-
+				
+				//This for loop checks which classroom the client belongs to. (i think);
 				for (int i = 0; i < 2; i++) {
 					if (computerList.get(i).keySet().contains(connection.getLocalAddress().getHostName())) {
 						connectionAccepted = true;
@@ -87,6 +88,7 @@ public class Server implements Runnable {
 					}
 
 				}
+				
 
 				if (!connectionAccepted) {
 					ServerLog.info("Refused Connection from " + connection.getLocalAddress().getHostName());
