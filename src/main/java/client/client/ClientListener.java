@@ -1,5 +1,10 @@
 package client;
 
+import java.awt.AWTException;
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -11,10 +16,17 @@ import utils.ServerLog;
 public class ClientListener implements Runnable {
 	private ClientData cd;
 	private Object sConfig;
+	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	Robot robo;
 
 	public ClientListener(ClientData cd) {
 		this.cd = cd;
 		Thread t = new Thread();
+		try {
+			Robot robo = new Robot();
+		} catch (AWTException e1) {
+			e1.printStackTrace();
+		}
 		t.start();
 
 		do {
@@ -62,7 +74,7 @@ public class ClientListener implements Runnable {
 			actOnTask(o);
 
 		} else {
-			ClientLog.error("Client has recieved an unrecognized object");
+			ClientLog.error("Client has recieved an unrecognized object;ayy lmao");
 		}
 	}
 
@@ -90,6 +102,8 @@ public class ClientListener implements Runnable {
 			break;
 
 		case Task.QUESTION_REMOVED:
+			ClientLog.info("received QUESTION_REMOVED");
+			cd.setCountdownBegin(true);
 			break;
 
 		case Task.SEND_NOTIFICATION:
@@ -97,6 +111,13 @@ public class ClientListener implements Runnable {
 			break;
 
 		case Task.GET_SCREENSHOT:
+			
+			try {
+				cd.getOut().writeObject(new Task(Task.SCREENSHOT,robo.createScreenCapture(new Rectangle(0,0,(int)screenSize.getWidth(),(int)screenSize.getHeight()))));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			break;
 
 		case Task.GET_PROCESSES:

@@ -1,5 +1,6 @@
 package server;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -17,6 +18,7 @@ public class UserListener implements Runnable {
 	UserInformation u;
 	Socket connection;
 	Long timeBetweenQuestions;
+	BufferedImage mostRecentScreenshot;
 
 	public UserListener(UserInformation u, Socket connection) {
 		this.u = u;
@@ -129,6 +131,9 @@ public class UserListener implements Runnable {
 			break;
 
 		case Task.SYNC:
+			break;
+		case Task.SCREENSHOT:
+			mostRecentScreenshot = (BufferedImage) t.getO();
 			break;
 
 		}
