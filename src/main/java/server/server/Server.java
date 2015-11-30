@@ -71,15 +71,15 @@ public class Server implements Runnable {
 				// ServerLog.debug("Waiting for client... (port: " + ServerConfigManager.getStr("SERVER_PORT") + ")");
 				// TODO uncomment this when the debug mode is turned off
 				Socket connection = serverSocket.accept();
-				// Socket connection2 = serverSocket.accept();
 				ServerLog.debug("Connected to: " + connection.getRemoteSocketAddress());
 
 				ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
 				ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
 
-				// ObjectOutputStream out2 = new ObjectOutputStream(connection2.getOutputStream());
-				// ObjectInputStream in2 = new ObjectInputStream(connection2.getInputStream());
-
+				/**
+				 * This for loop goes through the list of the clients that are able to connect to the server, and sees if the client that is trying to
+				 * connect should be allowed. Also determines what class the user connecting belongs to.
+				 */
 				for (int i = 0; i < 2; i++) {
 					if (computerList.get(i).keySet().contains(connection.getLocalAddress().getHostName())) {
 						connectionAccepted = true;

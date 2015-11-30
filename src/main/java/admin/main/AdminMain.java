@@ -4,16 +4,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import client.ClientData;
 import utils.AdminConfigManager;
 import utils.AdminLog;
-import utils.ClientConfigManager;
 import utils.ClientLog;
 import graphics.AdminFrame;
 import graphics.AdminTray;
-import graphics.ClientTray;
+import graphics.AdminGui;
 
-public class AdminMain {
+public class AdminMain{
 
 	private static Socket connection;
 
@@ -35,7 +33,8 @@ public class AdminMain {
 
 			AdminTray T = new AdminTray();
 
-			AF = new AdminFrame();
+			new AdminGui();
+//			AF = new AdminFrame();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -44,4 +43,5 @@ public class AdminMain {
 		}
 
 	}
+
 }
