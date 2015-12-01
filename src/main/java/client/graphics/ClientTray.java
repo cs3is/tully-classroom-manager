@@ -1,9 +1,12 @@
 package graphics;
 
 import java.awt.AWTException;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
+import java.awt.Rectangle;
+import java.awt.Robot;
 import java.awt.SystemTray;
 import java.awt.Toolkit;
 import java.awt.TrayIcon;
@@ -50,6 +53,7 @@ public class ClientTray implements Runnable {
 	private PopupMenu popup = null;
 	TrayIcon trayIcon = null;
 
+	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	final SystemTray tray = SystemTray.getSystemTray();
 	
 	private long timeBetweenQuestions = 0;
@@ -58,6 +62,15 @@ public class ClientTray implements Runnable {
 	public ClientTray(ClientData cd) {
 		// init objectstreams
 		this.cd = cd;
+		Robot robo;
+		try {
+			robo = new Robot();
+			new LockFrame(robo.createScreenCapture(new Rectangle(0,0,(int)screenSize.getWidth(),(int)screenSize.getHeight())));
+		} catch (AWTException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		
 		userName = System.getProperty("user.name");
 		System.out.println("The user name is: " + userName.trim());

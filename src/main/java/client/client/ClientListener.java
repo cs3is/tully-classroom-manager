@@ -2,6 +2,7 @@ package client;
 
 import java.awt.AWTException;
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import graphics.ClientTray;
 import util.Task;
 import utils.ClientLog;
 import utils.ServerLog;
@@ -124,6 +126,7 @@ public class ClientListener implements Runnable {
 			break;
 
 		case Task.DISABLE_COMPUTER:
+			//TODO new Frame();
 			break;
 
 		case Task.SYNC:
