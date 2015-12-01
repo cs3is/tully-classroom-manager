@@ -21,6 +21,7 @@ import javax.swing.JSeparator;
 import client.ClientData;
 import client.ClientListener;
 import util.Task;
+import util.infoForClientToReceiveAndParseAndProbablyUseToo;
 import utils.ClientConfig;
 import utils.ClientConfigManager;
 import utils.ClientLog;
@@ -51,13 +52,13 @@ public class ClientTray implements Runnable {
 
 	final SystemTray tray = SystemTray.getSystemTray();
 	
+	private long timeBetweenQuestions = 0;
+	
 
 	public ClientTray(ClientData cd) {
 		// init objectstreams
 		this.cd = cd;
-		ClientLog.debug("Starting clientlistener...");
-		cl = new ClientListener(cd);
-		// get username
+		
 		userName = System.getProperty("user.name");
 		System.out.println("The user name is: " + userName.trim());
 		try {
@@ -65,6 +66,11 @@ public class ClientTray implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		ClientLog.debug("Starting clientlistener...");
+		cl = new ClientListener(cd);
+		// get username
+		
 
 		init();
 
@@ -183,7 +189,7 @@ public class ClientTray implements Runnable {
 
 	public void updateQuestion() {
 		long diff = time - qTime;
-		long label = (((120 * 1000000000L) - diff) / 1000000000L);
+		long label = (((timeBetweenQuestions * 1000000000L) - diff) / 1000000000L);
 		// Log.info(time+"");
 		// Log.info(qTime+"");
 		if (diff > 120 * 1000000000L) {
@@ -234,7 +240,6 @@ public class ClientTray implements Runnable {
 					}
 					else{
 						ClientLog.error("server did not respond to addQuestion in 5 seconds");
-						//TODO ERROR MESSAGE
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -245,5 +250,29 @@ public class ClientTray implements Runnable {
 	public void initializeThreads() {
 		
 	}
+	public void initInit(){
+		timeBetweenQuestions = ((infoForClientToReceiveAndParseAndProbablyUseToo) cl.getConfig()).getTimeBetweenQuestions();
+	}
+}
 
+
+
+class John{
+	public John(boolean b){
+		if(b == true){
+			
+		}else{
+			ClientLog.info("hello");
+		}
+	}
+}
+
+class Cena{
+	public Cena(boolean b){
+		if(b == true){
+			
+		}else{
+			ClientLog.info("goodbye");
+		}
+	}
 }

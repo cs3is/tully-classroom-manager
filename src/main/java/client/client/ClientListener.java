@@ -1,5 +1,10 @@
 package client;
 
+import java.awt.AWTException;
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -11,11 +16,31 @@ import utils.ServerLog;
 public class ClientListener implements Runnable {
 	private ClientData cd;
 	private Object sConfig;
+	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	Robot robo;
 
 	public ClientListener(ClientData cd) {
 		this.cd = cd;
 		Thread t = new Thread();
+		try {
+			Robot robo = new Robot();
+		} catch (AWTException e1) {
+			e1.printStackTrace();
+		}
 		t.start();
+
+		do {
+			try {
+
+				readObj();
+
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} while (sConfig == null);
+		ClientLog.info("Received init file");
 		initializeObjectListener();
 	}
 
@@ -24,17 +49,8 @@ public class ClientListener implements Runnable {
 			public void run() {
 				while (true) {
 					try {
-						ClientLog.debug("reading inputStream");
-						Object o = cd.getIn().readObject();
-						ClientLog.debug("read inputstream");
 
-						if (o instanceof Task) {
-
-							actOnTask(o);
-
-						} else {
-							ClientLog.error("Client has recieved an unrecognized object");
-						}
+						readObj();
 
 					} catch (ClassNotFoundException e) {
 						e.printStackTrace();
@@ -48,8 +64,23 @@ public class ClientListener implements Runnable {
 		ClientLog.debug("clientlistener initialized.");
 	}
 
+	public void readObj() throws ClassNotFoundException, IOException {
+		ClientLog.debug("reading inputStream");
+		Object o = cd.getIn().readObject();
+		ClientLog.debug("read inputstream");
+
+		if (o instanceof Task) {
+
+			actOnTask(o);
+
+		} else {
+			ClientLog.error("Client has recieved an unrecognized object;ayy lmao");
+		}
+	}
+
 	/**
-	 * This method receives a task from the thread, and then tells the server what to do based on the task's contents.
+	 * This method receives a task from the thread, and then tells the server
+	 * what to do based on the task's contents.
 	 * 
 	 * @param o
 	 *            The Task that is sent to the server, in the form of an object
@@ -66,10 +97,13 @@ public class ClientListener implements Runnable {
 			break;
 		case Task.INIT:
 			ClientLog.info("received INIT");
-			// sConfig = t.getO();
+			sConfig = t.getO();
+			// clienttray.initInit();
 			break;
 
 		case Task.QUESTION_REMOVED:
+			ClientLog.info("received QUESTION_REMOVED");
+			cd.setCountdownBegin(true);
 			break;
 
 		case Task.SEND_NOTIFICATION:
@@ -77,6 +111,13 @@ public class ClientListener implements Runnable {
 			break;
 
 		case Task.GET_SCREENSHOT:
+			
+			try {
+				cd.getOut().writeObject(new Task(Task.SCREENSHOT,robo.createScreenCapture(new Rectangle(0,0,(int)screenSize.getWidth(),(int)screenSize.getHeight()))));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			break;
 
 		case Task.GET_PROCESSES:
@@ -103,4 +144,9 @@ public class ClientListener implements Runnable {
 		}
 
 	}
+
+	public Object getConfig() {
+		return sConfig;
+	}
+
 }
