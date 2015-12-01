@@ -26,6 +26,7 @@ public class Task implements Serializable {
 
 	// To be invoked by either the Client or the server
 	public final static int SYNC = 60;
+	public final static int REQUEST_VALUE = 61;
 
 	private int toDo = -1;
 	private String text = null;

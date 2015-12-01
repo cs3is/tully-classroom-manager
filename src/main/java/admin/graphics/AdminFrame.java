@@ -15,6 +15,9 @@ public class AdminFrame extends JFrame {
 		setResizable(true);
 		setLayout(null);
 		
+		new MenuBar();
+		setJMenuBar(MenuBar.menu);
+		
 		setVisible(true);
 		
 	}

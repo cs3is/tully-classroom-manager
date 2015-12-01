@@ -61,6 +61,8 @@ public class UserListener implements Runnable {
 				ServerLog.warn("Lost connection with " + u.getHostname());
 				break;
 
+			}catch(Exception e){
+				e.printStackTrace();
 			}
 		}
 		try {
@@ -79,7 +81,7 @@ public class UserListener implements Runnable {
 	 * @param o
 	 *            The Task that is sent to the server, in the form of an object
 	 */
-	private void actOnTask(Object o) {
+	private void actOnTask(Object o){
 		Task t = (Task) o;
 		switch (t.getTask()) {
 
@@ -115,7 +117,7 @@ public class UserListener implements Runnable {
 			break;
 		case Task.REMOVE_QUESTION:
 			ServerLog.info("removed question "+Server.getQuestionList().get(u.getClassroom()).poll());
-			ServerLog.info("sending REMOVED_QUESTION");
+			ServerLog.debug("sending REMOVED_QUESTION");
 			try {
 				u.out().writeObject(new Task(Task.QUESTION_REMOVED));
 			} catch (IOException e) {
@@ -132,8 +134,18 @@ public class UserListener implements Runnable {
 
 		case Task.SYNC:
 			break;
+<<<<<<< HEAD
+			
+		case Task.REQUEST_VALUE:
+			try {
+				u.out().writeObject(ServerConfigManager.getCfg(t.getText()));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+=======
 		case Task.SCREENSHOT:
 			mostRecentScreenshot = (BufferedImage) t.getO();
+>>>>>>> 69e88d395dc409639ca119f06af7915db3727f44
 			break;
 
 		}
