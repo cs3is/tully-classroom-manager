@@ -22,7 +22,7 @@ public class LockFrame extends JFrame {
 		setUndecorated(true);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setVisible(true);
-		//new AltTabStopper(this);
+		new AltTabStopper(this);
 		
 	}
 	public void paint(Graphics g){

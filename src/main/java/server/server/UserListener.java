@@ -134,7 +134,6 @@ public class UserListener implements Runnable {
 
 		case Task.SYNC:
 			break;
-<<<<<<< HEAD
 			
 		case Task.REQUEST_VALUE:
 			try {
@@ -142,10 +141,8 @@ public class UserListener implements Runnable {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-=======
 		case Task.SCREENSHOT:
 			mostRecentScreenshot = (BufferedImage) t.getO();
->>>>>>> 69e88d395dc409639ca119f06af7915db3727f44
 			break;
 
 		}
