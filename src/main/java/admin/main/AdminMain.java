@@ -7,7 +7,6 @@ import java.net.Socket;
 import utils.AdminConfigManager;
 import utils.AdminLog;
 import utils.ClientLog;
-import graphics.AdminFrame;
 import graphics.AdminTray;
 import graphics.AdminGui;
 
@@ -18,7 +17,6 @@ public class AdminMain{
 	public static void main(String[] args) {
 
 		new AdminConfigManager();
-		AdminFrame AF;
 
 		try {
 			System.out.println("Attempting to connect to server");
@@ -33,8 +31,8 @@ public class AdminMain{
 
 			AdminTray T = new AdminTray();
 
-			new AdminGui();
-//			AF = new AdminFrame();
+			new AdminGui(args);
+
 
 		} catch (Exception e) {
 			e.printStackTrace();
