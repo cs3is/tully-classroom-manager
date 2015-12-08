@@ -12,8 +12,10 @@ import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -62,14 +64,10 @@ public class ClientTray implements Runnable {
 	public ClientTray(ClientData cd) {
 		// init objectstreams
 		this.cd = cd;
+		
+		Runtime run;
 		Robot robo;
-		try {
-			robo = new Robot();
-			new LockFrame(robo.createScreenCapture(new Rectangle(0,0,(int)screenSize.getWidth(),(int)screenSize.getHeight())));
-		} catch (AWTException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		
 		
 		
 		userName = System.getProperty("user.name");
@@ -265,6 +263,28 @@ public class ClientTray implements Runnable {
 	}
 	public void initInit(){
 		timeBetweenQuestions = ((infoForClientToReceiveAndParseAndProbablyUseToo) cl.getConfig()).getTimeBetweenQuestions();
+	}
+	public ArrayList<String> listTasks(){
+		ArrayList<String> processes = new ArrayList<String>();
+		try {
+		      String line;
+		      Process p = Runtime.getRuntime().exec("tasklist.exe /fo csv /nh");
+		      BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+		      while ((line = input.readLine()) != null) {
+		          if (!line.trim().equals("")) {
+		              // keep only the process name
+		              line = line.substring(1);
+		             // System.out.println(line.substring(0, line.indexOf("\"")));
+		              processes.add(line.substring(0, line.indexOf("\"")));
+		          }
+
+		      }
+		      input.close();
+		    }
+		    catch (Exception err) {
+		      err.printStackTrace();
+		    }
+		return processes;
 	}
 }
 

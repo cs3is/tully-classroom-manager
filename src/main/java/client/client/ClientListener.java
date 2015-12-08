@@ -11,6 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import graphics.ClientTray;
+import graphics.LockFrame;
 import util.Task;
 import utils.ClientLog;
 import utils.ServerLog;
@@ -124,16 +125,25 @@ public class ClientListener implements Runnable {
 			break;
 
 		case Task.GET_PROCESSES:
+			//METHOD IN CLIENTTRAY CALLED listTask() DOES THIS
 			break;
 
 		case Task.DISABLE_COMPUTER:
-			//TODO new Frame();
+			try {
+				robo = new Robot();
+				new LockFrame(robo.createScreenCapture(new Rectangle(0,0,(int)screenSize.getWidth(),(int)screenSize.getHeight())));
+			} catch (AWTException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			break;
 
 		case Task.SYNC:
+			//DO WE EVEN NEED THIS?
 			break;
 
 		}
+		//WHY AM I COMMENTING IN ALL CAPS?
 	}
 
 	@Override
