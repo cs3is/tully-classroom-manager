@@ -13,7 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-import client.ClientData;
+import Admin.AdminData;
 import client.ClientListener;
 import utils.ClientConfig;
 import utils.ClientConfigManager;
