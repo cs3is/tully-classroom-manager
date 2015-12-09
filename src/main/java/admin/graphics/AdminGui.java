@@ -26,7 +26,7 @@ public class AdminGui extends Application{
 			e.printStackTrace();
 		}
 		
-		StackPane page = (StackPane) FXMLLoader.load(getClass().getResource("Layout.fxml"));
+		StackPane page = (StackPane) FXMLLoader.load(getClass().getResource("gui.fxml"));
 		Scene scene = new Scene(page);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("FXML is Simple");
@@ -34,6 +34,7 @@ public class AdminGui extends Application{
 	}
 	
 	public AdminGui(String[] args){
+//		System.out.println("GETLAUNCHED");
 		launch(args);
 	}
 

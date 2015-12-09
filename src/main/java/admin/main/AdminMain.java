@@ -1,18 +1,29 @@
 package main;
 
+import java.io.FileWriter;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 import utils.AdminConfigManager;
 import utils.AdminLog;
 import utils.ClientLog;
 import graphics.AdminTray;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import graphics.AdminGui;
 
-public class AdminMain{
+public class AdminMain extends Application{
 
 	private static Socket connection;
+	
+
+	
 
 	public static void main(String[] args) {
 
@@ -30,9 +41,8 @@ public class AdminMain{
 			ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
 
 			AdminTray T = new AdminTray();
-
-			new AdminGui(args);
-
+			
+			launch(args);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -40,6 +50,22 @@ public class AdminMain{
 			System.exit(0);
 		}
 
+	}
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		
+		try {
+			Scene scene = new Scene((Parent) FXMLLoader.load(getClass().getResource("/Gui.fxml")));
+			primaryStage.setScene(scene);
+			primaryStage.setTitle("Load the name from the config");
+			primaryStage.show();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 }
