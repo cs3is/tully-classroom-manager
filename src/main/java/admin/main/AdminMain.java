@@ -56,9 +56,11 @@ public class AdminMain extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		
 		try {
-			Scene scene = new Scene((Parent) FXMLLoader.load(getClass().getResource("/Gui.fxml")));
+			Scene scene = new Scene((Parent) FXMLLoader.load(getClass().getResource("/gui.fxml")));
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Load the name from the config");
+			primaryStage.setWidth(1600);
+			primaryStage.setHeight(900);
 			primaryStage.show();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
