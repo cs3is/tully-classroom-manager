@@ -143,6 +143,7 @@ public class UserListener implements Runnable {
 			}
 		case Task.SCREENSHOT:
 			mostRecentScreenshot = (BufferedImage) t.getO();
+		//	AdminInformation.getOut().writeOut(mostRecentScreenshot);
 			break;
 
 		}
