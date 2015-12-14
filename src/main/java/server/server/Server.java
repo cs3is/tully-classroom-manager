@@ -30,19 +30,19 @@ public class Server implements Runnable {
 	// private ServerSocket serverSocket2;
 
 	/**
-	 * An arraylist that contains a Hashmap of clients that will be able to connect to each computer science classroom. For every classroom, there
+	 * An ArrayList that contains a HashMap of clients that will be able to connect to each computer science classroom. For every classroom, there
 	 * will be an index in the array, enabling the program to better keep track of all of the clients. The number of indexes will be determined by the
 	 * number of dashes in the ComputerList.txt file, as each dash shall represent the end of a class.
 	 */
 	ArrayList<HashMap<String, Integer>> computerList = new ArrayList<HashMap<String, Integer>>();
 
 	/**
-	 * An arraylist that contains a Hashmap of all of the clients that are connected to the server from each classroom. Each classroom will have it's
+	 * An ArrayList that contains a HashMap of all of the clients that are connected to the server from each classroom. Each classroom will have it's
 	 * own index in the array.
 	 */
 	private static ArrayList<HashMap<Integer, UserInformation>> connectedClients = new ArrayList<HashMap<Integer, UserInformation>>();
 	/**
-	 * An arraylist that contains a Queue of questions for each classroom.
+	 * An ArrayList that contains a Queue of questions for each classroom.
 	 */
 	private static ArrayList<LinkedList<Question>> questionList = new ArrayList<LinkedList<Question>>();
 	/**

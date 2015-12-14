@@ -21,9 +21,11 @@ public class Task implements Serializable {
 	public final static int QUESTION_NOT_ADDED = 26;
 	public final static int INIT = 27;
 	public final static int ENABLE_COMPUTER = 28;
+	public final static int SENDING_QUESTION = 29;
 
 	// Only to be invoked by the admin client
 	public final static int REMOVE_QUESTION = 40;
+	public final static int GET_QUESTION_LIST = 41;
 
 	// To be invoked by either the Client or the server
 	public final static int SYNC = 60;

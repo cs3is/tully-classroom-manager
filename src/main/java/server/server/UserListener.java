@@ -76,53 +76,48 @@ public class UserListener implements Runnable {
 	}
 
 	/**
-	 * This method receives a task from the thead, and then tells the server what to do based on the task's contents.
+	 * This method receives a task from the thead, and then tells the server
+	 * what to do based on the task's contents.
 	 * 
 	 * @param o
 	 *            The Task that is sent to the server, in the form of an object
 	 */
-	private void actOnTask(Object o) {
+	private void actOnTask(Object o) throws Exception {
 		Task t = (Task) o;
 		switch (t.getTask()) {
 
 		case Task.ASK_QUESTION:
 			ServerLog.info("received " + t.getTask());
 
-			// SQL if (LastQuestionAsked == 0 || lastQuestionAsked-currentTime > maxTime){
+			// SQL if (LastQuestionAsked == 0 || lastQuestionAsked-currentTime >
+			// maxTime){
 			// questionList.add (computernumber)
 
 			if (u.getLastQuestionTime() == 0 || u.getLastQuestionTime() - System.nanoTime() > timeBetweenQuestions) {
 
 				u.setLastQuestionTime(System.nanoTime());
 				Server.getQuestionList().get(u.getClassroom()).add(new Question(u.getHostname(), u.getUserName()));
-				// SQL if (LastQuestionAsked == 0 || lastQuestionAsked-currentTime > maxTime){
+				// SQL if (LastQuestionAsked == 0 ||
+				// lastQuestionAsked-currentTime > maxTime){
 				// questionList.add (computernumber)
-				try {
 
-					u.out().writeObject(new Task(Task.QUESTION_ADDED));
-					ServerLog.info("sent QUESTION_ADDED");
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				u.out().writeObject(new Task(Task.QUESTION_ADDED));
+				ServerLog.info("sent QUESTION_ADDED");
+
 			} else {
-				try {
-					ServerLog.info("sending QUESTION_NOT_ADDED");
-					u.out().writeObject(new Task(Task.QUESTION_NOT_ADDED));
-					ServerLog.info("sent QUESTION_NOT_ADDED");
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+
+				ServerLog.info("sending QUESTION_NOT_ADDED");
+				u.out().writeObject(new Task(Task.QUESTION_NOT_ADDED));
+				ServerLog.info("sent QUESTION_NOT_ADDED");
 
 			}
 			break;
 		case Task.REMOVE_QUESTION:
 			ServerLog.info("removed question " + Server.getQuestionList().get(u.getClassroom()).poll());
 			ServerLog.debug("sending REMOVED_QUESTION");
-			try {
-				u.out().writeObject(new Task(Task.QUESTION_REMOVED));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+
+			u.out().writeObject(new Task(Task.QUESTION_REMOVED));
+
 			ServerLog.info("sent REMOVED_QUESTION");
 			break;
 
@@ -136,13 +131,15 @@ public class UserListener implements Runnable {
 			break;
 
 		case Task.REQUEST_VALUE:
-			try {
-				u.out().writeObject(ServerConfigManager.getCfg(t.getText()));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+
+			u.out().writeObject(ServerConfigManager.getCfg(t.getText()));
+
 		case Task.SCREENSHOT:
 			mostRecentScreenshot = (BufferedImage) t.getO();
+			break;
+
+		case Task.GET_QUESTION_LIST:
+			u.out().writeObject(Server.getQuestionList());
 			break;
 
 		}

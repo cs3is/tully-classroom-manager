@@ -9,6 +9,7 @@ import java.awt.Toolkit;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 import graphics.ClientTray;
 import graphics.LockFrame;
@@ -76,6 +77,8 @@ public class AdminListener implements Runnable {
 
 			actOnTask(o);
 
+		} else if (o instanceof ArrayList) {
+			// TODO handle the array being passed to the admin client
 		} else {
 			ClientLog.error("Client has recieved an unrecognized object;ayy lmao");
 		}
