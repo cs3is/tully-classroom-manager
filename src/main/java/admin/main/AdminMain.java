@@ -1,12 +1,13 @@
 package main;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
+import Questions.Question;
 import utils.AdminConfigManager;
 import utils.AdminLog;
 import utils.ClientLog;
@@ -18,17 +19,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import util.Task;
-import graphics.AdminGui;
 
 public class AdminMain extends Application {
 
 	private static Socket connection;
+
 	ObjectOutputStream out;
 
+	/**
+	 * An ArrayList that contains a Queue of questions for each classroom.
+	 */
+	public static ArrayList<LinkedList<Question>> questionList = new ArrayList<LinkedList<Question>>();
 
 	public static void main(String[] args) {
 
@@ -48,7 +51,7 @@ public class AdminMain extends Application {
 			AdminTray T = new AdminTray();
 
 			launch(args);
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			ClientLog.fatal("An error occurred");
@@ -64,10 +67,10 @@ public class AdminMain extends Application {
 
 			while (true) {
 				try {
-					
+
 					requestQuestionList();
-					
-					
+					System.out.println(questionList);
+
 					Thread.sleep(5000);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -77,8 +80,8 @@ public class AdminMain extends Application {
 		}
 
 	});
-	
-	public void requestQuestionList() throws IOException{
+
+	public void requestQuestionList() throws IOException {
 		out.writeObject(new Task(Task.GET_QUESTION_LIST));
 	}
 
@@ -90,9 +93,9 @@ public class AdminMain extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Load the name from the config");
 			primaryStage.show();
-			
+
 			t.start();
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

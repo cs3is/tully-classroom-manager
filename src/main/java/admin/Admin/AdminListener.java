@@ -10,9 +10,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
+import Questions.Question;
 import graphics.ClientTray;
 import graphics.LockFrame;
+import main.AdminMain;
 import util.Task;
 import utils.ClientLog;
 import utils.ServerLog;
@@ -38,9 +41,7 @@ public class AdminListener implements Runnable {
 
 				readObj();
 
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		} while (sConfig == null);
@@ -56,9 +57,7 @@ public class AdminListener implements Runnable {
 
 						readObj();
 
-					} catch (ClassNotFoundException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
+					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
@@ -68,7 +67,8 @@ public class AdminListener implements Runnable {
 		ClientLog.debug("clientlistener initialized.");
 	}
 
-	public void readObj() throws ClassNotFoundException, IOException {
+	@SuppressWarnings("unchecked")
+	public void readObj() throws ClassNotFoundException, IOException, Exception {
 		ClientLog.debug("reading inputStream");
 		Object o = ad.getIn().readObject();
 		ClientLog.debug("read inputstream");
@@ -77,8 +77,6 @@ public class AdminListener implements Runnable {
 
 			actOnTask(o);
 
-		} else if (o instanceof ArrayList) {
-			// TODO handle the array being passed to the admin client
 		} else {
 			ClientLog.error("Client has recieved an unrecognized object;ayy lmao");
 		}
@@ -91,6 +89,7 @@ public class AdminListener implements Runnable {
 	 * @param o
 	 *            The Task that is sent to the server, in the form of an object
 	 */
+	@SuppressWarnings("unchecked")
 	private void actOnTask(Object o) {
 		Task t = (Task) o;
 		ClientLog.info("received " + t.getTask());
@@ -107,6 +106,10 @@ public class AdminListener implements Runnable {
 
 			}
 			break;
+
+		case Task.GET_QUESTION_LIST:
+			if (t.getO() instanceof ArrayList<?>)
+				AdminMain.questionList = ((ArrayList<LinkedList<Question>>) t.getO());
 
 		}
 	}
