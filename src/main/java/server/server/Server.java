@@ -40,7 +40,7 @@ public class Server implements Runnable {
 	 * An ArrayList that contains a HashMap of all of the clients that are connected to the server from each classroom. Each classroom will have it's
 	 * own index in the array.
 	 */
-	private static ArrayList<HashMap<Integer, UserInformation>> connectedClients = new ArrayList<HashMap<Integer, UserInformation>>();
+	private static ArrayList<HashMap<Integer, Info>> connectedClients = new ArrayList<HashMap<Integer, Info>>();
 	/**
 	 * An ArrayList that contains a Queue of questions for each classroom.
 	 */
@@ -105,14 +105,6 @@ public class Server implements Runnable {
 							.getLocalAddress().getHostName(), in, out);
 					Thread t = new Thread(new UserListener(u, connection));
 					t.start();
-					}else{
-					AdminInformation u = new AdminInformation(selectedClass, (String) in.readObject(), connection
-							.getLocalAddress().getHostName(), in, out);
-					Thread t = new Thread(new UserListener(u, connection));
-					t.start();
-					}
-					
-					
 					ServerLog.debug("sending \"Connection accepted by server\"");
 					out.writeObject(new Task(Task.SEND_NOTIFICATION, "Connection accepted by server"));
 
@@ -120,6 +112,22 @@ public class Server implements Runnable {
 							computerList.get(selectedClass).get(connection.getLocalAddress().getHostName()), u);
 					admin = false;
 					connectionAccepted = false;
+					}else{
+					AdminInformation u = new AdminInformation(selectedClass, (String) in.readObject(), connection
+							.getLocalAddress().getHostName(), in, out);
+					Thread t = new Thread(new UserListener(u, connection));
+					t.start();
+					ServerLog.debug("sending \"Connection accepted by server\"");
+					out.writeObject(new Task(Task.SEND_NOTIFICATION, "Connection accepted by server"));
+
+					connectedClients.get(selectedClass).put(
+							computerList.get(selectedClass).get(connection.getLocalAddress().getHostName()), u);
+					admin = false;
+					connectionAccepted = false;
+					}
+					
+					
+					
 				}
 				Thread.sleep(500);
 				out.reset();
