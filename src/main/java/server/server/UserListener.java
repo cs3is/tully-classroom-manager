@@ -15,12 +15,12 @@ import utils.ServerLog;
 
 public class UserListener implements Runnable {
 
-	UserInformation u;
+	Info u;
 	Socket connection;
 	Long timeBetweenQuestions;
 	BufferedImage mostRecentScreenshot;
 
-	public UserListener(UserInformation u, Socket connection) {
+	public UserListener(Info u, Socket connection) {
 		this.u = u;
 		this.connection = connection;
 
