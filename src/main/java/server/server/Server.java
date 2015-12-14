@@ -64,6 +64,7 @@ public class Server implements Runnable {
 
 	@Override
 	public void run() {
+		boolean admin = false;
 		boolean connectionAccepted = false;
 		int selectedClass = -1;
 		while (true) {
@@ -84,6 +85,9 @@ public class Server implements Runnable {
 					if (computerList.get(i).keySet().contains(connection.getLocalAddress().getHostName())) {
 						connectionAccepted = true;
 						selectedClass = i;
+						if(computerList.get(i).get(connection.getLocalAddress().getHostName())==1000){
+							admin = true;
+						}
 					}
 
 				}
@@ -96,15 +100,26 @@ public class Server implements Runnable {
 					ServerLog.debug("sent \"Connection refused by server, please contact a system administrator\"");
 					connection.close();
 				} else {
+					if(!admin){
 					UserInformation u = new UserInformation(selectedClass, (String) in.readObject(), connection
 							.getLocalAddress().getHostName(), in, out);
 					Thread t = new Thread(new UserListener(u, connection));
 					t.start();
+					}else{
+					AdminInformation u = new AdminInformation(selectedClass, (String) in.readObject(), connection
+							.getLocalAddress().getHostName(), in, out);
+					Thread t = new Thread(new UserListener(u, connection));
+					t.start();
+					}
+					
+					
 					ServerLog.debug("sending \"Connection accepted by server\"");
 					out.writeObject(new Task(Task.SEND_NOTIFICATION, "Connection accepted by server"));
 
 					connectedClients.get(selectedClass).put(
 							computerList.get(selectedClass).get(connection.getLocalAddress().getHostName()), u);
+					admin = false;
+					connectionAccepted = false;
 				}
 				Thread.sleep(500);
 				out.reset();

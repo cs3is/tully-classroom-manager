@@ -290,22 +290,3 @@ public class ClientTray implements Runnable {
 
 
 
-class John{
-	public John(boolean b){
-		if(b == true){
-			
-		}else{
-			ClientLog.info("hello");
-		}
-	}
-}
-
-class Cena{
-	public Cena(boolean b){
-		if(b == true){
-			
-		}else{
-			ClientLog.info("goodbye");
-		}
-	}
-}
