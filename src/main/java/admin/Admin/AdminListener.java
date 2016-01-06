@@ -6,6 +6,7 @@ import java.awt.Frame;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -18,6 +19,7 @@ import utils.ClientLog;
 import utils.ServerLog;
 
 public class AdminListener implements Runnable {
+	private BufferedImage scr;
 	private AdminData ad;
 	private Object sConfig;
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -96,16 +98,8 @@ public class AdminListener implements Runnable {
 		ClientLog.info("received " + t.getTask());
 		switch (t.getTask()) {
 
-		case Task.GET_SCREENSHOT:
-
-			try {
-				ad.getOut().writeObject(new Task(Task.SCREENSHOT, robo.createScreenCapture(
-						new Rectangle(0, 0, (int) screenSize.getWidth(), (int) screenSize.getHeight()))));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-
-			}
+		case Task.SCREENSHOT:
+				scr = (BufferedImage) t.getO();
 			break;
 
 		}
