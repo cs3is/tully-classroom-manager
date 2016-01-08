@@ -16,6 +16,7 @@ public class Info {
 	private ObjectOutputStream out;
 
 	public Info(int classroom,String userName, String Hostname, ObjectInputStream in, ObjectOutputStream out) {
+		System.out.println("making an info");
 		this.classroom = classroom;
 		this.userName = userName;
 		this.Hostname = Hostname;

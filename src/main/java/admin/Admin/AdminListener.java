@@ -109,9 +109,18 @@ public class AdminListener implements Runnable {
 
 		case Task.GET_QUESTION_LIST:
 			if (t.getO() instanceof ArrayList<?>)
-				AdminMain.questionList = ((ArrayList<LinkedList<Question>>) t.getO());
+				AdminMain.questionList = (LinkedList<Question>) t.getO();
+
+		case Task.UPDATE_QUESTIONS:
+			System.out.println("receiving question list"+ ((LinkedList<Question>) t.getO()).size());
+			if (t.getO() instanceof LinkedList<?>){
+				System.out.println("question list is valid");
+				AdminMain.questionList = (LinkedList<Question>) t.getO();
+			}
+			break;
 
 		}
+
 	}
 
 	@Override

@@ -4,12 +4,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class AdminData {
-	ObjectInputStream in;
-	ObjectOutputStream out;
+	public static ObjectInputStream in;
+	public static ObjectOutputStream out;
 
 	public AdminData(ObjectInputStream in, ObjectOutputStream out) {
-		this.in = in;
-		this.out = out;
+		AdminData.in = in;
+		AdminData.out = out;
 	}
 
 	public ObjectOutputStream getOut() {

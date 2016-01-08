@@ -113,8 +113,10 @@ public class Server implements Runnable {
 					admin = false;
 					connectionAccepted = false;
 					}else{
+						System.out.println("an admin has been detected");
 					AdminInformation u = new AdminInformation(selectedClass, (String) in.readObject(), connection
 							.getLocalAddress().getHostName(), in, out);
+					System.out.println("admininformation has been created");
 					Thread t = new Thread(new UserListener(u, connection));
 					t.start();
 					ServerLog.debug("sending \"Connection accepted by server\"");
@@ -144,10 +146,10 @@ public class Server implements Runnable {
 
 	@SuppressWarnings("resource")
 	/**
-	 * The method that is called in order to read teh ComputerList.txt file and store it in the program in order to manage connections and organize all 
+	 * The method that is called in order to read the ComputerList.txt file and store it in the program in order to manage connections and organize all 
 	 * of the connected computers. It will read the file, which is arranged with the value(computer number) first in each line, followed by the key
-	 * (host name of the computer), seperated by a comma. When all of the computers from a classroom are listed on the list, a single dash in the next 
-	 * line will signify the end of that class, and potentiallu the start of a new one.
+	 * (host name of the computer), separated by a comma. When all of the computers from a classroom are listed on the list, a single dash in the next 
+	 * line will signify the end of that class, and potentially the start of a new one.
 	 * 
 	 * @param fileLocation The location of all of the computers that will be able to connect to the server.
 	 */
@@ -181,8 +183,8 @@ public class Server implements Runnable {
 		ServerLog.debug("Loaded the list of computers");
 	}
 
-	public static ArrayList<LinkedList<Question>> getQuestionList() {
-		return questionList;
+	public static LinkedList<Question> getQuestionList(int index) {
+		return questionList.get(index);
 	}
 
 	/*

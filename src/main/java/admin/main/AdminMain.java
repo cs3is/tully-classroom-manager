@@ -7,6 +7,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import Admin.AdminData;
+import Admin.AdminListener;
 import Questions.Question;
 import utils.AdminConfigManager;
 import utils.AdminLog;
@@ -26,12 +28,15 @@ public class AdminMain extends Application {
 
 	private static Socket connection;
 
-	ObjectOutputStream out;
+	static AdminListener al;
+	static AdminData ad;
 
 	/**
 	 * An ArrayList that contains a Queue of questions for each classroom.
 	 */
-	public static ArrayList<LinkedList<Question>> questionList = new ArrayList<LinkedList<Question>>();
+	public static LinkedList<Question> questionList = new LinkedList<Question>();
+	
+	private static String userName;
 
 	public static void main(String[] args) {
 
@@ -48,10 +53,22 @@ public class AdminMain extends Application {
 			AdminLog.debug("Created output stream 1 from connection");
 			ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
 
+			ad = new AdminData(in,out);
+			
 			AdminTray T = new AdminTray();
+			
+			userName = System.getProperty("user.name");
+			try {
+				out.writeObject(userName);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
 
 			launch(args);
 			
+			al = new AdminListener(ad);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			ClientLog.fatal("An error occurred");
@@ -69,7 +86,7 @@ public class AdminMain extends Application {
 				try {
 
 					requestQuestionList();
-					System.out.println(questionList);
+			//		System.out.println(questionList.size());
 
 					Thread.sleep(5000);
 				} catch (Exception e) {
@@ -81,8 +98,10 @@ public class AdminMain extends Application {
 
 	});
 
-	public void requestQuestionList() throws IOException {
-		out.writeObject(new Task(Task.GET_QUESTION_LIST));
+	public void requestQuestionList() throws Exception {
+//		System.out.println("calling request questionlist from the server");
+		ad.getOut().writeObject(new Task(Task.GET_QUESTION_LIST));
+		Thread.sleep(500);
 	}
 
 	@Override

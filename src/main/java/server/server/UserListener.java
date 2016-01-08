@@ -28,6 +28,7 @@ public class UserListener implements Runnable {
 
 	@Override
 	public void run() {
+//		System.out.println("created a userListener");
 		timeBetweenQuestions = ServerConfigManager.getLong("TIME_BETWEEN_QUESTIONS") * 1000000000L;
 		try {
 			// u.out().reset();
@@ -91,15 +92,18 @@ public class UserListener implements Runnable {
 
 			// SQL if (LastQuestionAsked == 0 || lastQuestionAsked-currentTime >
 			// maxTime){
-			// questionList.add (computernumber)
+			// questionList.add (computerNumber)
 
 			if (u.getLastQuestionTime() == 0 || u.getLastQuestionTime() - System.nanoTime() > timeBetweenQuestions) {
 
 				u.setLastQuestionTime(System.nanoTime());
-				Server.getQuestionList().get(u.getClassroom()).add(new Question(u.getHostname(), u.getUserName()));
+				// this works System.out.println("The classroom of the added
+				// student is " + u.getClassroom());
+				Server.getQuestionList(u.getClassroom()).add(new Question(u.getHostname(), u.getUserName()));
+				System.out.println(Server.getQuestionList(u.getClassroom()).size());
 				// SQL if (LastQuestionAsked == 0 ||
 				// lastQuestionAsked-currentTime > maxTime){
-				// questionList.add (computernumber)
+				// questionList.add (computerNumber)
 
 				u.out().writeObject(new Task(Task.QUESTION_ADDED));
 				ServerLog.info("sent QUESTION_ADDED");
@@ -113,7 +117,7 @@ public class UserListener implements Runnable {
 			}
 			break;
 		case Task.REMOVE_QUESTION:
-			ServerLog.info("removed question " + Server.getQuestionList().get(u.getClassroom()).poll());
+			ServerLog.info("removed question " + Server.getQuestionList(u.getClassroom()).poll());
 			ServerLog.debug("sending REMOVED_QUESTION");
 
 			u.out().writeObject(new Task(Task.QUESTION_REMOVED));
@@ -136,11 +140,13 @@ public class UserListener implements Runnable {
 
 		case Task.SCREENSHOT:
 			mostRecentScreenshot = (BufferedImage) t.getO();
-		//	AdminInformation.getOut().writeOut(mostRecentScreenshot);
+			// AdminInformation.getOut().writeOut(mostRecentScreenshot);
 			break;
 
 		case Task.GET_QUESTION_LIST:
-			u.out().writeObject(Server.getQuestionList());
+			System.out.println("sending list of questions"+Server.getQuestionList(u.getClassroom()).size());
+			u.out().writeObject(new Task(Task.UPDATE_QUESTIONS, Server.getQuestionList(u.getClassroom())));
+			//	u.out().writeObject(Server.getQuestionList(u.getClassroom()));
 			break;
 
 		}
