@@ -24,7 +24,13 @@ public class AdminButtons {
 		}
 	}
 
-	private void sendNotification() {
+	private void sendNotification(ObjectOutputStream out, String msg) {
+		try {
+			out.writeObject(new Task(Task.SEND_NOTIFICATION,msg));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 }
