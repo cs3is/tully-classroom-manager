@@ -1,6 +1,8 @@
 package Questions;
 
-public class Question {
+import java.io.Serializable;
+
+public class Question implements Serializable{
 
 	private final long TIME_ASKED = System.nanoTime();
 	private String computerName;

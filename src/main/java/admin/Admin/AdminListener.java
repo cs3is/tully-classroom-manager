@@ -37,7 +37,6 @@ public class AdminListener implements Runnable {
 			e1.printStackTrace();
 		}
 		t.start();
-
 		do {
 			try {
 
@@ -56,7 +55,6 @@ public class AdminListener implements Runnable {
 			public void run() {
 				while (true) {
 					try {
-
 						readObj();
 
 					} catch (Exception e) {
@@ -90,9 +88,10 @@ public class AdminListener implements Runnable {
 	 * 
 	 * @param o
 	 *            The Task that is sent to the server, in the form of an object
+	 * @throws IOException 
 	 */
 	@SuppressWarnings("unchecked")
-	private void actOnTask(Object o) {
+	private void actOnTask(Object o) throws IOException {
 		Task t = (Task) o;
 		ClientLog.info("received " + t.getTask());
 		switch (t.getTask()) {
@@ -106,7 +105,8 @@ public class AdminListener implements Runnable {
 				AdminMain.questionList = (LinkedList<Question>) t.getO();
 
 		case Task.UPDATE_QUESTIONS:
-			System.out.println("receiving question list"+ ((LinkedList<Question>) t.getO()).size());
+			System.out.println("receiving question list "+ ((LinkedList<?>) t.getO()).size()+"   "+System.identityHashCode(t.getO()));
+			//TODO print out the task .tostring to see if there is an issue with the memory addresses
 			if (t.getO() instanceof LinkedList<?>){
 				System.out.println("question list is valid");
 				AdminMain.questionList = (LinkedList<Question>) t.getO();
@@ -114,6 +114,8 @@ public class AdminListener implements Runnable {
 			break;
 
 		}
+		ad.getOut().flush();
+		ad.getOut().reset();
 
 	}
 

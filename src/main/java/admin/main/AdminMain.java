@@ -64,10 +64,10 @@ public class AdminMain extends Application {
 				e.printStackTrace();
 			}
 			
-
 			launch(args);
 			
 			al = new AdminListener(ad);
+			System.out.println("after");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -106,6 +106,7 @@ public class AdminMain extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		System.out.println("before");
 
 		try {
 			Scene scene = new Scene((Parent) FXMLLoader.load(getClass().getResource("/gui.fxml")));
