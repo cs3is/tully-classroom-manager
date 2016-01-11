@@ -16,6 +16,7 @@
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
                               <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+                              <Button fx:id="potato" layoutX="331.0" layoutY="140.0" mnemonicParsing="false" onAction="#asdf" text="RQ" />
                            </children>
                         </AnchorPane>
                   </content>

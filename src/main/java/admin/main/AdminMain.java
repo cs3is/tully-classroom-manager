@@ -13,6 +13,7 @@ import Questions.Question;
 import utils.AdminConfigManager;
 import utils.AdminLog;
 import utils.ClientLog;
+import graphics.AdminButtons;
 import graphics.AdminTray;
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -30,7 +31,7 @@ public class AdminMain extends Application {
 
 	static AdminListener al;
 	static AdminData ad;
-
+	static AdminButtons ab;
 	/**
 	 * An ArrayList that contains a Queue of questions for each classroom.
 	 */
@@ -43,6 +44,7 @@ public class AdminMain extends Application {
 		new AdminConfigManager();
 
 		try {
+			 ab = new AdminButtons();
 			System.out.println("Attempting to connect to server");
 
 			connection = new Socket(AdminConfigManager.getStr("SERVER_IP"), AdminConfigManager.getInt("SERVER_PORT"));
@@ -123,6 +125,7 @@ public class AdminMain extends Application {
 	}
 
 	@FXML
+	Button potato;
 	Button QUESTION_CLEAR;
 	Button QUESTION_CLEAR_ALL;
 	ScrollPane QUESTION_SCROLLPANE;
@@ -136,5 +139,10 @@ public class AdminMain extends Application {
 	public void QUESTION_CLEAR_ALL() {
 		System.out.println("clearing EVERYTHING");
 	}
-
+	
+	@FXML
+	public void asdf(){
+		AdminLog.info("yooooo");
+		ab.removeQuestion(ad.out);
+	}
 }

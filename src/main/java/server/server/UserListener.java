@@ -99,7 +99,7 @@ public class UserListener implements Runnable {
 				u.setLastQuestionTime(System.nanoTime());
 				// this works System.out.println("The classroom of the added
 				// student is " + u.getClassroom());
-				Server.getQuestionList(u.getClassroom()).add(new Question(u.getHostname(), u.getUserName()));
+				Server.getQuestionList(u.getClassroom()).add(new Question(u));
 				System.out.println(Server.getQuestionList(u.getClassroom()).size());
 				// SQL if (LastQuestionAsked == 0 ||
 				// lastQuestionAsked-currentTime > maxTime){
@@ -117,10 +117,11 @@ public class UserListener implements Runnable {
 			}
 			break;
 		case Task.REMOVE_QUESTION:
-			ServerLog.info("removed question " + Server.getQuestionList(u.getClassroom()).poll());
+			Question temp = Server.getQuestionList(u.getClassroom()).poll();
+			ServerLog.info("removed question " + temp);
 			ServerLog.debug("sending REMOVED_QUESTION");
 
-			u.out().writeObject(new Task(Task.QUESTION_REMOVED));
+			temp.getU().out().writeObject(new Task(Task.QUESTION_REMOVED));
 
 			ServerLog.info("sent REMOVED_QUESTION");
 			break;

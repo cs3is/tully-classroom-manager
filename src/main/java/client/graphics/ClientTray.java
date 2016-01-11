@@ -163,13 +163,13 @@ public class ClientTray implements Runnable {
 		
 		submitAssignment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+//				System.exit(0);
 			}
 		});
 		
 		takeTest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+//				System.exit(0);
 			}
 		});
 

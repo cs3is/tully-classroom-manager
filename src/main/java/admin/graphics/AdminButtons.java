@@ -6,7 +6,7 @@ import java.io.ObjectOutputStream;
 import util.Task;
 
 public class AdminButtons {
-	private void getScr(ObjectOutputStream out) {
+	public void getScr(ObjectOutputStream out) {
 		try {
 			out.writeObject(new Task(Task.GET_SCREENSHOT));
 		} catch (IOException e) {
@@ -15,7 +15,7 @@ public class AdminButtons {
 		}
 	}
 
-	private void lockScr(ObjectOutputStream out) {
+	public void lockScr(ObjectOutputStream out) {
 		try {
 			out.writeObject(new Task(Task.DISABLE_COMPUTER));
 		} catch (IOException e) {
@@ -23,8 +23,17 @@ public class AdminButtons {
 			e.printStackTrace();
 		}
 	}
+	
+	public void removeQuestion(ObjectOutputStream out) {
+		try {
+			out.writeObject(new Task(Task.REMOVE_QUESTION));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
-	private void sendNotification(ObjectOutputStream out, String msg) {
+	public void sendNotification(ObjectOutputStream out, String msg) {
 		try {
 			out.writeObject(new Task(Task.SEND_NOTIFICATION,msg));
 		} catch (IOException e) {
