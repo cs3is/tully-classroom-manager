@@ -6,6 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import Questions.Question;
 import util.Task;
@@ -146,12 +147,15 @@ public class UserListener implements Runnable {
 
 		case Task.GET_QUESTION_LIST:
 			System.out.println("sending list of questions"+Server.getQuestionList(u.getClassroom()).size());
-			u.out().writeObject(new Task(Task.UPDATE_QUESTIONS, Server.getQuestionList(u.getClassroom())));
+			Task tt =new Task(Task.UPDATE_QUESTIONS, Server.getQuestionList(u.getClassroom()));
+			System.out.println(((LinkedList<?>) (tt.getO())).size());
+			u.out().writeObject(tt);
 			//	u.out().writeObject(Server.getQuestionList(u.getClassroom()));
 			break;
 
 		}
-
+		u.out().flush();
+		u.out().reset();
 	}
 
 }
