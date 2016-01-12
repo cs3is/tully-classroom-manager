@@ -18,6 +18,7 @@ import graphics.ClientTray;
 import graphics.LockFrame;
 import main.AdminMain;
 import util.Task;
+import utils.AdminLog;
 import utils.ClientLog;
 import utils.ServerLog;
 
@@ -29,6 +30,7 @@ public class AdminListener implements Runnable {
 	Robot robo;
 
 	public AdminListener(AdminData cd) {
+	//	AdminLog.info ("WTF");
 		this.ad = cd;
 		Thread t = new Thread();
 		try {
@@ -36,6 +38,7 @@ public class AdminListener implements Runnable {
 		} catch (AWTException e1) {
 			e1.printStackTrace();
 		}
+	//	AdminLog.info ("WTF");
 		t.start();
 		do {
 			try {
@@ -45,6 +48,7 @@ public class AdminListener implements Runnable {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			AdminLog.info ("WTF");
 		} while (sConfig == null);
 		ClientLog.info("Received init file");
 		initializeObjectListener();
@@ -55,6 +59,7 @@ public class AdminListener implements Runnable {
 			public void run() {
 				while (true) {
 					try {
+				//		AdminLog.info ("WTF");
 						readObj();
 
 					} catch (Exception e) {

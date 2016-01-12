@@ -187,9 +187,9 @@ public class Server implements Runnable {
 		return questionList.get(index);
 	}
 
-	/*
-	 * public HashMap<Integer, UserInformation> getConnectedClients() { return connectedClients; }
-	 * 
+	 public static ArrayList<HashMap<Integer, Info>> getConnectedClients() { return connectedClients; }
+	 
+	/* 
 	 * public static Queue<Question> getQuestionList() { return questionList; }
 	 */
 

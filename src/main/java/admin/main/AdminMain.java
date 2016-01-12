@@ -102,7 +102,7 @@ public class AdminMain extends Application {
 
 	public void requestQuestionList() throws Exception {
 //		System.out.println("calling request questionlist from the server");
-		ad.getOut().writeObject(new Task(Task.GET_QUESTION_LIST));
+		ad.out.writeObject(new Task(Task.GET_QUESTION_LIST));
 		Thread.sleep(500);
 	}
 
