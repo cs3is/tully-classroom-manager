@@ -30,7 +30,8 @@ public class UserListener implements Runnable {
 	@Override
 	public void run() {
 //		System.out.println("created a userListener");
-		timeBetweenQuestions = ServerConfigManager.getLong("TIME_BETWEEN_QUESTIONS") * 1000000000L;
+		timeBetweenQuestions = ServerConfigManager.getLong("TIME_BETWEEN_QUESTIONS");
+		ServerLog.info ("tbq = "+timeBetweenQuestions);
 		try {
 			// u.out().reset();
 			Thread.sleep(125);
@@ -116,6 +117,9 @@ public class UserListener implements Runnable {
 				ServerLog.info("sent QUESTION_NOT_ADDED");
 
 			}
+			
+			Thread.sleep(3000);
+			u.out().writeObject(new Task(Task.QUESTION_REMOVED));
 			break;
 		case Task.REMOVE_QUESTION:
 			Question temp = Server.getQuestionList(u.getClassroom()).poll();

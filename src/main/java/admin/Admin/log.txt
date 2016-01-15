@@ -1,0 +1,21 @@
+Attempting to connect to server
+nameGoesHere [INFO] Connected to - localhost on port: 25565
+nameGoesHere [DEBUG] Created output stream 1 from connection
+before
+nameGoesHere [INFO] WTF
+nameGoesHere [INFO] WTF
+receiving question list 0   1919892312
+question list is valid
+nameGoesHere [INFO] WTF
+receiving question list 1   358699161
+question list is valid
+nameGoesHere [INFO] WTF
+receiving question list 1   517938326
+question list is valid
+nameGoesHere [INFO] WTF
+receiving question list 1   914424520
+question list is valid
+nameGoesHere [INFO] WTF
+receiving question list 1   110718392
+question list is valid
+nameGoesHere [INFO] WTF

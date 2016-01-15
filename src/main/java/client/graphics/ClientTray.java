@@ -42,6 +42,7 @@ public class ClientTray implements Runnable {
 	/**
 	 * need to change to use server/database sometime
 	 */
+	private boolean firstUp = true;
 	private boolean canQuestion = true;
 	private long time = 0;
 	private long prevLabel = 0;
@@ -67,7 +68,7 @@ public class ClientTray implements Runnable {
 		
 		Runtime run;
 		Robot robo;
-		
+		//TODO MAKE SURE THIS WORKS
 		
 		
 		userName = System.getProperty("user.name");
@@ -84,6 +85,7 @@ public class ClientTray implements Runnable {
 		
 
 		init();
+		initInit();
 
 	}
 
@@ -148,9 +150,9 @@ public class ClientTray implements Runnable {
 		addQuestion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				qTime = time;
+				
 				addQuestion.setEnabled(false);
-				addQuestionThread.start();
+				new Thread(addQuestionThread).start();
 				
 			}
 		});
@@ -194,19 +196,30 @@ public class ClientTray implements Runnable {
 	
 	public void updateMenu() {
 		if (!canQuestion)
-			if(cd.getCountdownBegin())
+			if(cd.getCountdownBegin()){
+				if(firstUp){
+					qTime = time;
+					firstUp = false;
+				}
 				updateQuestion();
+			}
 	}
 
 	public void updateQuestion() {
 		long diff = time - qTime;
 		long label = (((timeBetweenQuestions * 1000000000L) - diff) / 1000000000L);
-		// Log.info(time+"");
-		// Log.info(qTime+"");
-		if (diff > 120 * 1000000000L) {
+		 ClientLog.info(time+"");
+		 ClientLog.info(qTime+"");
+		 ClientLog.info(diff+"");
+		 ClientLog.info(label+"");
+		 ClientLog.info(timeBetweenQuestions+"");
+		 ClientLog.info("______---------========^^^^^^^^^^    ^_^");
+		if (diff > timeBetweenQuestions * 1000000000L) {
 			addQuestion.setEnabled(true);
 			canQuestion = true;
 			addQuestion.setLabel("Add Question");
+			firstUp = true;
+			cd.setCountdownBegin(false);
 		}
 		if (label != prevLabel)
 			addQuestion.setLabel("Add Question (" + label + ")");
@@ -219,7 +232,7 @@ public class ClientTray implements Runnable {
 	/**
 	 * THIS ADDS QUESTIONS IF YOU CAN'T READ
 	 */
-	Thread addQuestionThread = new Thread(new Runnable() {
+	Runnable addQuestionThread = new Runnable() {
 		@Override
 		public void run() {
 			ClientLog.info("Adding Question");
@@ -257,7 +270,7 @@ public class ClientTray implements Runnable {
 				}
 			}
 		}
-	});
+	};
 	public void initializeThreads() {
 		
 	}
