@@ -2,20 +2,101 @@ Attempting to connect to server
 nameGoesHere [INFO] Connected to - localhost on port: 25565
 nameGoesHere [DEBUG] Created output stream 1 from connection
 before
+nameGoesHere [INFO] yooooo
+Exception in thread "JavaFX Application Thread" java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at javafx.fxml.FXMLLoader$MethodHandler.invoke(Unknown Source)
+	at javafx.fxml.FXMLLoader$ControllerMethodEventHandler.handle(Unknown Source)
+	at com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(Unknown Source)
+	at com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(Unknown Source)
+	at com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(Unknown Source)
+	at com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(Unknown Source)
+	at com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(Unknown Source)
+	at com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(Unknown Source)
+	at com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(Unknown Source)
+	at com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(Unknown Source)
+	at com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(Unknown Source)
+	at com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(Unknown Source)
+	at com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(Unknown Source)
+	at com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(Unknown Source)
+	at com.sun.javafx.event.EventUtil.fireEventImpl(Unknown Source)
+	at com.sun.javafx.event.EventUtil.fireEvent(Unknown Source)
+	at javafx.event.Event.fireEvent(Unknown Source)
+	at javafx.scene.Node.fireEvent(Unknown Source)
+	at javafx.scene.control.Button.fire(Unknown Source)
+	at com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(Unknown Source)
+	at com.sun.javafx.scene.control.skin.BehaviorSkinBase$1.handle(Unknown Source)
+	at com.sun.javafx.scene.control.skin.BehaviorSkinBase$1.handle(Unknown Source)
+	at com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(Unknown Source)
+	at com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(Unknown Source)
+	at com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(Unknown Source)
+	at com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(Unknown Source)
+	at com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(Unknown Source)
+	at com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(Unknown Source)
+	at com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(Unknown Source)
+	at com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(Unknown Source)
+	at com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(Unknown Source)
+	at com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(Unknown Source)
+	at com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(Unknown Source)
+	at com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(Unknown Source)
+	at com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(Unknown Source)
+	at com.sun.javafx.event.EventUtil.fireEventImpl(Unknown Source)
+	at com.sun.javafx.event.EventUtil.fireEvent(Unknown Source)
+	at javafx.event.Event.fireEvent(Unknown Source)
+	at javafx.scene.Scene$MouseHandler.process(Unknown Source)
+	at javafx.scene.Scene$MouseHandler.access$1500(Unknown Source)
+	at javafx.scene.Scene.impl_processMouseEvent(Unknown Source)
+	at javafx.scene.Scene$ScenePeerListener.mouseEvent(Unknown Source)
+	at com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(Unknown Source)
+	at com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$350(Unknown Source)
+	at com.sun.javafx.tk.quantum.GlassViewEventHandler$$Lambda$179/117917458.get(Unknown Source)
+	at com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(Unknown Source)
+	at com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(Unknown Source)
+	at com.sun.glass.ui.View.handleMouseEvent(Unknown Source)
+	at com.sun.glass.ui.View.notifyMouse(Unknown Source)
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at com.sun.glass.ui.win.WinApplication.lambda$null$145(Unknown Source)
+	at com.sun.glass.ui.win.WinApplication$$Lambda$36/2117255219.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at sun.reflect.misc.Trampoline.invoke(Unknown Source)
+	at sun.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at sun.reflect.misc.MethodUtil.invoke(Unknown Source)
+	... 55 more
+Caused by: java.lang.NullPointerException
+	at graphics.AdminButtons.removeQuestion(AdminButtons.java:37)
+	at main.AdminMain.asdf(AdminMain.java:147)
+	... 64 more
 nameGoesHere [INFO] WTF
 nameGoesHere [INFO] WTF
 receiving question list 0   1919892312
 question list is valid
 nameGoesHere [INFO] WTF
-receiving question list 1   358699161
+receiving question list 0   1143839598
 question list is valid
 nameGoesHere [INFO] WTF
-receiving question list 1   517938326
+receiving question list 0   250075633
 question list is valid
 nameGoesHere [INFO] WTF
-receiving question list 1   914424520
+receiving question list 0   358699161
 question list is valid
 nameGoesHere [INFO] WTF
-receiving question list 1   110718392
+receiving question list 0   517938326
+question list is valid
+nameGoesHere [INFO] WTF
+receiving question list 0   914424520
+question list is valid
+nameGoesHere [INFO] WTF
+receiving question list 0   110718392
+question list is valid
+nameGoesHere [INFO] WTF
+receiving question list 0   425918570
 question list is valid
 nameGoesHere [INFO] WTF

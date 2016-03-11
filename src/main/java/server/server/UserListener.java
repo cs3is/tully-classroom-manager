@@ -130,7 +130,7 @@ public class UserListener implements Runnable {
 							Server.getConnectedClients().get(u.getClassroom()).get(i).out().writeObject(new Task(Task.QUESTION_REMOVED));
 						}
 					}
-		//	.writeObject(new Task(Task.QUESTION_REMOVED));
+			u.out().writeObject(new Task(Task.QUESTION_REMOVED));
 
 			ServerLog.info("sent REMOVED_QUESTION");
 			break;

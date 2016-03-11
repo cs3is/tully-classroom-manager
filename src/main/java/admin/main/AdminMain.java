@@ -44,7 +44,7 @@ public class AdminMain extends Application {
 		new AdminConfigManager();
 
 		try {
-			 ab = new AdminButtons();
+			 ab = new AdminButtons(ad);
 			System.out.println("Attempting to connect to server");
 
 			connection = new Socket(AdminConfigManager.getStr("SERVER_IP"), AdminConfigManager.getInt("SERVER_PORT"));
@@ -144,6 +144,6 @@ public class AdminMain extends Application {
 	@FXML
 	public void asdf(){
 		AdminLog.info("yooooo");
-		ab.removeQuestion(ad.out);
+		ab.removeQuestion(ad.out); //TODO FIX THIS ITE REMOVIGN THINGS THAT DONT EXIST INT THE FIRST PLAC AND NOT ERRRING.
 	}
 }

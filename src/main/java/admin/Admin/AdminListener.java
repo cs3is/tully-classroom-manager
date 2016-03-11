@@ -117,6 +117,9 @@ public class AdminListener implements Runnable {
 				AdminMain.questionList = (LinkedList<Question>) t.getO();
 			}
 			break;
+		case Task.QUESTION_REMOVED:
+			ad.questionIsRemoved();
+			break;
 
 		}
 		ad.getOut().flush();

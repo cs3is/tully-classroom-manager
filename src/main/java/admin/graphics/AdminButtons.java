@@ -3,9 +3,15 @@ package graphics;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+import Admin.AdminData;
 import util.Task;
+import utils.AdminLog;
 
 public class AdminButtons {
+	AdminData ad;
+	public AdminButtons(AdminData ad){
+		this.ad = ad;
+	}
 	public void getScr(ObjectOutputStream out) {
 		try {
 			out.writeObject(new Task(Task.GET_SCREENSHOT));
@@ -27,6 +33,11 @@ public class AdminButtons {
 	public void removeQuestion(ObjectOutputStream out) {
 		try {
 			out.writeObject(new Task(Task.REMOVE_QUESTION));
+			for(int i = 0; i<3;i++){
+				if(ad.isQuestionRemoved()){
+					AdminLog.info("remove successful");
+				}
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
