@@ -48,9 +48,9 @@ public class AdminListener implements Runnable {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			AdminLog.info ("WTF");
+			AdminLog.info ("WTFasdf");
 		} while (sConfig == null);
-		ClientLog.info("Received init file");
+		AdminLog.info("Received init file");
 		initializeObjectListener();
 	}
 
@@ -119,6 +119,7 @@ public class AdminListener implements Runnable {
 			break;
 		case Task.QUESTION_REMOVED:
 			ad.questionIsRemoved();
+			AdminLog.info("Question removal confirmed!");
 			break;
 
 		}

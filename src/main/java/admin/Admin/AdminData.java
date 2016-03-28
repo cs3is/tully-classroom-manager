@@ -6,7 +6,7 @@ import java.io.ObjectOutputStream;
 public class AdminData {
 	public static ObjectInputStream in;
 	public static ObjectOutputStream out;
-	public static Boolean questionIsRemoved;
+	public static Boolean questionIsRemoved=false;
 	
 	public AdminData(ObjectInputStream in, ObjectOutputStream out) {
 		AdminData.in = in;
@@ -27,5 +27,8 @@ public class AdminData {
 	
 	public void questionIsRemoved(){
 		questionIsRemoved = true;
+	}
+	public void questionIsNotRemoved(){
+		questionIsRemoved = false;
 	}
 }

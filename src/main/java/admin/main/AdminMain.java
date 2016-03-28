@@ -44,7 +44,7 @@ public class AdminMain extends Application {
 		new AdminConfigManager();
 
 		try {
-			 ab = new AdminButtons(ad);
+			 
 			System.out.println("Attempting to connect to server");
 
 			connection = new Socket(AdminConfigManager.getStr("SERVER_IP"), AdminConfigManager.getInt("SERVER_PORT"));
@@ -56,7 +56,7 @@ public class AdminMain extends Application {
 			ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
 
 			ad = new AdminData(in,out);
-			
+			ab = new AdminButtons(ad);
 			AdminTray T = new AdminTray();
 			
 			userName = System.getProperty("user.name");
@@ -68,8 +68,7 @@ public class AdminMain extends Application {
 			
 			launch(args);
 			
-			al = new AdminListener(ad);
-			System.out.println("after");
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -89,7 +88,7 @@ public class AdminMain extends Application {
 
 					requestQuestionList();
 			//		System.out.println(questionList.size());
-
+					al = new AdminListener(ad);
 					Thread.sleep(5000);
 				} catch (Exception e) {
 					e.printStackTrace();

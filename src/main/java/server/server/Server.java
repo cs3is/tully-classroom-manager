@@ -60,6 +60,9 @@ public class Server implements Runnable {
 		serverSocket.setSoTimeout(10000);
 		Thread t = new Thread(this);
 		t.start();
+		for(int i = 0;i<2;i++){
+		connectedClients.add(new HashMap());
+		}
 	}
 
 	@Override
@@ -69,6 +72,7 @@ public class Server implements Runnable {
 		int selectedClass = -1;
 		while (true) {
 			try {
+				System.err.println(connectedClients);
 				// ServerLog.debug("Waiting for client... (port: " + ServerConfigManager.getStr("SERVER_PORT") + ")");
 				// TODO uncomment this when the debug mode is turned off
 				Socket connection = serverSocket.accept();
