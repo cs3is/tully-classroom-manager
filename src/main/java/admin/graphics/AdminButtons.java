@@ -42,6 +42,8 @@ public class AdminButtons {
 				}
 				if(ad.isQuestionRemoved()){
 					AdminLog.info("remove successful");
+					ad.questionIsRemoved();
+					break;
 				}
 			}
 		} catch (IOException e) {

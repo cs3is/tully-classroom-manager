@@ -107,7 +107,6 @@ public class AdminMain extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		System.out.println("before");
 
 		try {
 			Scene scene = new Scene((Parent) FXMLLoader.load(getClass().getResource("/gui.fxml")));
@@ -118,7 +117,6 @@ public class AdminMain extends Application {
 			t.start();
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -142,7 +140,6 @@ public class AdminMain extends Application {
 	
 	@FXML
 	public void asdf(){
-		AdminLog.info("yooooo");
 		ab.removeQuestion(ad.out); //TODO FIX THIS ITE REMOVIGN THINGS THAT DONT EXIST INT THE FIRST PLAC AND NOT ERRRING.
 	}
 }
