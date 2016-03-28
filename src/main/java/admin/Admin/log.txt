@@ -4,7 +4,12 @@ nameGoesHere [DEBUG] Created output stream 1 from connection
 before
 nameGoesHere [INFO] WTFasdf
 nameGoesHere [INFO] WTFasdf
-receiving question list 0   1426333665
+receiving question list 0   1386735436
 question list is valid
 nameGoesHere [INFO] WTFasdf
 nameGoesHere [INFO] yooooo
+nameGoesHere [INFO] Question removal confirmed!
+nameGoesHere [INFO] WTFasdf
+nameGoesHere [INFO] remove successful
+nameGoesHere [INFO] remove successful
+nameGoesHere [INFO] remove successful
