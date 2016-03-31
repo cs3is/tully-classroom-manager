@@ -11,6 +11,7 @@ import utils.ClientLog;
 
 public class LockFrame extends JFrame {
 	BufferedImage image;
+
 	public LockFrame(BufferedImage i) {
 		super();
 		image = i;
@@ -23,11 +24,12 @@ public class LockFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setVisible(true);
 		new AltTabStopper(this);
-		
+
 	}
-	public void paint(Graphics g){
-		g.drawImage(image,0,0,null);
-	
+
+	public void paint(Graphics g) {
+		g.drawImage(image, 0, 0, null);
+
 	}
-	
+
 }

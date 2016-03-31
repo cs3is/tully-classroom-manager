@@ -1,10 +1,9 @@
 
-
 package util;
 
 import java.io.Serializable;
 
-public class infoForClientToReceiveAndParseAndProbablyUseToo implements Serializable{
+public class infoForClientToReceiveAndParseAndProbablyUseToo implements Serializable {
 	long timeBetweenQuestions = -9999999;
 
 	public infoForClientToReceiveAndParseAndProbablyUseToo(long timeBetweenQuestions) {

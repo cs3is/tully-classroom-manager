@@ -9,9 +9,10 @@ public class Task implements Serializable {
 	public final static int SUBMIT_LAB = 1;
 	public final static int CLIENT_ERROR = 2;
 	public final static int SCREENSHOT = 3;
-//	public final static int CAN_ASK = 3;
+	// public final static int CAN_ASK = 3;
 
-	// Only to be invoked by the server TODO determine how commands from the server and admin client will work
+	// Only to be invoked by the server TODO determine how commands from the
+	// server and admin client will work
 	public final static int QUESTION_REMOVED = 20;
 	public final static int SEND_NOTIFICATION = 21;
 	public final static int GET_SCREENSHOT = 22;
@@ -37,33 +38,40 @@ public class Task implements Serializable {
 	private Object o = null;
 
 	/**
-	 * The basic type of object that will be sent in between the server and the client in order to communicate. Every task object will include an int
-	 * called toDo, which will be interpreted by the recipient of this file, and then perform actions accordingly.
+	 * The basic type of object that will be sent in between the server and the
+	 * client in order to communicate. Every task object will include an int
+	 * called toDo, which will be interpreted by the recipient of this file, and
+	 * then perform actions accordingly.
 	 * 
 	 * @param toDo
-	 *            Int that corresponds with one of the predefined commands in this file and will be what this object will tell the recipient what to
-	 *            do.
+	 *            Int that corresponds with one of the predefined commands in
+	 *            this file and will be what this object will tell the recipient
+	 *            what to do.
 	 */
 	public Task(int toDo) {
 		this.toDo = toDo;
-//		System.out.println("The new task is "+ toDo);
+		// System.out.println("The new task is "+ toDo);
 	}
 
 	/**
-	 * The basic type of object that will be sent in between the server and the client in order to communicate. Every task object will include an int
-	 * called toDo, which will be interpreted by the recipient of this file, and then perform actions accordingly.
+	 * The basic type of object that will be sent in between the server and the
+	 * client in order to communicate. Every task object will include an int
+	 * called toDo, which will be interpreted by the recipient of this file, and
+	 * then perform actions accordingly.
 	 * 
 	 * @param toDo
-	 *            Int that corresponds with one of the predefined commands in this file and will be what this object will tell the recipient what to
-	 *            do.
+	 *            Int that corresponds with one of the predefined commands in
+	 *            this file and will be what this object will tell the recipient
+	 *            what to do.
 	 * @param text
-	 *            The text that will be associated with the given toDo int. Text should not be included if the task does not require it.
+	 *            The text that will be associated with the given toDo int. Text
+	 *            should not be included if the task does not require it.
 	 */
 	public Task(int toDo, String text) {
 		this.toDo = toDo;
 		this.text = text;
 	}
-	
+
 	public Task(int toDo, Object o) {
 		this.toDo = toDo;
 		this.o = o;
@@ -76,8 +84,8 @@ public class Task implements Serializable {
 	public String getText() {
 		return text;
 	}
-	
-	public Object getO(){
+
+	public Object getO() {
 		return o;
 	}
 

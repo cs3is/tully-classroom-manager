@@ -114,24 +114,26 @@ public class ClientListener implements Runnable {
 			break;
 
 		case Task.GET_SCREENSHOT:
-			
+
 			try {
-				cd.getOut().writeObject(new Task(Task.SCREENSHOT,robo.createScreenCapture(new Rectangle(0,0,(int)screenSize.getWidth(),(int)screenSize.getHeight()))));
+				cd.getOut().writeObject(new Task(Task.SCREENSHOT, robo.createScreenCapture(
+						new Rectangle(0, 0, (int) screenSize.getWidth(), (int) screenSize.getHeight()))));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				
+
 			}
 			break;
 
 		case Task.GET_PROCESSES:
-			//METHOD IN CLIENTTRAY CALLED listTask() DOES THIS
+			// METHOD IN CLIENTTRAY CALLED listTask() DOES THIS
 			break;
 
 		case Task.DISABLE_COMPUTER:
 			try {
 				robo = new Robot();
-				new LockFrame(robo.createScreenCapture(new Rectangle(0,0,(int)screenSize.getWidth(),(int)screenSize.getHeight())));
+				new LockFrame(robo.createScreenCapture(
+						new Rectangle(0, 0, (int) screenSize.getWidth(), (int) screenSize.getHeight())));
 			} catch (AWTException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -139,11 +141,11 @@ public class ClientListener implements Runnable {
 			break;
 
 		case Task.SYNC:
-			//DO WE EVEN NEED THIS?
+			// DO WE EVEN NEED THIS?
 			break;
 
 		}
-		//WHY AM I COMMENTING IN ALL CAPS?
+		// WHY AM I COMMENTING IN ALL CAPS?
 	}
 
 	@Override
