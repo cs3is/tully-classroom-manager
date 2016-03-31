@@ -19,19 +19,18 @@ import utils.ClientConfig;
 import utils.ClientConfigManager;
 import utils.ServerLog;
 
-public class AdminTray implements Runnable{
-	
+public class AdminTray implements Runnable {
+
 	private ArrayList<MenuItem> components = new ArrayList<MenuItem>();
 	private MenuItem exit = null;
 	private PopupMenu popup = null;
 	TrayIcon trayIcon = null;
 	final SystemTray tray = SystemTray.getSystemTray();
-	
-	public AdminTray(){
+
+	public AdminTray() {
 		init();
 	}
-	
-	
+
 	public void init() {
 		createMenu();
 		createMenuComponents();
@@ -82,26 +81,22 @@ public class AdminTray implements Runnable{
 				System.exit(0);
 			}
 		});
-		
+
 		trayIcon.addMouseListener(new MouseAdapter() {
-		    public void mouseClicked(MouseEvent e) {
-		        if (e.getClickCount() == 1) {
-		        	if(e.getButton() == e.BUTTON1){
-		        		System.exit(0);
-		        	}
-		        }
-		    }
-		}); 
-			
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 1) {
+					if (e.getButton() == e.BUTTON1) {
+						System.exit(0);
+					}
+				}
+			}
+		});
 
 	}
-
-
 
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
-

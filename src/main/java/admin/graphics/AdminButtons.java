@@ -9,9 +9,11 @@ import utils.AdminLog;
 
 public class AdminButtons {
 	AdminData ad;
-	public AdminButtons(AdminData ad){
+
+	public AdminButtons(AdminData ad) {
 		this.ad = ad;
 	}
+
 	public void getScr(ObjectOutputStream out) {
 		try {
 			out.writeObject(new Task(Task.GET_SCREENSHOT));
@@ -29,10 +31,11 @@ public class AdminButtons {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void removeQuestion(ObjectOutputStream out) {
 		try {
 			out.writeObject(new Task(Task.REMOVE_QUESTION));
+<<<<<<< HEAD
 			for(int i = 0; i<3;i++){
 				try {
 					Thread.sleep(100);
@@ -41,6 +44,10 @@ public class AdminButtons {
 					e.printStackTrace();
 				}
 				if(ad.isQuestionRemoved()){
+=======
+			for (int i = 0; i < 3; i++) {
+				if (ad.isQuestionRemoved()) {
+>>>>>>> master
 					AdminLog.info("remove successful");
 					ad.questionIsRemoved();
 					break;
@@ -54,7 +61,7 @@ public class AdminButtons {
 
 	public void sendNotification(ObjectOutputStream out, String msg) {
 		try {
-			out.writeObject(new Task(Task.SEND_NOTIFICATION,msg));
+			out.writeObject(new Task(Task.SEND_NOTIFICATION, msg));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

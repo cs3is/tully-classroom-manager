@@ -26,10 +26,14 @@ public class AdminConfigManager {
 	private static int yResolution = 1080;
 
 	/**
-	 * Manages everything to do with loading, saving, and accessing the settings that have been set in this program. It saves and loads all of the
-	 * settings into a text file that is both readable and editable without the use of any external programs. When the program is running, all of the
-	 * settings are stored within a hashmap, and are accessed by using the key associated with the the setting wanted, and giving it to the proper
-	 * accessor, each of which cast the Object that is saved in the hashmap into the desired Object type.
+	 * Manages everything to do with loading, saving, and accessing the settings
+	 * that have been set in this program. It saves and loads all of the
+	 * settings into a text file that is both readable and editable without the
+	 * use of any external programs. When the program is running, all of the
+	 * settings are stored within a hashmap, and are accessed by using the key
+	 * associated with the the setting wanted, and giving it to the proper
+	 * accessor, each of which cast the Object that is saved in the hashmap into
+	 * the desired Object type.
 	 */
 	public AdminConfigManager() {
 
@@ -65,7 +69,8 @@ public class AdminConfigManager {
 	 * @param h
 	 *            The hashmap that will have all of its data printed
 	 * @param location
-	 *            The location of the file that will have all of the information printed to it.
+	 *            The location of the file that will have all of the information
+	 *            printed to it.
 	 */
 	public static void writeFile(HashMap<String, Object> h, String location) {
 
@@ -86,8 +91,10 @@ public class AdminConfigManager {
 	}
 
 	/**
-	 * Used whenever the hashmap needs to be written into a text file, such as when the settings need to be saved, or when the program is getting
-	 * closed. It will write them in the format Key=Value withing the file specified.
+	 * Used whenever the hashmap needs to be written into a text file, such as
+	 * when the settings need to be saved, or when the program is getting
+	 * closed. It will write them in the format Key=Value withing the file
+	 * specified.
 	 * 
 	 * @param location
 	 *            The location of the file which the hashmap will be saved to.
@@ -111,14 +118,16 @@ public class AdminConfigManager {
 	}
 
 	/**
-	 * This is the helper method for the other writeFile(), it is used to write text into the file specified, with the specified text.
+	 * This is the helper method for the other writeFile(), it is used to write
+	 * text into the file specified, with the specified text.
 	 * 
 	 * @param key
 	 *            This is the unique identifier for the option given
 	 * @param value
 	 *            This is the value that is associated with the given key
 	 * @param location
-	 *            This is the location of the file which the settings will be written to
+	 *            This is the location of the file which the settings will be
+	 *            written to
 	 */
 	private static void writeFile(String key, String value, String location) {
 		Writer writer = null;
@@ -138,7 +147,8 @@ public class AdminConfigManager {
 	}
 
 	/**
-	 * This method will read a file that's in the format key=value, and add all of the lines into a hashmap
+	 * This method will read a file that's in the format key=value, and add all
+	 * of the lines into a hashmap
 	 * 
 	 * @param h
 	 *            The hashmap which the text from the file will be added to.
@@ -154,7 +164,8 @@ public class AdminConfigManager {
 	}
 
 	/**
-	 * This is the method to call whenever the settings need to be updated- it will reload all of the settings from the config file.
+	 * This is the method to call whenever the settings need to be updated- it
+	 * will reload all of the settings from the config file.
 	 */
 	public static void update() {
 
@@ -164,11 +175,9 @@ public class AdminConfigManager {
 			scan = new Scanner(new File("config.cfg"));
 			readFile(settings);
 		} catch (FileNotFoundException e) {
-			JOptionPane
-					.showMessageDialog(
-							null,
-							"Some files were detected as missing from the program, and have been restored, press OK to restart.",
-							"ERROR", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null,
+					"Some files were detected as missing from the program, and have been restored, press OK to restart.",
+					"ERROR", JOptionPane.ERROR_MESSAGE);
 			try {
 				File f = new File("config.cfg");
 				f.createNewFile();
@@ -224,12 +233,15 @@ public class AdminConfigManager {
 	}
 
 	/**
-	 * This is the method to use when something needs to be added into the hashmap where all of the settings are stored.
+	 * This is the method to use when something needs to be added into the
+	 * hashmap where all of the settings are stored.
 	 * 
 	 * @param key
-	 *            This will be the key for the option to add to the settings hashmap
+	 *            This will be the key for the option to add to the settings
+	 *            hashmap
 	 * @param value
-	 *            This will be the text associated with the given key. It will be converted into an object upon entering the hashmap.
+	 *            This will be the text associated with the given key. It will
+	 *            be converted into an object upon entering the hashmap.
 	 */
 	public void addSetting(String key, String value) {
 		settings.put(key, value);

@@ -23,11 +23,13 @@ public class ClientLog {
 	}
 
 	/**
-	 * Will print out information from the program so long as the logging feature is enabled. It will add the name and a tag to the information as it
-	 * is being printed.
+	 * Will print out information from the program so long as the logging
+	 * feature is enabled. It will add the name and a tag to the information as
+	 * it is being printed.
 	 * 
 	 * @param logLevel
-	 *            This is the type of message that would be displayed, it can either be "[ERROR]", "[FATAL]", or "[WARN]".
+	 *            This is the type of message that would be displayed, it can
+	 *            either be "[ERROR]", "[FATAL]", or "[WARN]".
 	 * @param text
 	 *            This is the message that will be displayed in the console.
 	 */
@@ -89,8 +91,9 @@ public class ClientLog {
 	}
 
 	/**
-	 * This is the method to use if the error() method doesn't work for any reason, such as before the hashmap in ConfigManager is initialized and the
-	 * log() method is not able to be invoked.
+	 * This is the method to use if the error() method doesn't work for any
+	 * reason, such as before the hashmap in ConfigManager is initialized and
+	 * the log() method is not able to be invoked.
 	 * 
 	 * @param text
 	 *            This is the message that will be displayed in the console.

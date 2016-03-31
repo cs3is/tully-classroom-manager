@@ -29,9 +29,9 @@ public class UserListener implements Runnable {
 
 	@Override
 	public void run() {
-//		System.out.println("created a userListener");
+		// System.out.println("created a userListener");
 		timeBetweenQuestions = ServerConfigManager.getLong("TIME_BETWEEN_QUESTIONS");
-		ServerLog.info ("tbq = "+timeBetweenQuestions);
+		ServerLog.info("tbq = " + timeBetweenQuestions);
 		try {
 			// u.out().reset();
 			Thread.sleep(125);
@@ -101,7 +101,7 @@ public class UserListener implements Runnable {
 				u.setLastQuestionTime(System.nanoTime());
 				// this works System.out.println("The classroom of the added
 				// student is " + u.getClassroom());
-				Server.getQuestionList(u.getClassroom()).add(new Question(u.getHostname() , u.getUserName()));
+				Server.getQuestionList(u.getClassroom()).add(new Question(u.getHostname(), u.getUserName()));
 				System.out.println(Server.getQuestionList(u.getClassroom()).size());
 				// SQL if (LastQuestionAsked == 0 ||
 				// lastQuestionAsked-currentTime > maxTime){
@@ -117,7 +117,7 @@ public class UserListener implements Runnable {
 				ServerLog.info("sent QUESTION_NOT_ADDED");
 
 			}
-			
+
 			Thread.sleep(3000);
 			u.out().writeObject(new Task(Task.QUESTION_REMOVED));
 			break;
@@ -125,6 +125,7 @@ public class UserListener implements Runnable {
 			Question temp = Server.getQuestionList(u.getClassroom()).poll();
 			ServerLog.info("removed question " + temp);
 			ServerLog.debug("sending REMOVED_QUESTION");
+<<<<<<< HEAD
 			ServerLog.error(Server.getConnectedClients()+"");
 //					for (int i = 0 ; i < Server.getConnectedClients().get(u.getClassroom()).size();i++){
 //						if(Server.getConnectedClients().get(u.getClassroom()).get(i)!=null){
@@ -134,6 +135,14 @@ public class UserListener implements Runnable {
 //							}
 //						}
 //					}
+=======
+			for (int i = 0; i < Server.getConnectedClients().get(u.getClassroom()).size(); i++) {
+				if (Server.getConnectedClients().get(u.getClassroom()).get(i).getHostname() == temp.getHostName()) {
+					Server.getConnectedClients().get(u.getClassroom()).get(i).out()
+							.writeObject(new Task(Task.QUESTION_REMOVED));
+				}
+			}
+>>>>>>> master
 			u.out().writeObject(new Task(Task.QUESTION_REMOVED));
 
 			ServerLog.info("sent REMOVED_QUESTION");
@@ -158,11 +167,11 @@ public class UserListener implements Runnable {
 			break;
 
 		case Task.GET_QUESTION_LIST:
-			System.out.println("sending list of questions"+Server.getQuestionList(u.getClassroom()).size());
-			Task tt =new Task(Task.UPDATE_QUESTIONS, Server.getQuestionList(u.getClassroom()));
+			System.out.println("sending list of questions" + Server.getQuestionList(u.getClassroom()).size());
+			Task tt = new Task(Task.UPDATE_QUESTIONS, Server.getQuestionList(u.getClassroom()));
 			System.out.println(((LinkedList<?>) (tt.getO())).size());
 			u.out().writeObject(tt);
-			//	u.out().writeObject(Server.getQuestionList(u.getClassroom()));
+			// u.out().writeObject(Server.getQuestionList(u.getClassroom()));
 			break;
 
 		}
