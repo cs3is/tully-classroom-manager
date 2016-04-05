@@ -72,7 +72,6 @@ public class Server implements Runnable {
 		int selectedClass = -1;
 		while (true) {
 			try {
-				System.err.println(connectedClients);
 				// ServerLog.debug("Waiting for client... (port: " + ServerConfigManager.getStr("SERVER_PORT") + ")");
 				// TODO uncomment this when the debug mode is turned off
 				Socket connection = serverSocket.accept();

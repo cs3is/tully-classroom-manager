@@ -208,12 +208,12 @@ public class ClientTray implements Runnable {
 	public void updateQuestion() {
 		long diff = time - qTime;
 		long label = (((timeBetweenQuestions * 1000000000L) - diff) / 1000000000L);
-		 ClientLog.info(time+"");
-		 ClientLog.info(qTime+"");
-		 ClientLog.info(diff+"");
-		 ClientLog.info(label+"");
-		 ClientLog.info(timeBetweenQuestions+"");
-		 ClientLog.info("______---------========^^^^^^^^^^    ^_^");
+//		 ClientLog.info(time+"");
+//		 ClientLog.info(qTime+"");
+//		 ClientLog.info(diff+"");
+//		 ClientLog.info(label+"");
+//		 ClientLog.info(timeBetweenQuestions+"");
+//		 ClientLog.info("______---------========^^^^^^^^^^    ^_^");
 		if (diff > timeBetweenQuestions * 1000000000L) {
 			addQuestion.setEnabled(true);
 			canQuestion = true;
