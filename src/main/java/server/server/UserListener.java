@@ -125,24 +125,9 @@ public class UserListener implements Runnable {
 			Question temp = Server.getQuestionList(u.getClassroom()).poll();
 			ServerLog.info("removed question " + temp);
 			ServerLog.debug("sending REMOVED_QUESTION");
-<<<<<<< HEAD
+			
 			ServerLog.error(Server.getConnectedClients()+"");
-//					for (int i = 0 ; i < Server.getConnectedClients().get(u.getClassroom()).size();i++){
-//						if(Server.getConnectedClients().get(u.getClassroom()).get(i)!=null){
-//							if(Server.getConnectedClients().get(u.getClassroom()).get(i).getHostname()==temp.getHostName()){
-//								ServerLog.info("lloooooppp");
-//								Server.getConnectedClients().get(u.getClassroom()).get(i).out().writeObject(new Task(Task.QUESTION_REMOVED));
-//							}
-//						}
-//					}
-=======
-			for (int i = 0; i < Server.getConnectedClients().get(u.getClassroom()).size(); i++) {
-				if (Server.getConnectedClients().get(u.getClassroom()).get(i).getHostname() == temp.getHostName()) {
-					Server.getConnectedClients().get(u.getClassroom()).get(i).out()
-							.writeObject(new Task(Task.QUESTION_REMOVED));
-				}
-			}
->>>>>>> master
+
 			u.out().writeObject(new Task(Task.QUESTION_REMOVED));
 
 			ServerLog.info("sent REMOVED_QUESTION");

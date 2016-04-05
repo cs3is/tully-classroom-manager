@@ -48,11 +48,8 @@ public class AdminListener implements Runnable {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-<<<<<<< HEAD
 			AdminLog.info ("WTFasdf");
-=======
-			AdminLog.info("WTF");
->>>>>>> master
+
 		} while (sConfig == null);
 		AdminLog.info("Received init file");
 		initializeObjectListener();

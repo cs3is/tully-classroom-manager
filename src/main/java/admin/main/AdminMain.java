@@ -44,11 +44,6 @@ public class AdminMain extends Application {
 		new AdminConfigManager();
 
 		try {
-<<<<<<< HEAD
-			 
-=======
-			ab = new AdminButtons(ad);
->>>>>>> master
 			System.out.println("Attempting to connect to server");
 
 			connection = new Socket(AdminConfigManager.getStr("SERVER_IP"), AdminConfigManager.getInt("SERVER_PORT"));
@@ -59,13 +54,10 @@ public class AdminMain extends Application {
 			AdminLog.debug("Created output stream 1 from connection");
 			ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
 
-<<<<<<< HEAD
+
 			ad = new AdminData(in,out);
 			ab = new AdminButtons(ad);
-=======
-			ad = new AdminData(in, out);
 
->>>>>>> master
 			AdminTray T = new AdminTray();
 
 			userName = System.getProperty("user.name");
@@ -76,14 +68,7 @@ public class AdminMain extends Application {
 			}
 
 			launch(args);
-<<<<<<< HEAD
-			
-			
-=======
 
-			al = new AdminListener(ad);
-			System.out.println("after");
->>>>>>> master
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -102,13 +87,8 @@ public class AdminMain extends Application {
 				try {
 
 					requestQuestionList();
-<<<<<<< HEAD
-			//		System.out.println(questionList.size());
 					al = new AdminListener(ad);
-=======
-					// System.out.println(questionList.size());
 
->>>>>>> master
 					Thread.sleep(5000);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -159,15 +139,10 @@ public class AdminMain extends Application {
 	}
 
 	@FXML
-<<<<<<< HEAD
-	public void asdf(){
-		ab.removeQuestion(ad.out); //TODO FIX THIS ITE REMOVIGN THINGS THAT DONT EXIST INT THE FIRST PLAC AND NOT ERRRING.
-=======
 	public void asdf() {
 		AdminLog.info("yooooo");
 		ab.removeQuestion(ad.out); // TODO FIX THIS ITE REMOVIGN THINGS THAT
 									// DONT EXIST INT THE FIRST PLAC AND NOT
 									// ERRRING.
->>>>>>> master
 	}
 }

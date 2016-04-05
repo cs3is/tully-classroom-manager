@@ -61,8 +61,8 @@ public class Server implements Runnable {
 		serverSocket.setSoTimeout(10000);
 		Thread t = new Thread(this);
 		t.start();
-		for(int i = 0;i<2;i++){
-		connectedClients.add(new HashMap());
+		for (int i = 0; i < numberOfTeachers; i++) {
+			connectedClients.add(new HashMap<Integer, Info>());
 		}
 	}
 
@@ -73,13 +73,7 @@ public class Server implements Runnable {
 		int selectedClass = -1;
 		while (true) {
 			try {
-<<<<<<< HEAD
-				System.err.println(connectedClients);
-				// ServerLog.debug("Waiting for client... (port: " + ServerConfigManager.getStr("SERVER_PORT") + ")");
-=======
-				// ServerLog.debug("Waiting for client... (port: " +
-				// ServerConfigManager.getStr("SERVER_PORT") + ")");
->>>>>>> master
+
 				// TODO uncomment this when the debug mode is turned off
 				Socket connection = serverSocket.accept();
 				ServerLog.debug("Connected to: " + connection.getRemoteSocketAddress());
@@ -207,9 +201,5 @@ public class Server implements Runnable {
 	public static ArrayList<HashMap<Integer, Info>> getConnectedClients() {
 		return connectedClients;
 	}
-
-	/*
-	 * public static Queue<Question> getQuestionList() { return questionList; }
-	 */
 
 }

@@ -35,19 +35,15 @@ public class AdminButtons {
 	public void removeQuestion(ObjectOutputStream out) {
 		try {
 			out.writeObject(new Task(Task.REMOVE_QUESTION));
-<<<<<<< HEAD
-			for(int i = 0; i<3;i++){
+			for (int i = 0; i < 3; i++) {
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException e) {
 
 					e.printStackTrace();
 				}
-				if(ad.isQuestionRemoved()){
-=======
-			for (int i = 0; i < 3; i++) {
 				if (ad.isQuestionRemoved()) {
->>>>>>> master
+
 					AdminLog.info("remove successful");
 					ad.questionIsRemoved();
 					break;
