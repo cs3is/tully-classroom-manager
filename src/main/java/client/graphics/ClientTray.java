@@ -58,19 +58,17 @@ public class ClientTray implements Runnable {
 
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	final SystemTray tray = SystemTray.getSystemTray();
-	
+
 	private long timeBetweenQuestions = 0;
-	
 
 	public ClientTray(ClientData cd) {
 		// init objectstreams
 		this.cd = cd;
-		
+
 		Runtime run;
 		Robot robo;
-		//TODO MAKE SURE THIS WORKS
-		
-		
+		// TODO MAKE SURE THIS WORKS
+
 		userName = System.getProperty("user.name");
 		System.out.println("The user name is: " + userName.trim());
 		try {
@@ -78,11 +76,10 @@ public class ClientTray implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		ClientLog.debug("Starting clientlistener...");
 		cl = new ClientListener(cd);
 		// get username
-		
 
 		init();
 		initInit();
@@ -135,10 +132,10 @@ public class ClientTray implements Runnable {
 	public void addMenuComponents() {
 		for (int i = 0; i < components.size(); i++) {
 			popup.add(components.get(i));
-			if(i == 1){
+			if (i == 1) {
 				popup.addSeparator();
 			}
-			if(i == 2 ){
+			if (i == 2) {
 				popup.addSeparator();
 			}
 		}
@@ -150,10 +147,9 @@ public class ClientTray implements Runnable {
 		addQuestion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				
 				addQuestion.setEnabled(false);
 				new Thread(addQuestionThread).start();
-				
+
 			}
 		});
 
@@ -162,22 +158,20 @@ public class ClientTray implements Runnable {
 				System.exit(0);
 			}
 		});
-		
+
 		submitAssignment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				System.exit(0);
+				// System.exit(0);
 			}
 		});
-		
+
 		takeTest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				System.exit(0);
+				// System.exit(0);
 			}
 		});
 
 	}
-
-	
 
 	@Override
 	public void run() {
@@ -193,11 +187,11 @@ public class ClientTray implements Runnable {
 		}
 
 	}
-	
+
 	public void updateMenu() {
 		if (!canQuestion)
-			if(cd.getCountdownBegin()){
-				if(firstUp){
+			if (cd.getCountdownBegin()) {
+				if (firstUp) {
 					qTime = time;
 					firstUp = false;
 				}
@@ -228,7 +222,7 @@ public class ClientTray implements Runnable {
 		// cd.getOS(Task.REQUEST_SYNC);
 
 	}
-	
+
 	/**
 	 * THIS ADDS QUESTIONS IF YOU CAN'T READ
 	 */
@@ -251,18 +245,17 @@ public class ClientTray implements Runnable {
 								added = true;
 								break;
 							}
-							ClientLog.info("Have not received confirmation from server for "+(5-i)+" seconds, retrying "+i+" more times");
-							
+							ClientLog.info("Have not received confirmation from server for " + (5 - i)
+									+ " seconds, retrying " + i + " more times");
 
 						} catch (Exception e) {
 							ClientLog.error("error at addQuestion while waiting for response");
 							e.printStackTrace();
 						}
 					}
-					if(added){
+					if (added) {
 						added = false;
-					}
-					else{
+					} else {
 						ClientLog.error("server did not respond to addQuestion in 5 seconds");
 					}
 				} catch (IOException e) {
@@ -271,35 +264,36 @@ public class ClientTray implements Runnable {
 			}
 		}
 	};
+
 	public void initializeThreads() {
-		
+
 	}
-	public void initInit(){
-		timeBetweenQuestions = ((infoForClientToReceiveAndParseAndProbablyUseToo) cl.getConfig()).getTimeBetweenQuestions();
+
+	public void initInit() {
+		timeBetweenQuestions = ((infoForClientToReceiveAndParseAndProbablyUseToo) cl.getConfig())
+				.getTimeBetweenQuestions();
 	}
-	public ArrayList<String> listTasks(){
+
+	public ArrayList<String> listTasks() {
 		ArrayList<String> processes = new ArrayList<String>();
 		try {
-		      String line;
-		      Process p = Runtime.getRuntime().exec("tasklist.exe /fo csv /nh");
-		      BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-		      while ((line = input.readLine()) != null) {
-		          if (!line.trim().equals("")) {
-		              // keep only the process name
-		              line = line.substring(1);
-		             // System.out.println(line.substring(0, line.indexOf("\"")));
-		              processes.add(line.substring(0, line.indexOf("\"")));
-		          }
+			String line;
+			Process p = Runtime.getRuntime().exec("tasklist.exe /fo csv /nh");
+			BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			while ((line = input.readLine()) != null) {
+				if (!line.trim().equals("")) {
+					// keep only the process name
+					line = line.substring(1);
+					// System.out.println(line.substring(0,
+					// line.indexOf("\"")));
+					processes.add(line.substring(0, line.indexOf("\"")));
+				}
 
-		      }
-		      input.close();
-		    }
-		    catch (Exception err) {
-		      err.printStackTrace();
-		    }
+			}
+			input.close();
+		} catch (Exception err) {
+			err.printStackTrace();
+		}
 		return processes;
 	}
 }
-
-
-

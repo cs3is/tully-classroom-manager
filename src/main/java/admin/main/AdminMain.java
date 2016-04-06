@@ -36,7 +36,7 @@ public class AdminMain extends Application {
 	 * An ArrayList that contains a Queue of questions for each classroom.
 	 */
 	public static LinkedList<Question> questionList = new LinkedList<Question>();
-	
+
 	private static String userName;
 
 	public static void main(String[] args) {
@@ -44,7 +44,6 @@ public class AdminMain extends Application {
 		//new AdminConfigManager();
 
 		try {
-			 
 			System.out.println("Attempting to connect to server");
 
 			connection = new Socket(AdminConfigManager.getStr("SERVER_IP"), AdminConfigManager.getInt("SERVER_PORT"));
@@ -55,20 +54,21 @@ public class AdminMain extends Application {
 			AdminLog.debug("Created output stream 1 from connection");
 			ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
 
+
 			ad = new AdminData(in,out);
 			ab = new AdminButtons(ad);
+
 			AdminTray T = new AdminTray();
-			
+
 			userName = System.getProperty("user.name");
 			try {
 				out.writeObject(userName);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
+
 			launch(args);
-			
-			
+
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -87,8 +87,8 @@ public class AdminMain extends Application {
 				try {
 
 					requestQuestionList();
-			//		System.out.println(questionList.size());
 					al = new AdminListener(ad);
+
 					Thread.sleep(5000);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -100,7 +100,7 @@ public class AdminMain extends Application {
 	});
 
 	public void requestQuestionList() throws Exception {
-//		System.out.println("calling request questionlist from the server");
+		// System.out.println("calling request questionlist from the server");
 		ad.out.writeObject(new Task(Task.GET_QUESTION_LIST));
 		Thread.sleep(500);
 	}
@@ -137,9 +137,12 @@ public class AdminMain extends Application {
 	public void QUESTION_CLEAR_ALL() {
 		System.out.println("clearing EVERYTHING");
 	}
-	
+
 	@FXML
-	public void asdf(){
-		ab.removeQuestion(ad.out); //TODO FIX THIS ITE REMOVIGN THINGS THAT DONT EXIST INT THE FIRST PLAC AND NOT ERRRING.
+	public void asdf() {
+		AdminLog.info("yooooo");
+		ab.removeQuestion(ad.out); // TODO FIX THIS ITE REMOVIGN THINGS THAT
+									// DONT EXIST INT THE FIRST PLAC AND NOT
+									// ERRRING.
 	}
 }
