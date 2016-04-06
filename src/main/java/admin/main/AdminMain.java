@@ -41,7 +41,7 @@ public class AdminMain extends Application {
 
 	public static void main(String[] args) {
 
-		new AdminConfigManager();
+		//new AdminConfigManager();
 
 		try {
 			 
