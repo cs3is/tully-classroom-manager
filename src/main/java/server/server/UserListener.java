@@ -29,7 +29,7 @@ public class UserListener implements Runnable {
 
 	@Override
 	public void run() {
-		// System.out.println("created a userListener");
+		// ServerLog.info("created a userListener");
 		timeBetweenQuestions = ServerConfigManager.getLong("TIME_BETWEEN_QUESTIONS");
 		ServerLog.info("tbq = " + timeBetweenQuestions);
 		try {
@@ -99,10 +99,10 @@ public class UserListener implements Runnable {
 			if (u.getLastQuestionTime() == 0 || u.getLastQuestionTime() - System.nanoTime() > timeBetweenQuestions) {
 
 				u.setLastQuestionTime(System.nanoTime());
-				// this works System.out.println("The classroom of the added
+				// this works ServerLog.info("The classroom of the added
 				// student is " + u.getClassroom());
 				Server.getQuestionList(u.getClassroom()).add(new Question(u.getHostname(), u.getUserName()));
-				System.out.println(Server.getQuestionList(u.getClassroom()).size());
+				ServerLog.info(""+Server.getQuestionList(u.getClassroom()).size());
 				// SQL if (LastQuestionAsked == 0 ||
 				// lastQuestionAsked-currentTime > maxTime){
 				// questionList.add (computerNumber)
@@ -152,9 +152,9 @@ public class UserListener implements Runnable {
 			break;
 
 		case Task.GET_QUESTION_LIST:
-			System.out.println("sending list of questions" + Server.getQuestionList(u.getClassroom()).size());
+			ServerLog.info("sending list of questions" + Server.getQuestionList(u.getClassroom()).size());
 			Task tt = new Task(Task.UPDATE_QUESTIONS, Server.getQuestionList(u.getClassroom()));
-			System.out.println(((LinkedList<?>) (tt.getO())).size());
+			ServerLog.info(""+((LinkedList<?>) (tt.getO())).size());
 			u.out().writeObject(tt);
 			// u.out().writeObject(Server.getQuestionList(u.getClassroom()));
 			break;

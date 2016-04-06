@@ -119,10 +119,10 @@ public class Server implements Runnable {
 						admin = false;
 						connectionAccepted = false;
 					} else {
-						System.out.println("an admin has been detected");
+						ServerLog.info("an admin has been detected");
 						AdminInformation u = new AdminInformation(selectedClass, (String) in.readObject(),
 								connection.getLocalAddress().getHostName(), in, out);
-						System.out.println("admininformation has been created");
+						ServerLog.info("admininformation has been created");
 						Thread t = new Thread(new UserListener(u, connection));
 						t.start();
 						ServerLog.debug("sending \"Connection accepted by server\"");
@@ -137,7 +137,7 @@ public class Server implements Runnable {
 				}
 				Thread.sleep(500);
 				out.reset();
-				// System.out.println(connection.getLocalAddress().getHostName());
+				// ServerLog.info(connection.getLocalAddress().getHostName());
 
 				/*
 				 * if not on list connection.close(); else { new user cl =new

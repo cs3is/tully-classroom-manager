@@ -41,10 +41,10 @@ public class AdminMain extends Application {
 
 	public static void main(String[] args) {
 
-		//new AdminConfigManager();
+		new AdminConfigManager();
 
 		try {
-			System.out.println("Attempting to connect to server");
+			AdminLog.info("Attempting to connect to server");
 
 			connection = new Socket(AdminConfigManager.getStr("SERVER_IP"), AdminConfigManager.getInt("SERVER_PORT"));
 			AdminLog.info("Connected to - " + AdminConfigManager.getStr("SERVER_IP") + " on port: "
@@ -100,7 +100,7 @@ public class AdminMain extends Application {
 	});
 
 	public void requestQuestionList() throws Exception {
-		// System.out.println("calling request questionlist from the server");
+		// AdminLog.info("calling request questionlist from the server");
 		ad.out.writeObject(new Task(Task.GET_QUESTION_LIST));
 		Thread.sleep(500);
 	}
@@ -130,12 +130,12 @@ public class AdminMain extends Application {
 
 	@FXML
 	public void QUESTION_CLEAR() {
-		System.out.println("clearing the next item on the list");
+		AdminLog.info("clearing the next item on the list");
 	}
 
 	@FXML
 	public void QUESTION_CLEAR_ALL() {
-		System.out.println("clearing EVERYTHING");
+		AdminLog.info("clearing EVERYTHING");
 	}
 
 	@FXML

@@ -70,7 +70,7 @@ public class ClientTray implements Runnable {
 		// TODO MAKE SURE THIS WORKS
 
 		userName = System.getProperty("user.name");
-		System.out.println("The user name is: " + userName.trim());
+		ClientLog.info("The user name is: " + userName.trim());
 		try {
 			cd.getOut().writeObject(userName);
 		} catch (IOException e) {
@@ -100,7 +100,7 @@ public class ClientTray implements Runnable {
 		try {
 			tray.add(trayIcon);
 		} catch (AWTException e) {
-			System.out.println("TrayIcon could not be added.");
+			ClientLog.info("TrayIcon could not be added.");
 		}
 
 		ServerLog.info("ClientTray initialized");
@@ -284,7 +284,7 @@ public class ClientTray implements Runnable {
 				if (!line.trim().equals("")) {
 					// keep only the process name
 					line = line.substring(1);
-					// System.out.println(line.substring(0,
+					// ClientLog.info(line.substring(0,
 					// line.indexOf("\"")));
 					processes.add(line.substring(0, line.indexOf("\"")));
 				}

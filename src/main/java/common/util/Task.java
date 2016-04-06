@@ -50,7 +50,7 @@ public class Task implements Serializable {
 	 */
 	public Task(int toDo) {
 		this.toDo = toDo;
-		// System.out.println("The new task is "+ toDo);
+		//Log.info("The new task is "+ toDo);
 	}
 
 	/**
