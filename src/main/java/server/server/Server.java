@@ -80,12 +80,7 @@ public class Server implements Runnable {
 
 		while (true) {
 			try {
-<<<<<<< HEAD
 
-=======
-				// ServerLog.debug("Waiting for client... (port: " + ServerConfigManager.getStr("SERVER_PORT") + ")");
-				// TODO uncomment this when the debug mode is turned off
->>>>>>> 4a09d33b313fa7cd138a9e0e0382fa1ec91b00b3
 				Socket connection = serverSocket.accept();
 				ServerLog.debug("Connected to: " + connection.getRemoteSocketAddress());
 
@@ -105,25 +100,8 @@ public class Server implements Runnable {
 						acceptClient(connection, selectedClass, in, out);
 
 					} else {
-<<<<<<< HEAD
 
 						acceptAdmin(connection, selectedClass, in, out);
-
-=======
-						ServerLog.info("an admin has been detected");
-						AdminInformation u = new AdminInformation(selectedClass, (String) in.readObject(),
-								connection.getLocalAddress().getHostName(), in, out);
-						ServerLog.info("admininformation has been created");
-						Thread t = new Thread(new UserListener(u, connection));
-						t.start();
-						ServerLog.debug("sending \"Connection accepted by server\"");
-						out.writeObject(new Task(Task.SEND_NOTIFICATION, "Connection accepted by server"));
-
-						connectedClients.get(selectedClass).put(
-								computerList.get(selectedClass).get(connection.getLocalAddress().getHostName()), u);
-						admin = false;
-						connectionAccepted = false;
->>>>>>> 4a09d33b313fa7cd138a9e0e0382fa1ec91b00b3
 					}
 
 					admin = false;
@@ -134,10 +112,7 @@ public class Server implements Runnable {
 				Thread.sleep(500);
 				out.flush();
 				out.reset();
-<<<<<<< HEAD
-=======
-				// ServerLog.info(connection.getLocalAddress().getHostName());
->>>>>>> 4a09d33b313fa7cd138a9e0e0382fa1ec91b00b3
+
 
 			}catch(SocketTimeoutException e){ 
 				
