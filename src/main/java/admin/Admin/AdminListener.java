@@ -111,12 +111,12 @@ public class AdminListener implements Runnable {
 				AdminMain.questionList = (LinkedList<Question>) t.getO();
 
 		case Task.UPDATE_QUESTIONS:
-			System.out.println("receiving question list " + ((LinkedList<?>) t.getO()).size() + "   "
+			AdminLog.info("receiving question list " + ((LinkedList<?>) t.getO()).size() + "   "
 					+ System.identityHashCode(t.getO()));
 			// TODO print out the task .tostring to see if there is an issue
 			// with the memory addresses
 			if (t.getO() instanceof LinkedList<?>) {
-				System.out.println("question list is valid");
+				AdminLog.info("question list is valid");
 				AdminMain.questionList = (LinkedList<Question>) t.getO();
 			}
 			break;

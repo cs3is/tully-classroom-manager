@@ -10,17 +10,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import utils.AdminLog;
 
 public class AdminGui extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		try {
-			System.out.println("creating the file");
+			AdminLog.info("creating the file");
 			FileWriter write = new FileWriter("fml.txt",true);
 			PrintWriter print = new PrintWriter(write);
 			print.print("this sucks");
-			System.out.println("created the file");
+			AdminLog.info("created the file");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -34,7 +35,7 @@ public class AdminGui extends Application{
 	}
 	
 	public AdminGui(String[] args){
-//		System.out.println("GETLAUNCHED");
+//		AdminLog.info("GETLAUNCHED");
 		launch(args);
 	}
 

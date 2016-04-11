@@ -21,7 +21,7 @@ public class MainClient {
 		new ClientConfigManager();
 
 		try {
-			System.out.println("Attempting to connect to server");
+			ClientLog.info("Attempting to connect to server");
 
 			connection = new Socket(ClientConfigManager.getStr("SERVER_IP"), ClientConfigManager.getInt("SERVER_PORT"));
 			ClientLog.info("Connected to - " + ClientConfigManager.getStr("SERVER_IP") + " on port: "

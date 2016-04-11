@@ -110,7 +110,7 @@ public class ClientListener implements Runnable {
 			break;
 
 		case Task.SEND_NOTIFICATION:
-			System.out.println(t.getText());
+			ClientLog.info(t.getText());
 			break;
 
 		case Task.GET_SCREENSHOT:
