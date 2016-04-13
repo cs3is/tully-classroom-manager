@@ -87,21 +87,23 @@ public class Server implements Runnable {
 				ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
 				ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
 
-				checkConnectionDetails(connection, selectedClass, connectionAccepted, admin);
+				ConnectionData conData = new ConnectionData(connection, selectedClass, connectionAccepted, admin, in, out);
+				
+				checkConnectionDetails(conData);
 
-				if (!connectionAccepted) {
+				if (!conData.getConnectionAccepted()) {
 
-					refuseConnection(connection, out);
+					refuseConnection(conData);
 
 				} else {
 
-					if (!admin) {
+					if (!conData.getAdmin()) {
 
-						acceptClient(connection, selectedClass, in, out);
+						acceptClient(conData);
 
 					} else {
 
-						acceptAdmin(connection, selectedClass, in, out);
+						acceptAdmin(conData);
 					}
 
 					admin = false;
@@ -130,58 +132,57 @@ public class Server implements Runnable {
 	 * should be allowed. Also determines what class the user connecting belongs
 	 * to.
 	 */
-	private void checkConnectionDetails(Socket connection, Integer selectedClass, Boolean connectionAccepted,
-			Boolean admin) {
+	private void checkConnectionDetails(ConnectionData conData) {
 		boolean[] b = new boolean[2];
 
 		for (int i = 0; i < 2; i++) {
-			if (computerList.get(i).keySet().contains(connection.getLocalAddress().getHostName())) {
-				connectionAccepted = true;
-				selectedClass = i;
-				if (computerList.get(i).get(connection.getLocalAddress().getHostName()) == 1000) {
-					admin = true;
+			if (computerList.get(i).keySet().contains(conData.getConnection().getLocalAddress().getHostName())) {
+				conData.setConnectionAccepted(true);
+				conData.setSelectedClass(i);
+				if (computerList.get(i).get(conData.getConnection().getLocalAddress().getHostName()) == 1000) {
+					conData.setAdmin(true);
 				}
 			}
 
 		}
 	}
 
-	private void acceptClient(Socket connection, Integer selectedClass, ObjectInputStream in, ObjectOutputStream out)
+	private void acceptClient(ConnectionData conData)
 			throws ClassNotFoundException, IOException {
-		UserInformation u = new UserInformation(selectedClass, (String) in.readObject(),
-				connection.getLocalAddress().getHostName(), in, out);
-		Thread t = new Thread(new UserListener(u, connection));
+		UserInformation u = new UserInformation(conData.getSelectedClass(), (String) conData.getIn().readObject(),
+				conData.getConnection().getLocalAddress().getHostName(), conData.getIn(), conData.getOut());
+		Thread t = new Thread(new UserListener(u, conData.getConnection()));
 		t.start();
 		ServerLog.debug("sending \"Connection accepted by server\"");
-		out.writeObject(new Task(Task.SEND_NOTIFICATION, "Connection accepted by server"));
+		conData.getOut().writeObject(new Task(Task.SEND_NOTIFICATION, "Connection accepted by server"));
 
-		connectedClients.get(selectedClass)
-				.put(computerList.get(selectedClass).get(connection.getLocalAddress().getHostName()), u);
+		connectedClients.get(conData.getSelectedClass())
+				.put(computerList.get(conData.getSelectedClass()).get(conData.getConnection().getLocalAddress().getHostName()), u);
 	}
 
-	private void acceptAdmin(Socket connection, Integer selectedClass, ObjectInputStream in, ObjectOutputStream out)
+	private void acceptAdmin(ConnectionData conData)
 			throws ClassNotFoundException, IOException {
 		System.out.println("an admin has been detected");
-		AdminInformation u = new AdminInformation(selectedClass, (String) in.readObject(),
-				connection.getLocalAddress().getHostName(), in, out);
+		AdminInformation u = new AdminInformation(conData.getSelectedClass(), (String) conData.getIn().readObject(),
+				conData.getConnection().getLocalAddress().getHostName(), conData.getIn(), conData.getOut());
 		System.out.println("admininformation has been created");
-		Thread t = new Thread(new UserListener(u, connection));
+		Thread t = new Thread(new UserListener(u, conData.getConnection()));
 		t.start();
 		ServerLog.debug("sending \"Connection accepted by server\"");
-		out.writeObject(new Task(Task.SEND_NOTIFICATION, "Connection accepted by server"));
+		conData.getOut().writeObject(new Task(Task.SEND_NOTIFICATION, "Connection accepted by server"));
 
-		connectedClients.get(selectedClass)
-				.put(computerList.get(selectedClass).get(connection.getLocalAddress().getHostName()), u);
+		connectedClients.get(conData.getSelectedClass())
+				.put(computerList.get(conData.getSelectedClass()).get(conData.getConnection().getLocalAddress().getHostName()), u);
 
 	}
 
-	private void refuseConnection(Socket connection, ObjectOutputStream out) throws IOException {
-		ServerLog.info("Refused Connection from " + connection.getLocalAddress().getHostName());
+	private void refuseConnection(ConnectionData conData) throws IOException {
+		ServerLog.info("Refused Connection from " + conData.getConnection().getLocalAddress().getHostName());
 		ServerLog.debug("sending \"Connection refused by server, please contact a system administrator\"");
-		out.writeObject(new Task(Task.SEND_NOTIFICATION,
+		conData.getOut().writeObject(new Task(Task.SEND_NOTIFICATION,
 				"Connection refused by server, please contact a system administrator"));
 		ServerLog.debug("sent \"Connection refused by server, please contact a system administrator\"");
-		connection.close();
+		conData.getConnection().close();
 	}
 
 	@SuppressWarnings("resource")
