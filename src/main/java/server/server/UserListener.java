@@ -127,9 +127,9 @@ public class UserListener implements Runnable {
 			ServerLog.debug("sending REMOVED_QUESTION");
 
 			ServerLog.error(Server.getConnectedClients() + "");
-
+			if(temp!=null){
 			u.out().writeObject(new Task(Task.QUESTION_REMOVED));
-
+			}
 			ServerLog.info("sent REMOVED_QUESTION");
 			break;
 

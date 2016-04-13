@@ -49,6 +49,7 @@ public class AdminButtons {
 					break;
 				}
 			}
+			AdminLog.info("failed to remove qu3etsion");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
