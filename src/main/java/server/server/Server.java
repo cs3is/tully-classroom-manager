@@ -133,8 +133,6 @@ public class Server implements Runnable {
 	 * to.
 	 */
 	private void checkConnectionDetails(ConnectionData conData) {
-		boolean[] b = new boolean[2];
-
 		for (int i = 0; i < 2; i++) {
 			if (computerList.get(i).keySet().contains(conData.getConnection().getLocalAddress().getHostName())) {
 				conData.setConnectionAccepted(true);
