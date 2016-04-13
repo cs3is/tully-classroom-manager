@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import Questions.Question;
 import util.Task;
 import util.infoForClientToReceiveAndParseAndProbablyUseToo;
+import utils.ServerConfig;
 import utils.ServerConfigManager;
 import utils.ServerLog;
 
@@ -18,19 +19,13 @@ public class UserListener implements Runnable {
 
 	Info u;
 	Socket connection;
-	Long timeBetweenQuestions;
+	Long timeBetweenQuestions = ServerConfig.TIME_BETWEEN_QUESTIONS;
 	BufferedImage mostRecentScreenshot;
 
 	public UserListener(Info u, Socket connection) {
 		this.u = u;
 		this.connection = connection;
 
-	}
-
-	@Override
-	public void run() {
-		// ServerLog.info("created a userListener");
-		timeBetweenQuestions = ServerConfigManager.getLong("TIME_BETWEEN_QUESTIONS");
 		ServerLog.info("tbq = " + timeBetweenQuestions);
 		try {
 			// u.out().reset();
@@ -39,11 +34,16 @@ public class UserListener implements Runnable {
 			u.out().writeObject(
 					new Task(Task.INIT, new infoForClientToReceiveAndParseAndProbablyUseToo(timeBetweenQuestions)));
 			ServerLog.debug("sent init");
-		} catch (IOException e2) {
-			e2.printStackTrace();
-		} catch (InterruptedException ie) {
-			ie.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
+	}
+
+	@Override
+	public void run() {
+		// ServerLog.info("created a userListener");
+
 		while (true) {
 			try {
 				Object o = u.in().readObject();
@@ -102,7 +102,7 @@ public class UserListener implements Runnable {
 				// this works ServerLog.info("The classroom of the added
 				// student is " + u.getClassroom());
 				Server.getQuestionList(u.getClassroom()).add(new Question(u.getHostname(), u.getUserName()));
-				ServerLog.info(""+Server.getQuestionList(u.getClassroom()).size());
+				ServerLog.info("" + Server.getQuestionList(u.getClassroom()).size());
 				// SQL if (LastQuestionAsked == 0 ||
 				// lastQuestionAsked-currentTime > maxTime){
 				// questionList.add (computerNumber)
@@ -125,8 +125,8 @@ public class UserListener implements Runnable {
 			Question temp = Server.getQuestionList(u.getClassroom()).poll();
 			ServerLog.info("removed question " + temp);
 			ServerLog.debug("sending REMOVED_QUESTION");
-			
-			ServerLog.error(Server.getConnectedClients()+"");
+
+			ServerLog.error(Server.getConnectedClients() + "");
 
 			u.out().writeObject(new Task(Task.QUESTION_REMOVED));
 
@@ -154,7 +154,7 @@ public class UserListener implements Runnable {
 		case Task.GET_QUESTION_LIST:
 			ServerLog.info("sending list of questions" + Server.getQuestionList(u.getClassroom()).size());
 			Task tt = new Task(Task.UPDATE_QUESTIONS, Server.getQuestionList(u.getClassroom()));
-			ServerLog.info(""+((LinkedList<?>) (tt.getO())).size());
+			ServerLog.info("" + ((LinkedList<?>) (tt.getO())).size());
 			u.out().writeObject(tt);
 			// u.out().writeObject(Server.getQuestionList(u.getClassroom()));
 			break;

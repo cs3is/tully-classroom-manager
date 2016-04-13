@@ -132,7 +132,6 @@ public class Server implements Runnable {
 	 */
 	private void checkConnectionDetails(Socket connection, Integer selectedClass, Boolean connectionAccepted,
 			Boolean admin) {
-		boolean[] b = new boolean[2];
 
 		for (int i = 0; i < 2; i++) {
 			if (computerList.get(i).keySet().contains(connection.getLocalAddress().getHostName())) {
