@@ -41,7 +41,7 @@ public class Server implements Runnable {
 	 * connected to the server from each classroom. Each classroom will have
 	 * it's own index in the array.
 	 */
-	private static ArrayList<HashMap<Integer, Info>> connectedClients = new ArrayList<HashMap<Integer, Info>>();
+	private static ArrayList<HashMap<Integer, Info>> connectedClients = new ArrayList<HashMap<Integer, Info>>(); //TODO CHANGE KEY
 	/**
 	 * An ArrayList that contains a Queue of questions for each classroom.
 	 */
@@ -199,8 +199,8 @@ public class Server implements Runnable {
 	 *            connect to the server.
 	 */
 	private void loadComputers(String fileLocation) {
-		String key;
-		Integer value;
+		String hostname;
+		Integer compNum;
 		int selectedClass = 0;
 
 		try {
@@ -219,9 +219,9 @@ public class Server implements Runnable {
 				questionList.add(new LinkedList<Question>());
 				selectedClass++;
 			} else {
-				value = Integer.parseInt(next);
-				key = line.next();
-				computerList.get(selectedClass).put(key, value);
+				compNum = Integer.parseInt(next);
+				hostname = line.next();
+				computerList.get(selectedClass).put(hostname, compNum);
 			}
 		}
 		numberOfTeachers = selectedClass;

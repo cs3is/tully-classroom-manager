@@ -3,11 +3,13 @@ package Admin;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import Questions.Question;
+
 public class AdminData {
 	public static ObjectInputStream in;
 	public static ObjectOutputStream out;
 	public static Boolean questionIsRemoved=false;
-
+	public static Question q;
 	public AdminData(ObjectInputStream in, ObjectOutputStream out) {
 		AdminData.in = in;
 		AdminData.out = out;
@@ -22,13 +24,20 @@ public class AdminData {
 	}
 
 	public Boolean isQuestionRemoved() {
-		return questionIsRemoved;
+		boolean temp = questionIsRemoved;
+		questionIsRemoved = false;
+		return temp;
 	}
 
 	public void questionIsRemoved() {
 		questionIsRemoved = true;
 	}
-	public void questionIsNotRemoved(){
-		questionIsRemoved = false;
+	public Question getQuestion(){
+		Question temp = q;
+		q = null;
+		return temp;
+	}
+	public void setQuestion(Question q){
+		this.q = q;
 	}
 }

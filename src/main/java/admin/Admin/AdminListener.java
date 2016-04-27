@@ -122,6 +122,7 @@ public class AdminListener implements Runnable {
 			break;
 		case Task.QUESTION_REMOVED:
 			ad.questionIsRemoved();
+			ad.setQuestion((Question)t.getO());
 			AdminLog.info("Question removal confirmed!");
 			break;
 

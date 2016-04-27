@@ -128,9 +128,10 @@ public class UserListener implements Runnable {
 
 			ServerLog.error(Server.getConnectedClients() + "");
 			if(temp!=null){
-			u.out().writeObject(new Task(Task.QUESTION_REMOVED));
+			u.out().writeObject(new Task(Task.QUESTION_REMOVED,temp));
 			}
-			ServerLog.info("sent REMOVED_QUESTION");
+			ServerLog.info("sent REMOVED_QUESTION to admin");
+			Server.getConnectedClients().get(u.getClassroom()).get(temp.getHostName()).out().writeObject(new Task(Task.QUESTION_REMOVED,temp));
 			break;
 
 		case Task.SUBMIT_LAB:

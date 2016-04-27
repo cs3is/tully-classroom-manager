@@ -131,18 +131,22 @@ public class AdminMain extends Application {
 	@FXML
 	public void QUESTION_CLEAR() {
 		AdminLog.info("clearing the next item on the list");
+		try {
+			ab.removeQuestion(ad.out);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
 	public void QUESTION_CLEAR_ALL() {
 		AdminLog.info("clearing EVERYTHING");
-	}
+		try {
+			while(ab.removeQuestion(ad.out)!=null){
 
-	@FXML
-	public void asdf() {
-		AdminLog.info("yooooo");
-		ab.removeQuestion(ad.out); // TODO FIX THIS ITE REMOVIGN THINGS THAT
-									// DONT EXIST INT THE FIRST PLAC AND NOT
-									// ERRRING.
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

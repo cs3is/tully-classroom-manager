@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import Admin.AdminData;
+import Questions.Question;
 import util.Task;
 import utils.AdminLog;
 
@@ -32,28 +33,40 @@ public class AdminButtons {
 		}
 	}
 
-	public void removeQuestion(ObjectOutputStream out) {
+	public Question removeQuestion(ObjectOutputStream out) throws Exception {
 		try {
 			out.writeObject(new Task(Task.REMOVE_QUESTION));
+			Question q = null;
 			for (int i = 0; i < 3; i++) {
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException e) {
-
 					e.printStackTrace();
 				}
-				if (ad.isQuestionRemoved()) {
-
-					AdminLog.info("remove successful");
-					ad.questionIsRemoved();
-					break;
+				Question temp = ad.getQuestion();
+				if(temp!=null){
+					q = temp;
+					
+				}
+				boolean isRemoved = ad.isQuestionRemoved();
+				if (isRemoved&&q != null) {
+					
+					AdminLog.info("remove successful -- removed "+q);
+					return q;
+				}
+				else if(isRemoved^q!=null){
+					AdminLog.error("ONE OF THE FOLLOWING WAS NOT CORRECT:\nisRemoved: "+isRemoved+" (true) \nq: "+q+" (not null)");
+					throw new Exception(); 
 				}
 			}
-			AdminLog.info("failed to remove qu3etsion");
+			AdminLog.info("failed to remove qu3etsion -- removed "+q);
+			return null;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
+		
 	}
 
 	public void sendNotification(ObjectOutputStream out, String msg) {
