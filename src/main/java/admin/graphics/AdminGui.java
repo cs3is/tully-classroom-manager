@@ -17,12 +17,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-<<<<<<< HEAD
+
 import javafx.stage.Window;
 
 public class AdminGui extends Application {
@@ -35,9 +34,6 @@ public class AdminGui extends Application {
 	Stage primaryStage;
 
 	protected AnchorPane mainPane;
-=======
-import utils.AdminLog;
->>>>>>> dev
 
 	protected MenuBar menu;
 	protected Menu menu_File;
@@ -155,7 +151,7 @@ import utils.AdminLog;
 
 					@Override
 					public void handle(ActionEvent event) {
-						// TODO Auto-generated method stub
+						// TODO ADD BUTTON COMMANDS
 
 					}
 				});
@@ -170,7 +166,7 @@ import utils.AdminLog;
 
 					@Override
 					public void handle(ActionEvent event) {
-						// TODO Auto-generated method stub
+						// TODO ADD BUTTON COMMANDS
 
 					}
 				});
@@ -187,12 +183,10 @@ import utils.AdminLog;
 
 		mainPane.getChildren().add(question_Pane);
 
-=======
-	
+	}	
 	public AdminGui(String[] args){
 //		AdminLog.info("GETLAUNCHED");
 		launch(args);
->>>>>>> dev
 	}
 
 }
