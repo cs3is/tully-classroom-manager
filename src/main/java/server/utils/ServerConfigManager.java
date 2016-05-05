@@ -13,16 +13,14 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
-
 /**
  * Manages everything to do with loading, saving, and accessing the settings
- * that have been set in this program. It saves and loads all of the
- * settings into a text file that is both readable and editable without the
- * use of any external programs. When the program is running, all of the
- * settings are stored within a hashmap, and are accessed by using the key
- * associated with the the setting wanted, and giving it to the proper
- * accessor, each of which cast the Object that is saved in the hashmap into
- * the desired Object type.
+ * that have been set in this program. It saves and loads all of the settings
+ * into a text file that is both readable and editable without the use of any
+ * external programs. When the program is running, all of the settings are
+ * stored within a hashmap, and are accessed by using the key associated with
+ * the the setting wanted, and giving it to the proper accessor, each of which
+ * cast the Object that is saved in the hashmap into the desired Object type.
  */
 public class ServerConfigManager {
 
@@ -30,8 +28,8 @@ public class ServerConfigManager {
 	public static final HashMap<String, Object> settings = new HashMap<String, Object>();
 	private static String fileLocation = "src/main/java/server/ServerConfig.cfg";
 
-	static{
-		
+	static {
+
 		ServerLog.info("Loading config...");
 		try {
 
@@ -53,9 +51,6 @@ public class ServerConfigManager {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
 
 	/**
 	 * Writes all of the data from a hashmap into the file location specified.
@@ -148,13 +143,19 @@ public class ServerConfigManager {
 	 *            The hashmap which the text from the file will be added to.
 	 */
 	public static void readFile(HashMap<String, Object> h) {
-		while (scan.hasNextLine()) {
-			String nextLine = scan.nextLine();
-			Scanner scanner = new Scanner(nextLine);
-			Scanner s = scanner.useDelimiter("=");
-			h.put(s.next(), s.next());
-			s.close();
-			scanner.close();
+		try {
+			while (scan.hasNextLine()) {
+				String nextLine = scan.nextLine().trim();
+				if (nextLine.contains("=")) {
+					Scanner scanner = new Scanner(nextLine);
+					Scanner s = scanner.useDelimiter("=");
+					h.put(s.next(), s.next());
+					s.close();
+					scanner.close();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

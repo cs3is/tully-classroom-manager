@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import Admin.AdminData;
 import client.ClientListener;
+import utils.AdminLog;
 import utils.ClientConfig;
 import utils.ClientConfigManager;
 import utils.ServerLog;
@@ -44,7 +45,7 @@ public class AdminTray implements Runnable {
 		try {
 			tray.add(trayIcon);
 		} catch (AWTException e) {
-			System.out.println("TrayIcon could not be added.");
+			AdminLog.warn("TrayIcon could not be added.");
 		}
 
 		ServerLog.info("ClientTray initialized");

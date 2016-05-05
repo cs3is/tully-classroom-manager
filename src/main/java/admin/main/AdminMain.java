@@ -47,8 +47,7 @@ public class AdminMain {
 		new AdminConfigManager();
 
 		try {
-			ab = new AdminButtons(ad);
-			System.out.println("Attempting to connect to server");
+			AdminLog.info("Attempting to connect to server");
 
 			connection = new Socket(AdminConfigManager.getStr("SERVER_IP"), AdminConfigManager.getInt("SERVER_PORT"));
 			AdminLog.info("Connected to - " + AdminConfigManager.getStr("SERVER_IP") + " on port: "
@@ -58,7 +57,9 @@ public class AdminMain {
 			AdminLog.debug("Created output stream 1 from connection");
 			ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
 
-			ad = new AdminData(in, out);
+
+			ad = new AdminData(in,out);
+			ab = new AdminButtons(ad);
 
 			AdminTray T = new AdminTray();
 
@@ -73,6 +74,7 @@ public class AdminMain {
 			
 			al = new AdminListener(ad);
 			System.out.println("after");
+
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -91,7 +93,7 @@ public class AdminMain {
 				try {
 
 					requestQuestionList();
-					// System.out.println(questionList.size());
+					al = new AdminListener(ad);
 
 					Thread.sleep(5000);
 				} catch (Exception e) {
@@ -104,10 +106,9 @@ public class AdminMain {
 	});
 
 	public void requestQuestionList() throws Exception {
-		// System.out.println("calling request questionlist from the server");
+		// AdminLog.info("calling request questionlist from the server");
 		ad.out.writeObject(new Task(Task.GET_QUESTION_LIST));
 		Thread.sleep(500);
-
 	}
 
 }

@@ -22,6 +22,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+<<<<<<< HEAD
 import javafx.stage.Window;
 
 public class AdminGui extends Application {
@@ -34,6 +35,9 @@ public class AdminGui extends Application {
 	Stage primaryStage;
 
 	protected AnchorPane mainPane;
+=======
+import utils.AdminLog;
+>>>>>>> dev
 
 	protected MenuBar menu;
 	protected Menu menu_File;
@@ -70,6 +74,7 @@ public class AdminGui extends Application {
 		createMenu();
 
 		Scene scene = new Scene(mainPane, xRes, yRes);
+
 		
 
 		primaryStage.setTitle("Tully classroom manager");
@@ -182,6 +187,12 @@ public class AdminGui extends Application {
 
 		mainPane.getChildren().add(question_Pane);
 
+=======
+	
+	public AdminGui(String[] args){
+//		AdminLog.info("GETLAUNCHED");
+		launch(args);
+>>>>>>> dev
 	}
 
 }

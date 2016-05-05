@@ -16,7 +16,7 @@ public class ServerConfig {
 	public static final boolean LOGGING = ServerConfigManager.getBool("LOGGING");
 
 	public static final String NAME = ServerConfigManager.getStr("NAME");
-	public static final int TIME_BETWEEN_QUESTIONS = ServerConfigManager.getInt("TIME_BETWEEN_QUESTIONS");
+	public static final long TIME_BETWEEN_QUESTIONS = ServerConfigManager.getInt("TIME_BETWEEN_QUESTIONS");
 
 	public static final String SERVER_PROFILE_1 = ServerConfigManager.getStr("SERVER_PROFILE_1");
 	public static final String SERVER_PROFILE_2 = ServerConfigManager.getStr("SERVER_PROFILE_2");
