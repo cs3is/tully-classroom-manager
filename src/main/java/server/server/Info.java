@@ -17,14 +17,16 @@ public class Info implements Serializable {
 	private String userName;
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
+	private Integer compNum;
 
-	public Info(int classroom, String userName, String Hostname, ObjectInputStream in, ObjectOutputStream out) {
+	public Info(int classroom, String userName, String Hostname, ObjectInputStream in, ObjectOutputStream out, Integer compNum) {
 		ServerLog.info("making an info");
 		this.classroom = classroom;
 		this.userName = userName;
 		this.Hostname = Hostname;
 		this.in = in;
 		this.out = out;
+		this.compNum = compNum;
 
 	}
 
@@ -56,4 +58,11 @@ public class Info implements Serializable {
 		return userName;
 	}
 
+	public Integer getComputerNumber() {
+		return compNum;
+	}
+
+	public void setComputerNumber(Integer compNum) {
+		this.compNum = compNum;
+	}
 }

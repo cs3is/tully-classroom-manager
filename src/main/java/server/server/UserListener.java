@@ -17,6 +17,7 @@ import utils.ServerLog;
 
 public class UserListener implements Runnable {
 
+	private static final int ADMIN = -1;
 	Info u;
 	Socket connection;
 	Long timeBetweenQuestions = ServerConfig.TIME_BETWEEN_QUESTIONS;
@@ -46,7 +47,7 @@ public class UserListener implements Runnable {
 
 		while (true) {
 			try {
-				Object o = u.in().readObject();
+				Object o = getUserInfo().in().readObject();
 
 				if (o instanceof Task) {
 
@@ -81,7 +82,7 @@ public class UserListener implements Runnable {
 	/**
 	 * This method receives a task from the thead, and then tells the server
 	 * what to do based on the task's contents.
-	 * 
+	 *
 	 * @param o
 	 *            The Task that is sent to the server, in the form of an object
 	 */
@@ -96,30 +97,30 @@ public class UserListener implements Runnable {
 			// maxTime){
 			// questionList.add (computerNumber)
 
-			if (u.getLastQuestionTime() == 0 || u.getLastQuestionTime() - System.nanoTime() > timeBetweenQuestions) {
+			if (getUserInfo().getLastQuestionTime() == 0 || getUserInfo().getLastQuestionTime() - System.nanoTime() > timeBetweenQuestions) {
 
-				u.setLastQuestionTime(System.nanoTime());
+				getUserInfo().setLastQuestionTime(System.nanoTime());
 				// this works ServerLog.info("The classroom of the added
 				// student is " + u.getClassroom());
-				Server.getQuestionList(u.getClassroom()).add(new Question(u.getHostname(), u.getUserName()));
-				ServerLog.info("" + Server.getQuestionList(u.getClassroom()).size());
+				Server.getQuestionList(getUserInfo().getClassroom()).add(new Question(getUserInfo().getHostname(), getUserInfo().getUserName()));
+				ServerLog.info("" + Server.getQuestionList(getUserInfo().getClassroom()).size());
 				// SQL if (LastQuestionAsked == 0 ||
 				// lastQuestionAsked-currentTime > maxTime){
 				// questionList.add (computerNumber)
 
-				u.out().writeObject(new Task(Task.QUESTION_ADDED));
+				getUserInfo().out().writeObject(new Task(Task.QUESTION_ADDED));
 				ServerLog.info("sent QUESTION_ADDED");
 
 			} else {
 
 				ServerLog.info("sending QUESTION_NOT_ADDED");
-				u.out().writeObject(new Task(Task.QUESTION_NOT_ADDED));
+				getUserInfo().out().writeObject(new Task(Task.QUESTION_NOT_ADDED));
 				ServerLog.info("sent QUESTION_NOT_ADDED");
 
 			}
 
 			Thread.sleep(3000);
-			u.out().writeObject(new Task(Task.QUESTION_REMOVED));
+			getUserInfo().out().writeObject(new Task(Task.QUESTION_REMOVED));
 			break;
 		case Task.REMOVE_QUESTION:
 			Question temp = Server.getQuestionList(u.getClassroom()).poll();
@@ -144,25 +145,37 @@ public class UserListener implements Runnable {
 			break;
 
 		case Task.REQUEST_VALUE:
-
-			u.out().writeObject(ServerConfigManager.getCfg(t.getText()));
+			getUserInfo().out().writeObject(ServerConfigManager.getCfg(t.getText()));
+			break;
 
 		case Task.SCREENSHOT:
 			mostRecentScreenshot = (BufferedImage) t.getO();
+			getUserInfo(ADMIN).out().writeObject(mostRecentScreenshot);
+				//TODO need to find the computer number of selected computer.
 			// AdminInformation.getOut().writeOut(mostRecentScreenshot);
 			break;
-
+		case Task.REQUEST_SCREENSHOT:
+			Server.getConnectedClients().get(u.getClassroom()).get(t.getO());
+			break;
 		case Task.GET_QUESTION_LIST:
-			ServerLog.info("sending list of questions" + Server.getQuestionList(u.getClassroom()).size());
-			Task tt = new Task(Task.UPDATE_QUESTIONS, Server.getQuestionList(u.getClassroom()));
+			ServerLog.info("sending list of questions" + Server.getQuestionList(getUserInfo().getClassroom()).size());
+			Task tt = new Task(Task.UPDATE_QUESTIONS, Server.getQuestionList(getUserInfo().getClassroom()));
 			ServerLog.info("" + ((LinkedList<?>) (tt.getO())).size());
-			u.out().writeObject(tt);
+			getUserInfo().out().writeObject(tt);
 			// u.out().writeObject(Server.getQuestionList(u.getClassroom()));
 			break;
 
 		}
-		u.out().flush();
-		u.out().reset();
+		getUserInfo().out().flush();
+		getUserInfo().out().reset();
 	}
+
+	private Info getUserInfo(){
+		return u;
+	}
+	private Info getUserInfo(int i){
+		return Server.getConnectedClients().get(u.getClassroom()).get(i);
+	}
+
 
 }

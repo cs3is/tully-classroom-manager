@@ -41,7 +41,9 @@ public class Server implements Runnable {
 	 * connected to the server from each classroom. Each classroom will have
 	 * it's own index in the array.
 	 */
-	private static ArrayList<HashMap<Integer, Info>> connectedClients = new ArrayList<HashMap<Integer, Info>>(); //TODO CHANGE KEY
+	private static ArrayList<HashMap<Integer, Info>> connectedClients = new ArrayList<HashMap<Integer, Info>>(); // TODO
+																													// CHANGE
+																													// KEY
 	/**
 	 * An ArrayList that contains a Queue of questions for each classroom.
 	 */
@@ -87,8 +89,9 @@ public class Server implements Runnable {
 				ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
 				ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
 
-				ConnectionData conData = new ConnectionData(connection, selectedClass, connectionAccepted, admin, in, out);
-				
+				ConnectionData conData = new ConnectionData(connection, selectedClass, connectionAccepted, admin, in,
+						out);
+
 				checkConnectionDetails(conData);
 
 				if (!conData.getConnectionAccepted()) {
@@ -115,11 +118,9 @@ public class Server implements Runnable {
 				out.flush();
 				out.reset();
 
+			} catch (SocketTimeoutException e) {
 
-			}catch(SocketTimeoutException e){ 
-				
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				ServerLog.error("Error in the main server thread");
 				e.printStackTrace();
 			}
@@ -145,32 +146,34 @@ public class Server implements Runnable {
 		}
 	}
 
-	private void acceptClient(ConnectionData conData)
-			throws ClassNotFoundException, IOException {
+	private void acceptClient(ConnectionData conData) throws ClassNotFoundException, IOException {
+		conData.setComputerNumber(computerList.get(conData.getSelectedClass())
+				.get(conData.getConnection().getLocalAddress().getHostName()));
 		UserInformation u = new UserInformation(conData.getSelectedClass(), (String) conData.getIn().readObject(),
-				conData.getConnection().getLocalAddress().getHostName(), conData.getIn(), conData.getOut());
+				conData.getConnection().getLocalAddress().getHostName(), conData.getIn(), conData.getOut(),
+				conData.getComputerNumber());
 		Thread t = new Thread(new UserListener(u, conData.getConnection()));
 		t.start();
 		ServerLog.debug("sending \"Connection accepted by server\"");
 		conData.getOut().writeObject(new Task(Task.SEND_NOTIFICATION, "Connection accepted by server"));
 
-		connectedClients.get(conData.getSelectedClass())
-				.put(computerList.get(conData.getSelectedClass()).get(conData.getConnection().getLocalAddress().getHostName()), u);
-	}
+		connectedClients.get(conData.getSelectedClass()).put(conData.getComputerNumber(), u);
 
-	private void acceptAdmin(ConnectionData conData)
-			throws ClassNotFoundException, IOException {
+	}
+	
+	private void acceptAdmin(ConnectionData conData) throws ClassNotFoundException, IOException {
+		conData.setComputerNumber(computerList.get(conData.getSelectedClass())
+				.get(conData.getConnection().getLocalAddress().getHostName()));
 		System.out.println("an admin has been detected");
 		AdminInformation u = new AdminInformation(conData.getSelectedClass(), (String) conData.getIn().readObject(),
-				conData.getConnection().getLocalAddress().getHostName(), conData.getIn(), conData.getOut());
+				conData.getConnection().getLocalAddress().getHostName(), conData.getIn(), conData.getOut(), conData.getComputerNumber());
 		System.out.println("admininformation has been created");
 		Thread t = new Thread(new UserListener(u, conData.getConnection()));
 		t.start();
 		ServerLog.debug("sending \"Connection accepted by server\"");
 		conData.getOut().writeObject(new Task(Task.SEND_NOTIFICATION, "Connection accepted by server"));
 
-		connectedClients.get(conData.getSelectedClass())
-				.put(computerList.get(conData.getSelectedClass()).get(conData.getConnection().getLocalAddress().getHostName()), u);
+		connectedClients.get(conData.getSelectedClass()).put(conData.getComputerNumber(), u);
 
 	}
 
@@ -193,7 +196,7 @@ public class Server implements Runnable {
 	 * from a classroom are listed on the list, a single dash in the next line
 	 * will signify the end of that class, and potentially the start of a new
 	 * one.
-	 * 
+	 *
 	 * @param fileLocation
 	 *            The location of all of the computers that will be able to
 	 *            connect to the server.

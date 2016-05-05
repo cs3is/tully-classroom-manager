@@ -8,6 +8,9 @@ public class Task implements Serializable {
 	public final static int ASK_QUESTION = 0;
 	public final static int SUBMIT_LAB = 1;
 	public final static int CLIENT_ERROR = 2;
+	/**
+	 * used by the client when sending its screenshot to the server.
+	 */
 	public final static int SCREENSHOT = 3;
 	// public final static int CAN_ASK = 3;
 
@@ -15,6 +18,9 @@ public class Task implements Serializable {
 	// server and admin client will work
 	public final static int QUESTION_REMOVED = 20;
 	public final static int SEND_NOTIFICATION = 21;
+	/**
+	 * used by the server to request screenshot from client when receiving a SEND_SCREENSHOT
+	 */
 	public final static int GET_SCREENSHOT = 22;
 	public final static int GET_PROCESSES = 23;
 	public final static int DISABLE_COMPUTER = 24;
@@ -28,10 +34,15 @@ public class Task implements Serializable {
 	// Only to be invoked by the admin client
 	public final static int REMOVE_QUESTION = 40;
 	public final static int GET_QUESTION_LIST = 41;
+	/**
+	 * used by the admin to request screenshots.
+	 */
+	public static final int REQUEST_SCREENSHOT = 42;
 
 	// To be invoked by either the Client or the server
 	public final static int SYNC = 60;
 	public final static int REQUEST_VALUE = 61;
+
 
 	private int toDo = -1;
 	private String text = null;
@@ -42,7 +53,7 @@ public class Task implements Serializable {
 	 * client in order to communicate. Every task object will include an int
 	 * called toDo, which will be interpreted by the recipient of this file, and
 	 * then perform actions accordingly.
-	 * 
+	 *
 	 * @param toDo
 	 *            Int that corresponds with one of the predefined commands in
 	 *            this file and will be what this object will tell the recipient
@@ -58,7 +69,7 @@ public class Task implements Serializable {
 	 * client in order to communicate. Every task object will include an int
 	 * called toDo, which will be interpreted by the recipient of this file, and
 	 * then perform actions accordingly.
-	 * 
+	 *
 	 * @param toDo
 	 *            Int that corresponds with one of the predefined commands in
 	 *            this file and will be what this object will tell the recipient

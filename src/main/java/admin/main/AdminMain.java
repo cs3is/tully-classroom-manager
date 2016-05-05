@@ -130,12 +130,17 @@ public class AdminMain extends Application {
 
 	@FXML
 	public void QUESTION_CLEAR() {
-		AdminLog.info("clearing the next item on the list");
 		try {
-			ab.removeQuestion(ad.out);
-		} catch (Exception e) {
+			ad.getOut().writeObject(new Task(Task.SCREENSHOT));
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
+//		AdminLog.info("clearing the next item on the list");
+//		try {
+//			ab.removeQuestion(ad.out);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	@FXML

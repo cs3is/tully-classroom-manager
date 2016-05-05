@@ -5,7 +5,7 @@ import java.io.ObjectOutputStream;
 
 public class AdminInformation extends Info {
 	public AdminInformation(int classroom, String userName, String Hostname, ObjectInputStream in,
-			ObjectOutputStream out) {
-		super(classroom, userName, Hostname, in, out);
+			ObjectOutputStream out, Integer compNum) {
+		super(classroom, userName, Hostname, in, out, compNum);
 	}
 }

@@ -15,9 +15,9 @@ public class AdminButtons {
 		this.ad = ad;
 	}
 
-	public void getScr(ObjectOutputStream out) {
+	public void getScr(ObjectOutputStream out, int computerNumber) {
 		try {
-			out.writeObject(new Task(Task.GET_SCREENSHOT));
+			out.writeObject(new Task(Task.REQUEST_SCREENSHOT,computerNumber));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -46,17 +46,17 @@ public class AdminButtons {
 				Question temp = ad.getQuestion();
 				if(temp!=null){
 					q = temp;
-					
+
 				}
 				boolean isRemoved = ad.isQuestionRemoved();
 				if (isRemoved&&q != null) {
-					
+
 					AdminLog.info("remove successful -- removed "+q);
 					return q;
 				}
 				else if(isRemoved^q!=null){
 					AdminLog.error("ONE OF THE FOLLOWING WAS NOT CORRECT:\nisRemoved: "+isRemoved+" (true) \nq: "+q+" (not null)");
-					throw new Exception(); 
+					throw new Exception();
 				}
 			}
 			AdminLog.info("failed to remove qu3etsion -- removed "+q);
@@ -66,7 +66,7 @@ public class AdminButtons {
 			e.printStackTrace();
 			return null;
 		}
-		
+
 	}
 
 	public void sendNotification(ObjectOutputStream out, String msg) {

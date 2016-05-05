@@ -6,10 +6,10 @@ import java.net.Socket;
 
 public class ConnectionData {
 
-	
 
-	Socket connection;Integer selectedClass;Boolean connectionAccepted;Boolean admin;ObjectInputStream in;ObjectOutputStream out;
-	
+
+	Socket connection;Integer selectedClass;Boolean connectionAccepted;Boolean admin;ObjectInputStream in;ObjectOutputStream out;Integer compNum;
+
 	public ConnectionData(Socket connection, Integer selectedClass, Boolean connectionAccepted, Boolean admin, ObjectInputStream in, ObjectOutputStream out){
 		this.connection = connection;
 		this.selectedClass = selectedClass;
@@ -60,5 +60,14 @@ public class ConnectionData {
 
 	public void setAdmin(Boolean admin) {
 		this.admin = admin;
+	}
+
+	public Integer getComputerNumber(){
+		return compNum;
+
+	}
+
+	public void setComputerNumber(Integer compNum) {
+		this.compNum = compNum;
 	}
 }
