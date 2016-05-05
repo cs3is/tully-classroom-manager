@@ -14,6 +14,7 @@ import utils.AdminConfigManager;
 import utils.AdminLog;
 import utils.ClientLog;
 import graphics.AdminButtons;
+import graphics.AdminGui;
 import graphics.AdminTray;
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -25,7 +26,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 import util.Task;
 
-public class AdminMain extends Application {
+public class AdminMain {
 
 	private static Socket connection;
 
@@ -40,6 +41,8 @@ public class AdminMain extends Application {
 	private static String userName;
 
 	public static void main(String[] args) {
+		
+		
 
 		new AdminConfigManager();
 
@@ -67,7 +70,10 @@ public class AdminMain extends Application {
 				e.printStackTrace();
 			}
 
-			launch(args);
+			AdminGui.main(args);
+			
+			al = new AdminListener(ad);
+			System.out.println("after");
 
 
 		} catch (Exception e) {
@@ -105,44 +111,4 @@ public class AdminMain extends Application {
 		Thread.sleep(500);
 	}
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-
-		try {
-			Scene scene = new Scene((Parent) FXMLLoader.load(getClass().getResource("/gui.fxml")));
-			primaryStage.setScene(scene);
-			primaryStage.setTitle("Load the name from the config");
-			primaryStage.show();
-
-			t.start();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	@FXML
-	Button potato;
-	Button QUESTION_CLEAR;
-	Button QUESTION_CLEAR_ALL;
-	ScrollPane QUESTION_SCROLLPANE;
-
-	@FXML
-	public void QUESTION_CLEAR() {
-		AdminLog.info("clearing the next item on the list");
-	}
-
-	@FXML
-	public void QUESTION_CLEAR_ALL() {
-		AdminLog.info("clearing EVERYTHING");
-	}
-
-	@FXML
-	public void asdf() {
-		AdminLog.info("yooooo");
-		ab.removeQuestion(ad.out); // TODO FIX THIS ITE REMOVIGN THINGS THAT
-									// DONT EXIST INT THE FIRST PLAC AND NOT
-									// ERRRING.
-	}
 }
