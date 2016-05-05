@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import Questions.Question;
 import util.Task;
 import util.infoForClientToReceiveAndParseAndProbablyUseToo;
+import utils.ServerConfig;
 import utils.ServerConfigManager;
 import utils.ServerLog;
 
@@ -18,19 +19,13 @@ public class UserListener implements Runnable {
 
 	Info u;
 	Socket connection;
-	Long timeBetweenQuestions;
+	Long timeBetweenQuestions = ServerConfig.TIME_BETWEEN_QUESTIONS;
 	BufferedImage mostRecentScreenshot;
 
 	public UserListener(Info u, Socket connection) {
 		this.u = u;
 		this.connection = connection;
 
-	}
-
-	@Override
-	public void run() {
-		// System.out.println("created a userListener");
-		timeBetweenQuestions = ServerConfigManager.getLong("TIME_BETWEEN_QUESTIONS");
 		ServerLog.info("tbq = " + timeBetweenQuestions);
 		try {
 			// u.out().reset();
@@ -39,11 +34,16 @@ public class UserListener implements Runnable {
 			u.out().writeObject(
 					new Task(Task.INIT, new infoForClientToReceiveAndParseAndProbablyUseToo(timeBetweenQuestions)));
 			ServerLog.debug("sent init");
-		} catch (IOException e2) {
-			e2.printStackTrace();
-		} catch (InterruptedException ie) {
-			ie.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
+	}
+
+	@Override
+	public void run() {
+		// ServerLog.info("created a userListener");
+
 		while (true) {
 			try {
 				Object o = u.in().readObject();
@@ -99,10 +99,10 @@ public class UserListener implements Runnable {
 			if (u.getLastQuestionTime() == 0 || u.getLastQuestionTime() - System.nanoTime() > timeBetweenQuestions) {
 
 				u.setLastQuestionTime(System.nanoTime());
-				// this works System.out.println("The classroom of the added
+				// this works ServerLog.info("The classroom of the added
 				// student is " + u.getClassroom());
 				Server.getQuestionList(u.getClassroom()).add(new Question(u.getHostname(), u.getUserName()));
-				System.out.println(Server.getQuestionList(u.getClassroom()).size());
+				ServerLog.info("" + Server.getQuestionList(u.getClassroom()).size());
 				// SQL if (LastQuestionAsked == 0 ||
 				// lastQuestionAsked-currentTime > maxTime){
 				// questionList.add (computerNumber)
@@ -125,14 +125,11 @@ public class UserListener implements Runnable {
 			Question temp = Server.getQuestionList(u.getClassroom()).poll();
 			ServerLog.info("removed question " + temp);
 			ServerLog.debug("sending REMOVED_QUESTION");
-			for (int i = 0; i < Server.getConnectedClients().get(u.getClassroom()).size(); i++) {
-				if (Server.getConnectedClients().get(u.getClassroom()).get(i).getHostname() == temp.getHostName()) {
-					Server.getConnectedClients().get(u.getClassroom()).get(i).out()
-							.writeObject(new Task(Task.QUESTION_REMOVED));
-				}
-			}
-			u.out().writeObject(new Task(Task.QUESTION_REMOVED));
 
+			ServerLog.error(Server.getConnectedClients() + "");
+			if(temp!=null){
+			u.out().writeObject(new Task(Task.QUESTION_REMOVED));
+			}
 			ServerLog.info("sent REMOVED_QUESTION");
 			break;
 
@@ -155,9 +152,9 @@ public class UserListener implements Runnable {
 			break;
 
 		case Task.GET_QUESTION_LIST:
-			System.out.println("sending list of questions" + Server.getQuestionList(u.getClassroom()).size());
+			ServerLog.info("sending list of questions" + Server.getQuestionList(u.getClassroom()).size());
 			Task tt = new Task(Task.UPDATE_QUESTIONS, Server.getQuestionList(u.getClassroom()));
-			System.out.println(((LinkedList<?>) (tt.getO())).size());
+			ServerLog.info("" + ((LinkedList<?>) (tt.getO())).size());
 			u.out().writeObject(tt);
 			// u.out().writeObject(Server.getQuestionList(u.getClassroom()));
 			break;

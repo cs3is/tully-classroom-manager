@@ -35,8 +35,12 @@ public class ClientLog {
 	 */
 	private static void log(String logLevel, String text) {
 		if (ClientConfigManager.getBool("LOGGING") == true || logLevel == "[ERROR]" || logLevel == "[FATAL]"
-				|| logLevel == "[WARN]")
+				|| logLevel == "[WARN]") {
+			if (logLevel == "[ERROR]" || logLevel == "[FATAL]") {
+				System.err.println(ClientConfigManager.getStr("NAME") + " " + logLevel + " " + text);
+			}
 			System.out.println(ClientConfigManager.getStr("NAME") + " " + logLevel + " " + text);
+		}
 	}
 
 	/**

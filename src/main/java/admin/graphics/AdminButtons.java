@@ -36,10 +36,20 @@ public class AdminButtons {
 		try {
 			out.writeObject(new Task(Task.REMOVE_QUESTION));
 			for (int i = 0; i < 3; i++) {
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+
+					e.printStackTrace();
+				}
 				if (ad.isQuestionRemoved()) {
+
 					AdminLog.info("remove successful");
+					ad.questionIsRemoved();
+					break;
 				}
 			}
+			AdminLog.info("failed to remove qu3etsion");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -4,6 +4,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+import utils.ServerLog;
+
 public class Info implements Serializable {
 	/**
 	 * The nanotime at which the last question was asked
@@ -17,7 +19,7 @@ public class Info implements Serializable {
 	private ObjectOutputStream out;
 
 	public Info(int classroom, String userName, String Hostname, ObjectInputStream in, ObjectOutputStream out) {
-		System.out.println("making an info");
+		ServerLog.info("making an info");
 		this.classroom = classroom;
 		this.userName = userName;
 		this.Hostname = Hostname;
