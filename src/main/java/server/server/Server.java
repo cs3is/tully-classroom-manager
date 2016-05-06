@@ -52,7 +52,7 @@ public class Server implements Runnable {
 	 * The location of all of the computers that will be able to connect to the
 	 * server.
 	 */
-	private String fileLocation = "src/main/java/server/ComputerList.txt";
+	private String fileLocation = "src/main/java/server/res/ComputerList.txt";
 
 	int numberOfTeachers = 9;
 

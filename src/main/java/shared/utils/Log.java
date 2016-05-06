@@ -16,7 +16,7 @@ public class Log {
 		f.startWriting("log.txt");
 
 		// TODO alter this
-		info("Example Code created by Andrew");
+		info("Tully Classroom Manager by Bo Corman and Andrew Kennedy");
 
 	}
 
