@@ -1,4 +1,4 @@
-package NEWShared;
+package shared.networking;
 
 import java.io.Serializable;
 
@@ -13,5 +13,5 @@ import java.io.Serializable;
  *
  */
 public class InitializationInformation implements Serializable {
-
+	// TODO add things to set on the client or admin in here.
 }

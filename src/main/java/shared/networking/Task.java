@@ -1,4 +1,4 @@
-package NEWShared;
+package shared.networking;
 
 import java.io.Serializable;
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src/main/java/client"/>
-	<classpathentry kind="src" path="src/main/java/server"/>
+	<classpathentry excluding="OLDserver/" kind="src" path="src/main/java/client"/>
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry kind="src" path="src/main/java/common"/>
 	<classpathentry kind="src" path="src/main/java/admin"/>
-	<classpathentry excluding="client/|server/|common/|admin/|NEWshared/|NEWadmin/|NEWclient/|NEWserver/" kind="src" path="src/main/java"/>
+	<classpathentry excluding="client/|common/|admin/|NEWshared/|NEWadmin/|NEWclient/|NEWserver/|server/oldServer/|client/OLDserver/|oldServer/" kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/main/java/oldServer"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

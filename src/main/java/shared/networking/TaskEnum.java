@@ -1,4 +1,4 @@
-package NEWShared;
+package shared.networking;
 
 import java.io.Serializable;
 
@@ -23,7 +23,7 @@ public enum TaskEnum implements Serializable{
 	 * task containing this enum has a question for the teacher.
 	 * </p>
 	 */
-	ASK_QUESTION,
+	C_ASK_QUESTION,
 	/**
 	 * <p>
 	 * To be sent to the client to the server.
@@ -32,7 +32,7 @@ public enum TaskEnum implements Serializable{
 	 * TODO determine what exactly this will be used for.
 	 * </p>
 	 */
-	SUBMIT_LAB,
+	C_SUBMIT_LAB,
 	/**
 	 * <p>
 	 * To be sent to the client to the server.
@@ -44,7 +44,7 @@ public enum TaskEnum implements Serializable{
 	 * clients, and see if any of them aren't functioning properly.
 	 * </p>
 	 */
-	CLIENT_ERROR,
+	C_CLIENT_ERROR,
 	/**
 	 * <p>
 	 * To be sent to the client to the server.
@@ -54,7 +54,7 @@ public enum TaskEnum implements Serializable{
 	 * attached to whatever task contains this enum.
 	 * </p>
 	 */
-	SCREENSHOT,
+	C_SCREENSHOT,
 	/**
 	 * <p>
 	 * To be sent to the client to the server.
@@ -64,7 +64,7 @@ public enum TaskEnum implements Serializable{
 	 * should respond with an answer.
 	 * </p>
 	 */
-	CAN_ASK,
+	C_CAN_ASK,
 	// ------------------------------------------------------------------------------------------
 
 	/**
@@ -76,7 +76,7 @@ public enum TaskEnum implements Serializable{
 	 * the teacher.
 	 * </p>
 	 */
-	QUESTION_REMOVED,
+	S_QUESTION_REMOVED,
 	/**
 	 * <p>
 	 * To be sent from the server to the client.
@@ -86,7 +86,7 @@ public enum TaskEnum implements Serializable{
 	 * client and displayed on their screen.
 	 * </p>
 	 */
-	SEND_NOTIFICATION,
+	S_SEND_NOTIFICATION,
 	/**
 	 * <p>
 	 * To be sent from the server to the client.
@@ -95,7 +95,7 @@ public enum TaskEnum implements Serializable{
 	 * Requests the client to send a screenshot to the server.
 	 * </p>
 	 */
-	GET_SCREENSHOT,
+	S_GET_SCREENSHOT,
 	/**
 	 * <p>
 	 * To be sent from the server to the client.
@@ -104,7 +104,7 @@ public enum TaskEnum implements Serializable{
 	 * Requests a list of running processes from the client.
 	 * </p>
 	 */
-	GET_PROCESSES,
+	S_GET_PROCESSES,
 	/**
 	 * <p>
 	 * To be sent from the server to the client.
@@ -114,7 +114,7 @@ public enum TaskEnum implements Serializable{
 	 * TODO possibly have it effect volume/the screen
 	 * </p>
 	 */
-	DISABLE_COMPUTER,
+	S_DISABLE_COMPUTER,
 	/**
 	 * <p>
 	 * To be sent from the server to the client.
@@ -124,7 +124,7 @@ public enum TaskEnum implements Serializable{
 	 * queue of questions.
 	 * </p>
 	 */
-	QUESTION_ADDED,
+	S_QUESTION_ADDED,
 	/**
 	 * <p>
 	 * To be sent from the server to the client.
@@ -134,7 +134,7 @@ public enum TaskEnum implements Serializable{
 	 * successfully.
 	 * </p>
 	 */
-	QUESTION_NOT_ADDED,
+	S_QUESTION_NOT_ADDED,
 	/**
 	 * <p>
 	 * To be sent from the server to the client.
@@ -145,7 +145,7 @@ public enum TaskEnum implements Serializable{
 	 * TODO clarify this once implemented.
 	 * </p>
 	 */
-	INIT,
+	S_INIT,
 	/**
 	 * <p>
 	 * To be sent from the server to the client.
@@ -154,7 +154,7 @@ public enum TaskEnum implements Serializable{
 	 * Enables the client after it has been previously disabled.
 	 * </p>
 	 */
-	ENABLE_COMPUTER,
+	S_ENABLE_COMPUTER,
 	/**
 	 * <p>
 	 * To be sent from the server to the admin.
@@ -163,7 +163,7 @@ public enum TaskEnum implements Serializable{
 	 * Indicates that the server's question queue is attached to this task.
 	 * </p>
 	 */
-	SENDING_QUESTIONS,
+	S_SENDING_QUESTIONS,
 	/**
 	 * <p>
 	 * To be sent from the server to the admin.
@@ -172,7 +172,7 @@ public enum TaskEnum implements Serializable{
 	 * TODO what is this for
 	 * </p>
 	 */
-	UPDATE_QUESTIONS,
+	S_UPDATE_QUESTIONS,
 	// -------------------------------------------------------------------------------------
 
 	/**
@@ -183,7 +183,7 @@ public enum TaskEnum implements Serializable{
 	 * Tells the server to remove the first question in the question queue.
 	 * </p>
 	 */
-	REMOVE_FIRST_QUESTION,
+	A_REMOVE_FIRST_QUESTION,
 	/**
 	 * <p>
 	 * To be sent from the admin to the server.
@@ -192,7 +192,7 @@ public enum TaskEnum implements Serializable{
 	 * Tells the server to remove all of the questions in the question queue.
 	 * </p>
 	 */
-	REMOVE_QUESTIONS,
+	A_REMOVE_QUESTIONS,
 	/**
 	 * <p>
 	 * To be sent from the admin to the server.
@@ -201,7 +201,7 @@ public enum TaskEnum implements Serializable{
 	 * Asks the server if it can send the question list to the admin.
 	 * </p>
 	 */
-	GET_QUESTION_lIST,
+	A_GET_QUESTION_lIST,
 
 	// -------------------------------------------------------------------------------------------
 

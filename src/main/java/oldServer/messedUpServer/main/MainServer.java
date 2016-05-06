@@ -2,7 +2,7 @@ package main;
 
 import java.io.IOException;
 
-import server.Server;
+import oldServer.Server;
 import utils.ServerConfig;
 import utils.ServerLog;
 

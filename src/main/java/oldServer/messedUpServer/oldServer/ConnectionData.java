@@ -1,4 +1,4 @@
-package server;
+package oldServer;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -6,11 +6,15 @@ import java.net.Socket;
 
 public class ConnectionData {
 
-	
+	Socket connection;
+	Integer selectedClass;
+	Boolean connectionAccepted;
+	Boolean admin;
+	ObjectInputStream in;
+	ObjectOutputStream out;
 
-	Socket connection;Integer selectedClass;Boolean connectionAccepted;Boolean admin;ObjectInputStream in;ObjectOutputStream out;
-	
-	public ConnectionData(Socket connection, Integer selectedClass, Boolean connectionAccepted, Boolean admin, ObjectInputStream in, ObjectOutputStream out){
+	public ConnectionData(Socket connection, Integer selectedClass, Boolean connectionAccepted, Boolean admin,
+			ObjectInputStream in, ObjectOutputStream out) {
 		this.connection = connection;
 		this.selectedClass = selectedClass;
 		this.connectionAccepted = connectionAccepted;
@@ -18,18 +22,23 @@ public class ConnectionData {
 		this.in = in;
 		this.out = out;
 	}
+
 	public ObjectInputStream getIn() {
 		return in;
 	}
+
 	public void setIn(ObjectInputStream in) {
 		this.in = in;
 	}
+
 	public ObjectOutputStream getOut() {
 		return out;
 	}
+
 	public void setOut(ObjectOutputStream out) {
 		this.out = out;
 	}
+
 	public Socket getConnection() {
 		return connection;
 	}

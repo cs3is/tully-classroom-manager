@@ -1,16 +1,12 @@
-package Questions;
+package shared.res;
 
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
-
-import server.Info;
 
 public class Question implements Serializable {
 
 	private final long TIME_ASKED = System.nanoTime();
 	private String hostName;
 	private String userName;
-	private ObjectOutputStream out;
 
 	public Question(String hn, String un) {
 		userName = un;

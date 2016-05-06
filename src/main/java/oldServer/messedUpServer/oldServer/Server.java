@@ -1,4 +1,4 @@
-package server.server;
+package oldServer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,10 +13,10 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-import shared.res.ConnectionData;
-import shared.res.Question;
-import shared.utils.Log;
+import Questions.Question;
 import util.Task;
+import utils.AdminLog;
+import utils.ServerLog;
 
 public class Server implements Runnable {
 
@@ -61,7 +61,7 @@ public class Server implements Runnable {
 		serverSocket = new ServerSocket(port);
 		serverSocket.setSoTimeout(10000);
 
-		Log.info("Created the serverSocket");
+		ServerLog.info("Created the serverSocket");
 
 		Thread t = new Thread(this);
 		t.start();
@@ -76,13 +76,13 @@ public class Server implements Runnable {
 		Boolean connectionAccepted = false;
 		Integer selectedClass = -1;
 
-		Log.info("Started the main thread");
+		AdminLog.info("Started the main thread");
 
 		while (true) {
 			try {
 
 				Socket connection = serverSocket.accept();
-				Log.debug("Connected to: " + connection.getRemoteSocketAddress());
+				ServerLog.debug("Connected to: " + connection.getRemoteSocketAddress());
 
 				ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
 				ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
@@ -120,7 +120,7 @@ public class Server implements Runnable {
 				
 			}
 			catch (Exception e) {
-				Log.error("Error in the main server thread");
+				ServerLog.error("Error in the main server thread");
 				e.printStackTrace();
 			}
 		}
