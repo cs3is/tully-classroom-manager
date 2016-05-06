@@ -13,7 +13,7 @@ public class MainServer {
 			Log.info("Initializing server");
 			
 			
-			Server s = new Server(ServerConfig.SERVER_PORT);
+			Server s = new Server(25565);//TODO implement config
 
 		} catch (IOException e) {
 			e.printStackTrace();

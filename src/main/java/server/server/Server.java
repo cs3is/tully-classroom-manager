@@ -13,10 +13,12 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+import shared.listeners.ServerListener;
+import shared.networking.Task;
+import shared.networking.TaskEnum;
 import shared.res.ConnectionData;
 import shared.res.Question;
 import shared.utils.Log;
-import util.Task;
 
 public class Server implements Runnable {
 
@@ -41,7 +43,7 @@ public class Server implements Runnable {
 	 * connected to the server from each classroom. Each classroom will have
 	 * it's own index in the array.
 	 */
-	private static ArrayList<HashMap<Integer, Info>> connectedClients = new ArrayList<HashMap<Integer, Info>>();
+	private static ArrayList<HashMap<Integer, ConnectionData>> connectedClients = new ArrayList<HashMap<Integer, ConnectionData>>();
 	/**
 	 * An ArrayList that contains a Queue of questions for each classroom.
 	 */
@@ -66,7 +68,7 @@ public class Server implements Runnable {
 		Thread t = new Thread(this);
 		t.start();
 		for (int i = 0; i < numberOfTeachers; i++) {
-			connectedClients.add(new HashMap<Integer, Info>());
+			connectedClients.add(new HashMap<Integer, ConnectionData>());
 		}
 	}
 
@@ -87,8 +89,9 @@ public class Server implements Runnable {
 				ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
 				ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
 
-				ConnectionData conData = new ConnectionData(connection, selectedClass, connectionAccepted, admin, in, out);
-				
+				ConnectionData conData = new ConnectionData(connection, selectedClass, connectionAccepted, admin, in,
+						out);
+
 				checkConnectionDetails(conData);
 
 				if (!conData.getConnectionAccepted()) {
@@ -115,11 +118,9 @@ public class Server implements Runnable {
 				out.flush();
 				out.reset();
 
+			} catch (SocketTimeoutException e) {
 
-			}catch(SocketTimeoutException e){ 
-				
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				Log.error("Error in the main server thread");
 				e.printStackTrace();
 			}
@@ -145,41 +146,39 @@ public class Server implements Runnable {
 		}
 	}
 
-	private void acceptClient(ConnectionData conData)
-			throws ClassNotFoundException, IOException {
-		UserInformation u = new UserInformation(conData.getSelectedClass(), (String) conData.getIn().readObject(),
-				conData.getConnection().getLocalAddress().getHostName(), conData.getIn(), conData.getOut());
-		Thread t = new Thread(new ServerListener(u, conData.getConnection()));
+	private void acceptClient(ConnectionData conData) throws ClassNotFoundException, IOException {
+		Thread t = new Thread(new ServerListener(conData));
 		t.start();
-		ServerLog.debug("sending \"Connection accepted by server\"");
-		conData.getOut().writeObject(new Task(Task.SEND_NOTIFICATION, "Connection accepted by server"));
+		Log.debug("sending \"Connection accepted by server\"");
+		conData.getOut().writeObject(new Task(TaskEnum.S_SEND_NOTIFICATION, "Connection accepted by server"));
 
-		connectedClients.get(conData.getSelectedClass())
-				.put(computerList.get(conData.getSelectedClass()).get(conData.getConnection().getLocalAddress().getHostName()), u);
+		connectedClients.get(conData.getSelectedClass()).put(computerList.get(conData.getSelectedClass())
+				.get(conData.getConnection().getLocalAddress().getHostName()), conData);
 	}
 
-	private void acceptAdmin(ConnectionData conData)
-			throws ClassNotFoundException, IOException {
+	private void acceptAdmin(ConnectionData conData) throws ClassNotFoundException, IOException {
 		System.out.println("an admin has been detected");
-		AdminInformation u = new AdminInformation(conData.getSelectedClass(), (String) conData.getIn().readObject(),
-				conData.getConnection().getLocalAddress().getHostName(), conData.getIn(), conData.getOut());
+		// AdminInformation u = new AdminInformation(conData.getSelectedClass(),
+		// (String) conData.getIn().readObject(),
+		// conData.getConnection().getLocalAddress().getHostName(),
+		// conData.getIn(), conData.getOut());
 		System.out.println("admininformation has been created");
-		Thread t = new Thread(new ServerListener(u, conData.getConnection()));
+		Thread t = new Thread(new ServerListener(conData));
 		t.start();
-		ServerLog.debug("sending \"Connection accepted by server\"");
-		conData.getOut().writeObject(new Task(Task.SEND_NOTIFICATION, "Connection accepted by server"));
+		Log.debug("sending \"Connection accepted by server\"");
+		conData.getOut().writeObject(new Task(TaskEnum.S_SEND_NOTIFICATION, "Connection accepted by server"));
 
-		connectedClients.get(conData.getSelectedClass())
-				.put(computerList.get(conData.getSelectedClass()).get(conData.getConnection().getLocalAddress().getHostName()), u);
+		connectedClients.get(conData.getSelectedClass()).put(computerList.get(conData.getSelectedClass())
+				.get(conData.getConnection().getLocalAddress().getHostName()), conData);
 
 	}
 
 	private void refuseConnection(ConnectionData conData) throws IOException {
-		ServerLog.info("Refused Connection from " + conData.getConnection().getLocalAddress().getHostName());
-		ServerLog.debug("sending \"Connection refused by server, please contact a system administrator\"");
-		conData.getOut().writeObject(new Task(Task.SEND_NOTIFICATION,
+		Log.info("Refused Connection from " + conData.getConnection().getLocalAddress().getHostName());
+		Log.debug("sending \"Connection refused by server, please contact a system administrator\"");
+		conData.getOut().writeObject(new Task(TaskEnum.S_SEND_NOTIFICATION,
 				"Connection refused by server, please contact a system administrator"));
-		ServerLog.debug("sent \"Connection refused by server, please contact a system administrator\"");
+		Log.debug("sent \"Connection refused by server, please contact a system administrator\"");
 		conData.getConnection().close();
 	}
 
@@ -225,14 +224,14 @@ public class Server implements Runnable {
 			}
 		}
 		numberOfTeachers = selectedClass;
-		ServerLog.info("Loaded the list of computers");
+		Log.info("Loaded the list of computers");
 	}
 
 	public static LinkedList<Question> getQuestionList(int index) {
 		return questionList.get(index);
 	}
 
-	public static ArrayList<HashMap<Integer, Info>> getConnectedClients() {
+	public static ArrayList<HashMap<Integer, ConnectionData>> getConnectedClients() {
 		return connectedClients;
 	}
 
