@@ -5,10 +5,7 @@
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry kind="src" path="src/main/java/common"/>
 	<classpathentry kind="src" path="src/main/java/admin"/>
-	<classpathentry kind="src" path="src/main/java/NEWshared"/>
-	<classpathentry kind="src" path="src/main/java/NEWadmin"/>
-	<classpathentry kind="src" path="src/main/java/NEWclient"/>
-	<classpathentry kind="src" path="src/main/java/NEWserver"/>
+	<classpathentry excluding="client/|server/|common/|admin/|NEWshared/|NEWadmin/|NEWclient/|NEWserver/" kind="src" path="src/main/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
