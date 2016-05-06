@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-import shared.listeners.ServerListener;
+import server.listener.ServerListener;
 import shared.networking.Task;
 import shared.networking.TaskEnum;
 import shared.res.ConnectionData;
