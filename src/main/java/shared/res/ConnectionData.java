@@ -30,7 +30,8 @@ public class ConnectionData {
 	}
 	
 	public String getUserName(){
-		return connection.getRemoteSocketAddress().toString();
+	//	return connection.getRemoteSocketAddress().toString();
+		return "null";
 	}
 
 	public ObjectInputStream getIn() {
