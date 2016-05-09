@@ -14,9 +14,9 @@ public class AdminButtons {
 		this.ad = ad;
 	}
 
-	public void getScr(ObjectOutputStream out) {
+	public void getScr(ObjectOutputStream out, int compNum) {
 		try {
-			out.writeObject(new Task(Task.GET_SCREENSHOT));
+			out.writeObject(new Task(Task.REQUEST_SCREENSHOT,computerNumber));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

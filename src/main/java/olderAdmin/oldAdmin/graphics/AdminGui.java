@@ -71,7 +71,7 @@ public class AdminGui extends Application {
 
 		Scene scene = new Scene(mainPane, xRes, yRes);
 
-		
+
 
 		primaryStage.setTitle("Tully classroom manager");
 		primaryStage.setScene(scene);
@@ -144,6 +144,14 @@ public class AdminGui extends Application {
 			}
 		};
 
+		/**
+		   try {
+				AdminMain.getAdminData.getOut().writeObject(new Task(Task.SCREENSHOT));
+			} catch (IOException e) {
+
+			}
+		 */
+
 		question_Clear = new Button("Clear") {
 			{
 				setAnchorBounds(this, 0.0, 150.0, null, 0.0);
@@ -151,6 +159,13 @@ public class AdminGui extends Application {
 
 					@Override
 					public void handle(ActionEvent event) {
+						AdminLog.info("clearing the next item on the list");
+						 		try {
+						 			ab.removeQuestion(ad.out);
+						 		} catch (Exception e) {
+						 			e.printStackTrace();
+						 		}
+
 						// TODO ADD BUTTON COMMANDS
 
 					}
@@ -183,7 +198,7 @@ public class AdminGui extends Application {
 
 		mainPane.getChildren().add(question_Pane);
 
-	}	
+	}
 	public AdminGui(String[] args){
 //		AdminLog.info("GETLAUNCHED");
 		launch(args);
