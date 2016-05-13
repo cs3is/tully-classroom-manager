@@ -15,6 +15,7 @@ import java.util.LinkedList;
 
 import theClient.graphics.ClientTray;
 import theClient.graphics.LockFrame;
+import theadmin.main.AdminMain;
 import shared.networking.Task;
 import shared.res.ConnectionData;
 import shared.utils.Log;
@@ -100,6 +101,7 @@ public class AdminListener implements Runnable {
 
 		switch(t.getTask()){
 		case A_GET_QUESTION_lIST:
+
 			break;
 		case A_REMOVE_FIRST_QUESTION:
 			break;
@@ -114,6 +116,7 @@ public class AdminListener implements Runnable {
 		case C_CLIENT_ERROR:
 			break;
 		case C_SCREENSHOT:
+
 			break;
 		case C_SUBMIT_LAB:
 			break;
@@ -136,40 +139,46 @@ public class AdminListener implements Runnable {
 		case S_QUESTION_NOT_ADDED:
 			break;
 		case S_QUESTION_REMOVED:
+			Admin.getAdminData().questionIsRemoved();
+			Log.info("Question removal confirmed!");
+			break;
+		case S_SCREENSHOT:
+			//TODO FILL THIS IN WITH WHAT USED TO BE THERE BECAUSE I ATE IT WITH MY CLIPBOARD
 			break;
 		case S_SENDING_QUESTIONS:
 			break;
 		case S_SEND_NOTIFICATION:
 			break;
 		case S_UPDATE_QUESTIONS:
+			Log.info("receiving question list " + ((LinkedList<?>) t.getObject()).size() + "   "
+					+ System.identityHashCode(t.getObject()));
+			// TODO print out the task .tostring to see if there is an issue
+			// with the memory addresses
+			if (t.getObject() instanceof LinkedList<?>) {
+				Log.info("question list is valid");
+				AdminMain.questionList = (LinkedList<Question>) t.getObject();
+			}
 			break;
 		default:
 			break;
 
 		}
+
+		//TODO MOVE THIS TO NEW SWITCH
+
 //		switch (t.getTask()) {
 //
 //		case Task.SCREENSHOT:
-//			scr = (BufferedImage) t.getO();
-//			break;
+//
 //
 //		case Task.GET_QUESTION_LIST:
-//			if (t.getO() instanceof ArrayList<?>)
-//				AdminMain.questionList = (LinkedList<Question>) t.getO();
+//
 //
 //		case Task.UPDATE_QUESTIONS:
-//			Log.info("receiving question list " + ((LinkedList<?>) t.getO()).size() + "   "
-//					+ System.identityHashCode(t.getO()));
-//			// TODO print out the task .tostring to see if there is an issue
-//			// with the memory addresses
-//			if (t.getO() instanceof LinkedList<?>) {
-//				Log.info("question list is valid");
-//				AdminMain.questionList = (LinkedList<Question>) t.getO();
-//			}
+//
 //			break;
 //		case Task.QUESTION_REMOVED:
-//			ad.questionIsRemoved();
-//			Log.info("Question removal confirmed!");
+//
 //			break;
 //
 //		}
