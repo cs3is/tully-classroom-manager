@@ -25,6 +25,11 @@ public class ConnectionData {
 		connection.getLocalAddress().getHostName();
 	}
 	
+	public ConnectionData(ObjectInputStream in, ObjectOutputStream out){
+		this.in = in;
+		this.out = out;
+	}
+	
 
 	
 	public String getHostName(){
