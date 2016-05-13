@@ -89,6 +89,15 @@ public enum TaskEnum implements Serializable{
 	S_SEND_NOTIFICATION,
 	/**
 	 * <p>
+	 * To be sent from the server to the admin.
+	 * </p>
+	 * <p>
+	 * contains the screenshot
+	 * </p>
+	 */
+	S_SCREENSHOT,
+	/**
+	 * <p>
 	 * To be sent from the server to the client.
 	 * </p>
 	 * <p>
