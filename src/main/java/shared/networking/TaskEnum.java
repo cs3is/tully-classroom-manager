@@ -9,7 +9,7 @@ import java.io.Serializable;
  * order to help inform whatever computer it is being sent to of what needs to
  * be done.
  * </p>
- * 
+ *
  * @author Andrew
  *
  */
@@ -202,6 +202,15 @@ public enum TaskEnum implements Serializable{
 	 * </p>
 	 */
 	A_GET_QUESTION_lIST,
+	/**
+	 * <p>
+	 * To be sent from the admin to the server.
+	 * </p>
+	 * <p>
+	 * Asks the server if it can send the screenshot to the admin after getting it form the client.
+	 * </p>
+	 */
+	A_REQUEST_SCREENSHOT,
 
 	// -------------------------------------------------------------------------------------------
 
@@ -210,7 +219,7 @@ public enum TaskEnum implements Serializable{
 	 * TODO set this up
 	 * </p>
 	 * <p>
-	 * 
+	 *
 	 * </p>
 	 */
 	SYNC,
@@ -219,7 +228,7 @@ public enum TaskEnum implements Serializable{
 	 * TODO set this up
 	 * </p>
 	 * <p>
-	 * 
+	 *
 	 * </p>
 	 */
 	REQUEST_VALUE
