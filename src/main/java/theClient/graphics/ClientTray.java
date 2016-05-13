@@ -1,4 +1,4 @@
-package graphics;
+package theClient.graphics;
 
 import java.awt.AWTException;
 import java.awt.Dimension;
@@ -25,10 +25,10 @@ import javax.swing.JSeparator;
 
 import client.ClientData;
 import client.ClientListener;
+import theClient.res.ClientConfig;
+import theClient.res.ClientConfigManager;
 import util.Task;
 import util.infoForClientToReceiveAndParseAndProbablyUseToo;
-import utils.ClientConfig;
-import utils.ClientConfigManager;
 import utils.ClientLog;
 import utils.ServerLog;
 

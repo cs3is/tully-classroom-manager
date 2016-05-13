@@ -13,16 +13,13 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import Questions.Question;
-import graphics.ClientTray;
-import graphics.LockFrame;
-import main.AdminMain;
+import theClient.graphics.ClientTray;
+import theClient.graphics.LockFrame;
 import shared.networking.Task;
 import shared.utils.Log;
 
 public class AdminListener implements Runnable {
 	private BufferedImage scr;
-	private AdminData ad;
 	private Object sConfig;
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	Robot robo;
@@ -148,7 +145,9 @@ public class AdminListener implements Runnable {
 			break;
 
 		}
+
 		//TODO MOVE THIS TO NEW SWITCH
+
 //		switch (t.getTask()) {
 //
 //		case Task.SCREENSHOT:

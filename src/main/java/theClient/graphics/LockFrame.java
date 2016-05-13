@@ -1,4 +1,4 @@
-package graphics;
+package theClient.graphics;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import utils.ClientConfigManager;
+import theClient.res.ClientConfigManager;
 import utils.ClientLog;
 
 public class LockFrame extends JFrame {
