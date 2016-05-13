@@ -1,4 +1,4 @@
-package utils;
+package theClient.res;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;

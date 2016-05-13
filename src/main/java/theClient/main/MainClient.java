@@ -1,4 +1,4 @@
-package main;
+package theClient.main;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -6,9 +6,9 @@ import java.net.Socket;
 
 import client.ClientData;
 import client.ClientListener;
-import graphics.ClientTray;
+import theClient.graphics.ClientTray;
+import theClient.res.ClientConfigManager;
 import util.Task;
-import utils.ClientConfigManager;
 import utils.ClientLog;
 import utils.ServerLog;
 

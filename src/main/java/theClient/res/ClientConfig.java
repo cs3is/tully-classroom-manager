@@ -1,4 +1,4 @@
-package utils;
+package theClient.res;
 
 public class ClientConfig {
 

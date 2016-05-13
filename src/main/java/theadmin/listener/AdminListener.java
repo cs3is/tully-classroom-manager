@@ -14,9 +14,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import Questions.Question;
-import graphics.ClientTray;
-import graphics.LockFrame;
 import main.AdminMain;
+import theClient.graphics.ClientTray;
+import theClient.graphics.LockFrame;
 import util.Task;
 import utils.AdminLog;
 import utils.ClientLog;
