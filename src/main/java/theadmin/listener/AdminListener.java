@@ -148,32 +148,33 @@ public class AdminListener implements Runnable {
 			break;
 
 		}
-		switch (t.getTask()) {
-
-		case Task.SCREENSHOT:
-			scr = (BufferedImage) t.getO();
-			break;
-
-		case Task.GET_QUESTION_LIST:
-			if (t.getO() instanceof ArrayList<?>)
-				AdminMain.questionList = (LinkedList<Question>) t.getO();
-
-		case Task.UPDATE_QUESTIONS:
-			Log.info("receiving question list " + ((LinkedList<?>) t.getO()).size() + "   "
-					+ System.identityHashCode(t.getO()));
-			// TODO print out the task .tostring to see if there is an issue
-			// with the memory addresses
-			if (t.getO() instanceof LinkedList<?>) {
-				Log.info("question list is valid");
-				AdminMain.questionList = (LinkedList<Question>) t.getO();
-			}
-			break;
-		case Task.QUESTION_REMOVED:
-			ad.questionIsRemoved();
-			Log.info("Question removal confirmed!");
-			break;
-
-		}
+		//TODO MOVE THIS TO NEW SWITCH
+//		switch (t.getTask()) {
+//
+//		case Task.SCREENSHOT:
+//			scr = (BufferedImage) t.getO();
+//			break;
+//
+//		case Task.GET_QUESTION_LIST:
+//			if (t.getO() instanceof ArrayList<?>)
+//				AdminMain.questionList = (LinkedList<Question>) t.getO();
+//
+//		case Task.UPDATE_QUESTIONS:
+//			Log.info("receiving question list " + ((LinkedList<?>) t.getO()).size() + "   "
+//					+ System.identityHashCode(t.getO()));
+//			// TODO print out the task .tostring to see if there is an issue
+//			// with the memory addresses
+//			if (t.getO() instanceof LinkedList<?>) {
+//				Log.info("question list is valid");
+//				AdminMain.questionList = (LinkedList<Question>) t.getO();
+//			}
+//			break;
+//		case Task.QUESTION_REMOVED:
+//			ad.questionIsRemoved();
+//			Log.info("Question removal confirmed!");
+//			break;
+//
+//		}
 		ad.getOut().flush();
 		ad.getOut().reset();
 
