@@ -3,29 +3,30 @@ package theadmin.main;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-import Admin.AdminData;
-import util.Task;
-import utils.AdminLog;
+import shared.networking.Task;
+import shared.networking.TaskEnum;
+import shared.res.ConnectionData;
+import shared.utils.Log;
 
 public class AdminButtons {
-	AdminData ad;
+	ConnectionData conData;
 
-	public AdminButtons(AdminData ad) {
-		this.ad = ad;
+	public AdminButtons(ConnectionData conData) {
+		this.conData = conData;
 	}
 
 	public void getScr(ObjectOutputStream out, int compNum) {
 		try {
-			out.writeObject(new Task(Task.REQUEST_SCREENSHOT,computerNumber));
+			out.writeObject(new Task(TaskEnum.A_REQUEST_SCREENSHOT,compNum));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public void lockScr(ObjectOutputStream out) {
+	public void lockScr(ObjectOutputStream out,int compNum) {
 		try {
-			out.writeObject(new Task(Task.DISABLE_COMPUTER));
+			out.writeObject(new Task(TaskEnum.S_DISABLE_COMPUTER,compNum));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -34,7 +35,7 @@ public class AdminButtons {
 
 	public void removeQuestion(ObjectOutputStream out) {
 		try {
-			out.writeObject(new Task(Task.REMOVE_QUESTION));
+			out.writeObject(new Task(TaskEnum.A_REMOVE_FIRST_QUESTION));
 			for (int i = 0; i < 3; i++) {
 				try {
 					Thread.sleep(100);
@@ -42,23 +43,23 @@ public class AdminButtons {
 
 					e.printStackTrace();
 				}
-				if (ad.isQuestionRemoved()) {
+				if (conData.isQuestionRemoved()) {
 
-					AdminLog.info("remove successful");
-					ad.questionIsRemoved();
+					Log.info("remove successful");
+					conData.questionIsRemoved();
 					break;
 				}
 			}
-			AdminLog.info("failed to remove qu3etsion");
+			Log.info("failed to remove qu3etsion");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public void sendNotification(ObjectOutputStream out, String msg) {
+	public void sendNotification(ObjectOutputStream out, String msg,int compNum) {
 		try {
-			out.writeObject(new Task(Task.SEND_NOTIFICATION, msg));
+			out.writeObject(new Task(TaskEnum.S_SEND_NOTIFICATION,compNum, msg));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

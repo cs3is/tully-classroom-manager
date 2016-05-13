@@ -23,6 +23,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import javafx.stage.Window;
+import shared.utils.Log;
 
 public class AdminGui extends Application {
 
@@ -159,9 +160,9 @@ public class AdminGui extends Application {
 
 					@Override
 					public void handle(ActionEvent event) {
-						AdminLog.info("clearing the next item on the list");
+						Log.info("clearing the next item on the list");
 						 		try {
-						 			ab.removeQuestion(ad.out);
+						 	//		ab.removeQuestion(ad.out); TODO this
 						 		} catch (Exception e) {
 						 			e.printStackTrace();
 						 		}

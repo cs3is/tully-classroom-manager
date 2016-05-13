@@ -4,19 +4,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
-import utils.ClientLog;
-import javafx.application.Application;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.stage.Stage;
-import shared.networking.Task;
+import shared.res.ConnectionData;
 import shared.res.Question;
 import shared.utils.Log;
 import theadmin.graphics.AdminGui;
@@ -37,9 +27,9 @@ public class AdminMain {
 
 	private static String userName;
 
+	private static ConnectionData conData;
+
 	public static void main(String[] args) {
-		
-		
 
 		new AdminConfigManager();
 
@@ -54,8 +44,9 @@ public class AdminMain {
 			Log.debug("Created output stream 1 from connection");
 			ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
 
+			conData = new ConnectionData(connection, null, null, true, in, out);
 
-			ab = new AdminButtons(ad);
+			ab = new AdminButtons(conData);
 
 			AdminTray T = new AdminTray();
 
@@ -67,14 +58,13 @@ public class AdminMain {
 			}
 
 			AdminGui.main(args);
-			
-			al = new AdminListener(ad);
-			System.out.println("after");
 
+			al = new AdminListener(conData);
+			System.out.println("after");
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			ClientLog.fatal("An error occurred");
+			Log.error("A fatal error occurred");
 			System.exit(0);
 		}
 
@@ -89,7 +79,7 @@ public class AdminMain {
 				try {
 
 					requestQuestionList();
-					al = new AdminListener(ad);
+					al = new AdminListener(conData);
 
 					Thread.sleep(5000);
 				} catch (Exception e) {
@@ -102,8 +92,8 @@ public class AdminMain {
 	});
 
 	public void requestQuestionList() throws Exception {
-		//TODO sent the object
-//		ad.out.writeObject(new Task(Task.GET_QUESTION_LIST));
+		// TODO sent the object
+		// ad.out.writeObject(new Task(Task.GET_QUESTION_LIST));
 		Thread.sleep(500);
 	}
 

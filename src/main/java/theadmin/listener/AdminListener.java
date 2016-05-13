@@ -16,17 +16,19 @@ import java.util.LinkedList;
 import theClient.graphics.ClientTray;
 import theClient.graphics.LockFrame;
 import shared.networking.Task;
+import shared.res.ConnectionData;
 import shared.utils.Log;
 
 public class AdminListener implements Runnable {
+	private ConnectionData conData;
 	private BufferedImage scr;
 	private Object sConfig;
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	Robot robo;
 
-	public AdminListener(AdminData cd) {
+	public AdminListener(ConnectionData conData) {
 		// Log.info ("WTF");
-		this.ad = cd;
+		this.conData = conData;
 		Thread t = new Thread();
 		try {
 			Robot robo = new Robot();
@@ -71,7 +73,7 @@ public class AdminListener implements Runnable {
 	@SuppressWarnings("unchecked")
 	public void readObj() throws ClassNotFoundException, IOException, Exception {
 		Log.debug("reading inputStream");
-		Object o = ad.getIn().readObject();
+		Object o = conData.getIn().readObject();
 		Log.debug("read inputstream");
 
 		if (o instanceof Task) {
@@ -171,8 +173,8 @@ public class AdminListener implements Runnable {
 //			break;
 //
 //		}
-		ad.getOut().flush();
-		ad.getOut().reset();
+		conData.getOut().flush();
+		conData.getOut().reset();
 
 	}
 

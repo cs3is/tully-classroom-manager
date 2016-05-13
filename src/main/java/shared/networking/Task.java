@@ -7,8 +7,9 @@ public class Task implements Serializable {
 	private TaskEnum toDo;
 	private Object o;
 	private String text;
+	private int compNum;
 
-	public Task(TaskEnum toDO) {
+	public Task(TaskEnum toDo) {
 		this.toDo = toDo;
 	}
 
@@ -20,6 +21,18 @@ public class Task implements Serializable {
 	public Task(TaskEnum toDo, Object o) {
 		this.toDo = toDo;
 		this.o = o;
+	}
+	
+	public Task(TaskEnum toDo, int compNum, String text){
+		this.toDo = toDo;
+		this.text = text;
+		this.setCompNum(compNum);
+	}
+	
+	public Task(TaskEnum toDo, int compNum, Object o){
+		this.toDo = toDo;
+		this.o = o;
+		this.setCompNum(compNum);
 	}
 
 	public TaskEnum getTask() {
@@ -39,6 +52,14 @@ public class Task implements Serializable {
 			return "tried to print a Task with a value of " + toDo + ", and a message of \"" + text + "\"";
 		else
 			return "tried to print a Task with a value of " + toDo + ", and a message of \"" + o.toString() + "\"";
+	}
+
+	public int getCompNum() {
+		return compNum;
+	}
+
+	public void setCompNum(int compNum) {
+		this.compNum = compNum;
 	}
 
 }

@@ -15,6 +15,7 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
+import shared.utils.Log;
 import utils.ServerLog;
 
 public class AdminConfigManager {
@@ -48,7 +49,7 @@ public class AdminConfigManager {
 			readFile(settings);
 
 		} catch (FileNotFoundException e) {
-			ServerLog.oError("Config data not found, Creating now...");
+			Log.error("Config data not found, Creating now...");
 
 			try {
 
@@ -56,7 +57,7 @@ public class AdminConfigManager {
 				f.createNewFile();
 
 			} catch (IOException e1) {
-				ServerLog.oError("failed creating files.");
+				Log.error("failed creating files.");
 
 			}
 			e.printStackTrace();
@@ -172,7 +173,7 @@ public class AdminConfigManager {
 
 		try {
 			settings.clear();
-			ServerLog.info("Reading config data...");
+			Log.info("Reading config data...");
 			scan = new Scanner(new File("config.cfg"));
 			readFile(settings);
 		} catch (FileNotFoundException e) {
@@ -183,7 +184,7 @@ public class AdminConfigManager {
 				File f = new File("config.cfg");
 				f.createNewFile();
 			} catch (IOException e1) {
-				ServerLog.error("failed creating files...");
+				Log.error("failed creating files...");
 			}
 			System.exit(0);
 		}
