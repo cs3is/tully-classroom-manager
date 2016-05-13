@@ -1,4 +1,4 @@
-package graphics;
+package theadmin.graphics;
 
 import java.awt.AWTException;
 import java.awt.Image;
@@ -13,12 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-import Admin.AdminData;
-import client.ClientListener;
-import utils.AdminLog;
-import utils.ClientConfig;
-import utils.ClientConfigManager;
-import utils.ServerLog;
+import shared.utils.Log;
 
 public class AdminTray implements Runnable {
 
@@ -45,10 +40,10 @@ public class AdminTray implements Runnable {
 		try {
 			tray.add(trayIcon);
 		} catch (AWTException e) {
-			AdminLog.warn("TrayIcon could not be added.");
+			Log.warn("TrayIcon could not be added.");
 		}
 
-		ServerLog.info("ClientTray initialized");
+		Log.info("ClientTray initialized");
 	}
 
 	public void createMenu() {
@@ -59,7 +54,7 @@ public class AdminTray implements Runnable {
 				.getImage("bin/../src/main/../main/resources/../java/client/../../resources/client.png");
 		trayIcon = new TrayIcon(image, "ClientConfig.NAME");
 
-		ServerLog.info(trayIcon.getImage() + "");
+		Log.info(trayIcon.getImage() + "");
 
 	}
 

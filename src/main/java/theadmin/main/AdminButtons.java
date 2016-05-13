@@ -1,4 +1,4 @@
-package graphics;
+package theadmin.main;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;

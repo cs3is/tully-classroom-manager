@@ -3,7 +3,6 @@
 	<classpathentry excluding="OLDserver/" kind="src" path="src/main/java/client"/>
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry excluding="client/|common/|admin/|NEWshared/|NEWadmin/|NEWclient/|NEWserver/|server/oldServer/|client/OLDserver/|oldServer/|olderAdmin/" kind="src" path="src/main/java"/>
-	<classpathentry kind="src" path="src/main/java/olderAdmin"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

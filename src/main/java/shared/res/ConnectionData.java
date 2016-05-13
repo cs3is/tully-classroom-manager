@@ -25,6 +25,8 @@ public class ConnectionData {
 		connection.getLocalAddress().getHostName();
 	}
 	
+
+	
 	public String getHostName(){
 		return connection.getLocalAddress().getHostName();
 	}

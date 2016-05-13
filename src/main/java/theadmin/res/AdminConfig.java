@@ -1,4 +1,4 @@
-package utils;
+package theadmin.res;
 
 public class AdminConfig {
 

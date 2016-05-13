@@ -1,4 +1,4 @@
-package utils;
+package theadmin.res;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -34,6 +34,7 @@ public class AdminConfigManager {
 	 * associated with the the setting wanted, and giving it to the proper
 	 * accessor, each of which cast the Object that is saved in the hashmap into
 	 * the desired Object type.
+	 * @deprecated
 	 */
 	public AdminConfigManager() {
 

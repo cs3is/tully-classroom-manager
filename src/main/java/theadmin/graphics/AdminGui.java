@@ -1,4 +1,4 @@
-package graphics;
+package theadmin.graphics;
 
 import java.util.ArrayList;
 import java.util.Collection;
