@@ -90,7 +90,7 @@ public class Server implements Runnable {
 				ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
 
 				ConnectionData conData = new ConnectionData(connection, selectedClass, connectionAccepted, admin, in,
-						out);
+						out, compNum);
 
 				checkConnectionDetails(conData);
 
@@ -158,6 +158,7 @@ public class Server implements Runnable {
 
 	private void acceptAdmin(ConnectionData conData) throws ClassNotFoundException, IOException {
 		System.out.println("an admin has been detected");
+		//TODO GET COMPNUM
 		// AdminInformation u = new AdminInformation(conData.getSelectedClass(),
 		// (String) conData.getIn().readObject(),
 		// conData.getConnection().getLocalAddress().getHostName(),
@@ -192,14 +193,14 @@ public class Server implements Runnable {
 	 * from a classroom are listed on the list, a single dash in the next line
 	 * will signify the end of that class, and potentially the start of a new
 	 * one.
-	 * 
+	 *
 	 * @param fileLocation
 	 *            The location of all of the computers that will be able to
 	 *            connect to the server.
 	 */
 	private void loadComputers(String fileLocation) {
 		String key;
-		Integer value;
+		Integer compNum;
 		int selectedClass = 0;
 
 		try {
@@ -213,14 +214,14 @@ public class Server implements Runnable {
 
 			line = new Scanner(scan.nextLine()).useDelimiter(",");
 			String next = line.next().trim();
-			if (next.equals("-")) {
+			if (next.equals("~")) {
 				computerList.add(new HashMap<String, Integer>());
 				questionList.add(new LinkedList<Question>());
 				selectedClass++;
 			} else {
-				value = Integer.parseInt(next);
+				compNum = Integer.parseInt(next);
 				key = line.next();
-				computerList.get(selectedClass).put(key, value);
+				computerList.get(selectedClass).put(key, compNum);
 			}
 		}
 		numberOfTeachers = selectedClass;

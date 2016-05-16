@@ -16,7 +16,6 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 import shared.utils.Log;
-import utils.ServerLog;
 
 public class AdminConfigManager {
 
@@ -67,7 +66,7 @@ public class AdminConfigManager {
 
 	/**
 	 * Writes all of the data from a hashmap into the file location specified.
-	 * 
+	 *
 	 * @param h
 	 *            The hashmap that will have all of its data printed
 	 * @param location
@@ -97,7 +96,7 @@ public class AdminConfigManager {
 	 * when the settings need to be saved, or when the program is getting
 	 * closed. It will write them in the format Key=Value withing the file
 	 * specified.
-	 * 
+	 *
 	 * @param location
 	 *            The location of the file which the hashmap will be saved to.
 	 */
@@ -122,7 +121,7 @@ public class AdminConfigManager {
 	/**
 	 * This is the helper method for the other writeFile(), it is used to write
 	 * text into the file specified, with the specified text.
-	 * 
+	 *
 	 * @param key
 	 *            This is the unique identifier for the option given
 	 * @param value
@@ -151,7 +150,7 @@ public class AdminConfigManager {
 	/**
 	 * This method will read a file that's in the format key=value, and add all
 	 * of the lines into a hashmap
-	 * 
+	 *
 	 * @param h
 	 *            The hashmap which the text from the file will be added to.
 	 */
@@ -192,7 +191,7 @@ public class AdminConfigManager {
 
 	/**
 	 * A method to access any of the program's settings from the hashmap
-	 * 
+	 *
 	 * @return Returns a value from the hashmap in the form of an Object
 	 * @param s
 	 *            The key of the value which will be returned
@@ -203,7 +202,7 @@ public class AdminConfigManager {
 
 	/**
 	 * A method to access any of the program's settings from the hashmap
-	 * 
+	 *
 	 * @return Returns a value from the hashmap in the form of an Boolean
 	 * @param s
 	 *            The key of the value which will be returned
@@ -214,7 +213,7 @@ public class AdminConfigManager {
 
 	/**
 	 * A method to access any of the program's settings from the hashmap
-	 * 
+	 *
 	 * @return Returns a value from the hashmap in the form of an Integer
 	 * @param s
 	 *            The key of the value which will be returned
@@ -225,7 +224,7 @@ public class AdminConfigManager {
 
 	/**
 	 * A method to access any of the program's settings from the hashmap
-	 * 
+	 *
 	 * @return Returns a value from the hashmap in the form of an String
 	 * @param s
 	 *            The key of the value which will be returned
@@ -237,7 +236,7 @@ public class AdminConfigManager {
 	/**
 	 * This is the method to use when something needs to be added into the
 	 * hashmap where all of the settings are stored.
-	 * 
+	 *
 	 * @param key
 	 *            This will be the key for the option to add to the settings
 	 *            hashmap
@@ -250,7 +249,7 @@ public class AdminConfigManager {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The number of pixels on the monitor in the X field
 	 */
 	public static int getXResolution() {
@@ -258,7 +257,7 @@ public class AdminConfigManager {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The number of pixels on the monitor height in the Y field
 	 */
 	public static int getYResolution() {
