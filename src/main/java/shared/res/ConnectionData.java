@@ -14,10 +14,10 @@ public class ConnectionData {
 	ObjectOutputStream out;
 	boolean questionIsRemoved;
 	Question q;
-	int compNum;
+	Integer compNum=null;
 
 	public ConnectionData(Socket connection, Integer selectedClass, Boolean connectionAccepted, Boolean admin,
-			ObjectInputStream in, ObjectOutputStream out, int computerNumber) {
+			ObjectInputStream in, ObjectOutputStream out) {
 		this.connection = connection;
 		this.selectedClass = selectedClass;
 		this.connectionAccepted = connectionAccepted;
@@ -26,7 +26,6 @@ public class ConnectionData {
 		this.out = out;
 		connection.getRemoteSocketAddress();
 		connection.getLocalAddress().getHostName();
-		this.compNum = compNum;
 	}
 
 	public ConnectionData(ObjectInputStream in, ObjectOutputStream out){
@@ -111,7 +110,7 @@ public class ConnectionData {
 		this.q = q;
 	}
 
-	public int getCompNum() {
+	public Integer getCompNum() {
 		return compNum;
 	}
 

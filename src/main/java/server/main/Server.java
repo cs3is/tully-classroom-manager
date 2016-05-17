@@ -90,7 +90,7 @@ public class Server implements Runnable {
 				ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
 
 				ConnectionData conData = new ConnectionData(connection, selectedClass, connectionAccepted, admin, in,
-						out, compNum);
+						out);
 
 				checkConnectionDetails(conData);
 
@@ -147,6 +147,8 @@ public class Server implements Runnable {
 	}
 
 	private void acceptClient(ConnectionData conData) throws ClassNotFoundException, IOException {
+		conData.setCompNum(computerList.get(conData.getSelectedClass())
+				 				.get(conData.getConnection().getLocalAddress().getHostName()));
 		Thread t = new Thread(new ServerListener(conData));
 		t.start();
 		Log.debug("sending \"Connection accepted by server\"");
@@ -157,6 +159,7 @@ public class Server implements Runnable {
 	}
 
 	private void acceptAdmin(ConnectionData conData) throws ClassNotFoundException, IOException {
+		conData.setCompNum(-1);
 		System.out.println("an admin has been detected");
 		//TODO GET COMPNUM
 		// AdminInformation u = new AdminInformation(conData.getSelectedClass(),
