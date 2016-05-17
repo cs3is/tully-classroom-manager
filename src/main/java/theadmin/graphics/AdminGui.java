@@ -49,6 +49,9 @@ public class AdminGui extends Application {
 	protected Button question_Clear;
 	protected Button question_ClearAll;
 
+
+	public AdminGui(){
+	}
 	public static void main(String[] args) {
 		launch(args);
 	}
