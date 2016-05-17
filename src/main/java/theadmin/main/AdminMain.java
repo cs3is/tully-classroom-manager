@@ -13,7 +13,7 @@ import theadmin.graphics.AdminGui;
 import theadmin.graphics.AdminTray;
 import theadmin.listener.AdminListener;
 import theadmin.res.AdminConfigManager;
-
+-1
 public class AdminMain {
 
 	private static Socket connection;
