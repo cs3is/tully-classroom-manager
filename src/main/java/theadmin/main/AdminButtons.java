@@ -43,12 +43,12 @@ public class AdminButtons {
 
 					e.printStackTrace();
 				}
-				if (conData.isQuestionRemoved()) {
-
-					Log.info("remove successful");
-					conData.questionIsRemoved();
-					break;
-				}
+//				if (conData.isQuestionRemoved()) { TODO fix this
+//
+//					Log.info("remove successful");
+//					conData.questionIsRemoved();
+//					break;
+//				}
 			}
 			Log.info("failed to remove qu3etsion");
 		} catch (IOException e) {

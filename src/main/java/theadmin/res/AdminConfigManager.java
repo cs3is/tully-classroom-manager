@@ -16,7 +16,6 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 import shared.utils.Log;
-import utils.ServerLog;
 
 public class AdminConfigManager {
 
