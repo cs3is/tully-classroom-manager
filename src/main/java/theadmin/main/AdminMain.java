@@ -44,7 +44,7 @@ public class AdminMain {
 			Log.debug("Created output stream 1 from connection");
 			ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
 
-			conData = new ConnectionData(connection, null, null, true, in, out, -1);
+			conData = new ConnectionData(connection, null, null, true, in, out);
 
 			ab = new AdminButtons(conData);
 
