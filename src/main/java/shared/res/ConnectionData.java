@@ -15,6 +15,9 @@ public class ConnectionData {
 	boolean questionIsRemoved;
 	Question q;
 	Integer compNum=null;
+	private Boolean bool;
+	private Boolean questionAdded;
+	private Boolean countdownBegin = false;
 
 	public ConnectionData(Socket connection, Integer selectedClass, Boolean connectionAccepted, Boolean admin,
 			ObjectInputStream in, ObjectOutputStream out) {
@@ -117,4 +120,28 @@ public class ConnectionData {
 	public void setCompNum(int compNum) {
 		this.compNum = compNum;
 	}
+
+	public Boolean getQuestionAdded() {
+		return questionAdded;
+	}
+
+	public void setQuestionAdded(Boolean b) {
+		questionAdded = b;
+	}
+	@Deprecated
+	public boolean getBoolean() {
+		boolean t = bool;
+		bool = null;
+		return t;
+
+	}
+
+	public Boolean getCountdownBegin() {
+		return countdownBegin;
+	}
+
+	public void setCountdownBegin(Boolean countdownBegin) {
+		this.countdownBegin = countdownBegin;
+	}
+
 }

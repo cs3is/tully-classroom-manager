@@ -3,6 +3,7 @@ package server.listener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import server.res.ServerConfig;
 import shared.networking.InitializationInformation;
 import shared.networking.Task;
 import shared.networking.TaskEnum;
@@ -23,7 +24,7 @@ public class ServerListener implements Runnable {
 			// u.out().reset();
 			Thread.sleep(125);
 			Log.debug("sending init");
-			con.getOut().writeObject(new Task(TaskEnum.S_INIT, new InitializationInformation()));
+			con.getOut().writeObject(new Task(TaskEnum.S_INIT, new InitializationInformation(ServerConfig.TIME_BETWEEN_QUESTIONS)));
 			Log.debug("sent init");
 		} catch (Exception e) {
 			Log.printStackTrace(e);
@@ -72,14 +73,14 @@ public class ServerListener implements Runnable {
 	/**
 	 * This method receives a task from the thead, and then tells the server
 	 * what to do based on the task's contents.
-	 * 
+	 *
 	 * @param o
 	 *            The Task that is sent to the server, in the form of an object
 	 */
 	@SuppressWarnings("incomplete-switch")
 	private void actOnTask(Object o) throws Exception {
 		Task t = (Task) o;
-		
+
 		//TODO update the switch
 		switch(t.getTask()){
 		case A_GET_QUESTION_lIST:
@@ -102,7 +103,7 @@ public class ServerListener implements Runnable {
 			break;
 		case SYNC:
 			break;
-		
+
 		}
 //		switch (t.getTask()) {
 //

@@ -1,7 +1,7 @@
 package server.res;
 
 public class ServerConfig {
-
+public static final int TIME_BETWEEN_QUESTIONS = 9;
 //	public static final String SQL_URL = ServerConfigManager.getStr("SQL_URL");
 //	public static final String SQL_PASSWORD = ServerConfigManager.getStr("SQL_PASSWORD");
 //	public static final String SQL_TABLE_NAME = ServerConfigManager.getStr("SQL_TABLE_NAME");

@@ -24,6 +24,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JSeparator;
 
 import theClient.listener.ClientListener;
+import shared.networking.InitializationInformation;
 import shared.networking.Task;
 import shared.networking.TaskEnum;
 import shared.res.ConnectionData;
@@ -269,7 +270,7 @@ public class ClientTray implements Runnable {
 	}
 
 	public void initInit() {
-		timeBetweenQuestions = ((infoForClientToReceiveAndParseAndProbablyUseToo) cl.getConfig())
+		timeBetweenQuestions = ((InitializationInformation) cl.getConfig())
 				.getTimeBetweenQuestions();
 	}
 

@@ -6,8 +6,8 @@ import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import shared.utils.Log;
 import theClient.res.ClientConfigManager;
-import utils.ClientLog;
 
 public class LockFrame extends JFrame {
 	BufferedImage image;
@@ -15,7 +15,7 @@ public class LockFrame extends JFrame {
 	public LockFrame(BufferedImage i) {
 		super();
 		image = i;
-		ClientLog.debug("scren lucked");
+		Log.debug("scren lucked");
 		setSize(ClientConfigManager.getXResolution(), ClientConfigManager.getYResolution());
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setResizable(false);

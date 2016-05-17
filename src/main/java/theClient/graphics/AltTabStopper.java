@@ -6,8 +6,6 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 
-import utils.ClientLog;
-
 public class AltTabStopper implements Runnable, KeyListener {
 	private boolean working = true;
 	private JFrame frame;
