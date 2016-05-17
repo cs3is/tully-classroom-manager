@@ -44,7 +44,7 @@ public class AdminMain {
 			Log.debug("Created output stream 1 from connection");
 			ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
 
-			conData = new ConnectionData(connection, null, null, true, in, out);
+			conData = new ConnectionData(connection, null, null, true, in, out, -1);
 
 			ab = new AdminButtons(conData);
 
@@ -96,5 +96,17 @@ public class AdminMain {
 		// ad.out.writeObject(new Task(Task.GET_QUESTION_LIST));
 		Thread.sleep(500);
 	}
+	@Deprecated
+	public static ConnectionData getAdminData(){
+		return conData;
+	}
+	public static ConnectionData getConnectionData(){
+		return conData;
+	}
+	public static AdminButtons getAdminButtons(){
+		return ab;
+	}
+
+
 
 }

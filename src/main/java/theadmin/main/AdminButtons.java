@@ -6,10 +6,12 @@ import java.io.ObjectOutputStream;
 import shared.networking.Task;
 import shared.networking.TaskEnum;
 import shared.res.ConnectionData;
+import shared.res.Question;
 import shared.utils.Log;
 
 public class AdminButtons {
 	ConnectionData conData;
+
 
 	public AdminButtons(ConnectionData conData) {
 		this.conData = conData;
@@ -66,4 +68,5 @@ public class AdminButtons {
 		}
 
 	}
+
 }

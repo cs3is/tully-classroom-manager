@@ -18,12 +18,14 @@ import theClient.graphics.LockFrame;
 import theadmin.main.AdminMain;
 import shared.networking.Task;
 import shared.res.ConnectionData;
+import shared.res.Question;
 import shared.utils.Log;
 
 public class AdminListener implements Runnable {
 	private ConnectionData conData;
 	private BufferedImage scr;
 	private Object sConfig;
+
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	Robot robo;
 
@@ -139,7 +141,7 @@ public class AdminListener implements Runnable {
 		case S_QUESTION_NOT_ADDED:
 			break;
 		case S_QUESTION_REMOVED:
-			Admin.getAdminData().questionIsRemoved();
+			AdminMain.getAdminData().questionIsRemoved();
 			Log.info("Question removal confirmed!");
 			break;
 		case S_SCREENSHOT:
@@ -203,5 +205,7 @@ public class AdminListener implements Runnable {
 	public Object getConfig() {
 		return sConfig;
 	}
+
+
 
 }
