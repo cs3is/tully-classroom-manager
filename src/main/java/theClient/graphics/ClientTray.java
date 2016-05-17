@@ -23,17 +23,16 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JSeparator;
 
-import client.ClientData;
-import client.ClientListener;
+import theClient.listener.ClientListener;
+import shared.networking.Task;
+import shared.networking.TaskEnum;
+import shared.res.ConnectionData;
+import shared.utils.Log;
 import theClient.res.ClientConfig;
 import theClient.res.ClientConfigManager;
-import util.Task;
-import util.infoForClientToReceiveAndParseAndProbablyUseToo;
-import utils.ClientLog;
-import utils.ServerLog;
 
 public class ClientTray implements Runnable {
-	private ClientData cd = null;
+	private ConnectionData cd = null;
 	private ClientConfigManager cfg = null;
 	ClientListener cl = null;
 
@@ -61,7 +60,7 @@ public class ClientTray implements Runnable {
 
 	private long timeBetweenQuestions = 0;
 
-	public ClientTray(ClientData cd) {
+	public ClientTray(ConnectionData cd) {
 		// init objectstreams
 		this.cd = cd;
 
@@ -70,14 +69,14 @@ public class ClientTray implements Runnable {
 		// TODO MAKE SURE THIS WORKS
 
 		userName = System.getProperty("user.name");
-		ClientLog.info("The user name is: " + userName.trim());
+		Log.info("The user name is: " + userName.trim());
 		try {
 			cd.getOut().writeObject(userName);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		ClientLog.debug("Starting clientlistener...");
+		Log.debug("Starting clientlistener...");
 		cl = new ClientListener(cd);
 		// get username
 
@@ -100,10 +99,10 @@ public class ClientTray implements Runnable {
 		try {
 			tray.add(trayIcon);
 		} catch (AWTException e) {
-			ClientLog.info("TrayIcon could not be added.");
+			Log.info("TrayIcon could not be added.");
 		}
 
-		ServerLog.info("ClientTray initialized");
+		Log.info("ClientTray initialized");
 	}
 
 	public void createMenu() {
@@ -114,7 +113,7 @@ public class ClientTray implements Runnable {
 				.getImage("bin/../src/main/../main/resources/../java/client/../../resources/client.png");
 		trayIcon = new TrayIcon(image, ClientConfig.NAME);
 
-		ServerLog.info(trayIcon.getImage() + "");
+		Log.info(trayIcon.getImage() + "");
 
 	}
 
@@ -202,12 +201,12 @@ public class ClientTray implements Runnable {
 	public void updateQuestion() {
 		long diff = time - qTime;
 		long label = (((timeBetweenQuestions * 1000000000L) - diff) / 1000000000L);
-//		 ClientLog.info(time+"");
-//		 ClientLog.info(qTime+"");
-//		 ClientLog.info(diff+"");
-//		 ClientLog.info(label+"");
-//		 ClientLog.info(timeBetweenQuestions+"");
-//		 ClientLog.info("______---------========^^^^^^^^^^    ^_^");
+//		 Log.info(time+"");
+//		 Log.info(qTime+"");
+//		 Log.info(diff+"");
+//		 Log.info(label+"");
+//		 Log.info(timeBetweenQuestions+"");
+//		 Log.info("______---------========^^^^^^^^^^    ^_^");
 		if (diff > timeBetweenQuestions * 1000000000L) {
 			addQuestion.setEnabled(true);
 			canQuestion = true;
@@ -229,11 +228,11 @@ public class ClientTray implements Runnable {
 	Runnable addQuestionThread = new Runnable() {
 		@Override
 		public void run() {
-			ClientLog.info("Adding Question");
+			Log.info("Adding Question");
 			if (canQuestion) {
 				canQuestion = false;
 				try {
-					cd.getOut().writeObject(new Task(Task.ASK_QUESTION));
+					cd.getOut().writeObject(new Task(TaskEnum.C_ASK_QUESTION));
 					Boolean added = false;
 					for (int i = 0; i < 5; i++) {
 						try {
@@ -241,22 +240,22 @@ public class ClientTray implements Runnable {
 							if (cd.getQuestionAdded() != null) {
 								cd.setQuestionAdded(null);
 								cd.setCountdownBegin(false);
-								ClientLog.info("Question has been added!");
+								Log.info("Question has been added!");
 								added = true;
 								break;
 							}
-							ClientLog.info("Have not received confirmation from server for " + (5 - i)
+							Log.info("Have not received confirmation from server for " + (5 - i)
 									+ " seconds, retrying " + i + " more times");
 
 						} catch (Exception e) {
-							ClientLog.error("error at addQuestion while waiting for response");
+							Log.error("error at addQuestion while waiting for response");
 							e.printStackTrace();
 						}
 					}
 					if (added) {
 						added = false;
 					} else {
-						ClientLog.error("server did not respond to addQuestion in 5 seconds");
+						Log.error("server did not respond to addQuestion in 5 seconds");
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -284,7 +283,7 @@ public class ClientTray implements Runnable {
 				if (!line.trim().equals("")) {
 					// keep only the process name
 					line = line.substring(1);
-					// ClientLog.info(line.substring(0,
+					// Log.info(line.substring(0,
 					// line.indexOf("\"")));
 					processes.add(line.substring(0, line.indexOf("\"")));
 				}
