@@ -6,7 +6,7 @@ import java.net.Socket;
 
 import shared.res.ConnectionData;
 import shared.utils.Log;
-import theClient.gra-1phics.ClientTray;
+import theClient.graphics.ClientTray;
 import theClient.res.ClientConfigManager;
 
 public class MainClient {

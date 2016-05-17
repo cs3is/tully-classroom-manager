@@ -9,7 +9,7 @@ public class MainServer {
 	public static void main(String[] args) {
 		
 		try {
-			-1
+			
 			Log.info("Initializing server");
 			
 			
