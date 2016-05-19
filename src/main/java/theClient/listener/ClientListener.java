@@ -11,6 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import shared.networking.Task;
+import shared.networking.TaskEnum;
 import shared.res.ConnectionData;
 import shared.utils.Log;
 import theClient.graphics.LockFrame;
@@ -121,20 +122,36 @@ public class ClientListener implements Runnable {
 		case S_GET_PROCESSES:
 			break;
 		case S_GET_SCREENSHOT:
+			try {
+				cd.getOut().writeObject(new Task(TaskEnum.C_SCREENSHOT, robo.createScreenCapture(
+						new Rectangle(0, 0, (int) screenSize.getWidth(), (int) screenSize.getHeight()))));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+
+			}
 			break;
 		case S_INIT:
+			Log.info("received INIT");
+			sConfig = t.getObject();
+			// clienttray.initInit();
 			break;
 		case S_QUESTION_ADDED:
+			cd.setQuestionAdded(true);
+			Log.info("received QUESTION_ADDED");
 			break;
 		case S_QUESTION_NOT_ADDED:
 			break;
 		case S_QUESTION_REMOVED:
+			Log.info("received QUESTION_REMOVED");
+			cd.setCountdownBegin(true);
 			break;
 		case S_SCREENSHOT:
 			break;
 		case S_SENDING_QUESTIONS:
 			break;
 		case S_SEND_NOTIFICATION:
+			Log.info(t.getText());
 			break;
 		case S_UPDATE_QUESTIONS:
 			break;

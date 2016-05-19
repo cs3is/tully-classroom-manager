@@ -31,7 +31,6 @@ public class ServerListener implements Runnable {
 		}
 
 	}
-
 	@Override
 	public void run() {
 		// ServerLog.info("created a userListener");
