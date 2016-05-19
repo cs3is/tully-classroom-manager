@@ -245,8 +245,8 @@ public class ClientTray implements Runnable {
 								added = true;
 								break;
 							}
-							Log.info("Have not received confirmation from server for " + (5 - i)
-									+ " seconds, retrying " + i + " more times");
+							Log.info("Have not received confirmation from server for " + (1+i)
+									+ " seconds, retrying " + (4-i) + " more times");
 
 						} catch (Exception e) {
 							Log.error("error at addQuestion while waiting for response");
