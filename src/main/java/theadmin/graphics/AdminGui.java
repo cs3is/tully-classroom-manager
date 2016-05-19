@@ -7,19 +7,27 @@ import java.util.List;
 import com.sun.glass.ui.Screen;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.DepthTest;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import javafx.stage.Window;
@@ -46,12 +54,13 @@ public class AdminGui extends Application {
 	protected AnchorPane question_Pane;
 	protected ScrollPane question_ScrollPane;
 	protected Canvas question_Canvas;
+	protected GraphicsContext question_Graphics;
 	protected Button question_Clear;
 	protected Button question_ClearAll;
 
-
-	public AdminGui(){
+	public AdminGui() {
 	}
+
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -75,14 +84,11 @@ public class AdminGui extends Application {
 
 		Scene scene = new Scene(mainPane, xRes, yRes);
 
-
-
 		primaryStage.setTitle("Tully classroom manager");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
 	}
-
 
 	protected void setAnchorBounds(Node nodeToAnchor, Double left, Double right, Double top, Double bottom) {
 		if (left != null)
@@ -141,20 +147,41 @@ public class AdminGui extends Application {
 		question_Pane.setPrefSize(300, yRes);
 		setAnchorBounds(question_Pane, null, 0.0, 0.0, 0.0);
 
+		question_Canvas = new Canvas() {
+			{
+				this.resize(900, 900);
+			}
+
+		};
+		question_Graphics = question_Canvas.getGraphicsContext2D();
+
 		question_ScrollPane = new ScrollPane() {
 			{
 				setVbarPolicy(ScrollBarPolicy.ALWAYS);
 				setAnchorBounds(this, 0.0, 0.0, 25.0, 25.0);
+
+//				ObservableList<String> names = FXCollections.observableArrayList("Julia", "Ian", "Sue", "Matthew",
+//						"Hannah", "Stephan", "Denise", "Julia", "Ian", "Sue", "Matthew", "Hannah", "Sephan", "Julia",
+//						"Ian", "Sue", "Matthew", "Hannah", "Stephan", "Juia", "Ian", "Sue", "Matthew", "Hannah",
+//						"Stephan", "Julia", "Ian", "Sue", "Matthew", "Hannah", "Stephan", "Julia", "Ian", "Sue",
+//						"Matthew", "Hannah", "Stepha", "Julia", "Ian", "Sue", "Matthew", "Hannah", "Stephan", "Julia",
+//						"Ian", "Sue", "Matthew", "Hannah", "Stephan", "Julia", "Ian", "Sue", "Matthew", "Hannah",
+//						"Stephan", "Julia", "Ian", "Sue", "Matthew", "Hannah", "Stephan");
+//				ListView<String> listView = new ListView<String>(names);
+//				listView.setPrefHeight(900);
+//				this.setContent(listView);
+				
+				
+				VBox v = new VBox();
+				for(int i = 0; i <50; i++){
+					v.getChildren().add(new Label("label "+ i));
+				}
+				setContent(v);
 			}
+			
 		};
-
-		/**
-		   try {
-				AdminMain.getAdminData.getOut().writeObject(new Task(Task.SCREENSHOT));
-			} catch (IOException e) {
-
-			}
-		 */
+		question_Graphics.setFill(Color.RED);
+		question_Graphics.fillRect(0, 0, 900, 900);
 
 		question_Clear = new Button("Clear") {
 			{
@@ -164,11 +191,11 @@ public class AdminGui extends Application {
 					@Override
 					public void handle(ActionEvent event) {
 						Log.info("clearing the next item on the list");
-						 		try {
-						 	//		ab.removeQuestion(ad.out); TODO this
-						 		} catch (Exception e) {
-						 			e.printStackTrace();
-						 		}
+						try {
+							// ab.removeQuestion(ad.out); TODO this
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 
 						// TODO ADD BUTTON COMMANDS
 
@@ -203,12 +230,10 @@ public class AdminGui extends Application {
 		mainPane.getChildren().add(question_Pane);
 
 	}
-	public AdminGui(String[] args){
-//		AdminLog.info("GETLAUNCHED");
+
+	public AdminGui(String[] args) {
+		// AdminLog.info("GETLAUNCHED");
 		launch(args);
 	}
 
 }
-
-
-
