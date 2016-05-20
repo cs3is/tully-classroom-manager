@@ -116,6 +116,14 @@ public class ClientListener implements Runnable {
 		case SYNC:
 			break;
 		case S_DISABLE_COMPUTER:
+			try {
+				robo = new Robot();
+				new LockFrame(robo.createScreenCapture(
+						new Rectangle(0, 0, (int) screenSize.getWidth(), (int) screenSize.getHeight())));
+			} catch (AWTException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			break;
 		case S_ENABLE_COMPUTER:
 			break;
@@ -158,60 +166,6 @@ public class ClientListener implements Runnable {
 		default:
 			break;
 		}
-
-//		case Task.QUESTION_ADDED:
-//			//TODO RE-ADD OLD CD METHODS cd.setQuestionAdded(true);
-//			Log.info("received QUESTION_ADDED");
-//			// TODO Add QUESTION_NOT_ADDED, make both send baloon messages too.
-//			break;
-//		case Task.INIT:
-//			Log.info("received INIT");
-//			sConfig = t.getO();
-//			// clienttray.initInit();
-//			break;
-//
-//		case Task.QUESTION_REMOVED:
-//			Log.info("received QUESTION_REMOVED");
-//			//TODO RE-ADD OLD CLIENTDATA METHODS TO CONNECTION DATA cd.setCountdownBegin(true);
-//			break;
-//
-//		case Task.SEND_NOTIFICATION:
-//			Log.info(t.getText());
-//			break;
-//
-//		case Task.GET_SCREENSHOT:
-//
-//			try {
-//				cd.getOut().writeObject(new Task(Task.SCREENSHOT, robo.createScreenCapture(
-//						new Rectangle(0, 0, (int) screenSize.getWidth(), (int) screenSize.getHeight()))));
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//
-//			}
-//			break;
-//
-//		case Task.GET_PROCESSES:
-//			// METHOD IN CLIENTTRAY CALLED listTask() DOES THIS
-//			break;
-//
-//		case Task.DISABLE_COMPUTER:
-//			try {
-//				robo = new Robot();
-//				new LockFrame(robo.createScreenCapture(
-//						new Rectangle(0, 0, (int) screenSize.getWidth(), (int) screenSize.getHeight())));
-//			} catch (AWTException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			}
-//			break;
-//
-//		case Task.SYNC:
-//			// DO WE EVEN NEED THIS?
-//			break;
-//
-//		}
-//		// WHY AM I COMMENTING IN ALL CAPS?
 	}
 
 	@Override
